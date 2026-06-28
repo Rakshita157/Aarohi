@@ -1,18 +1,15 @@
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import '../styles/About.css';
 import heroImage from '../assets/hero.png';
 import mythImage from '../assets/myth vs facts.png';
 import sakhiImage from '../assets/AskSakhi.png';
 import trustedResourcesImage from '../assets/trusted resources.png';
 import interactiveLessonsImage from '../assets/Interactive lessons.png';
+import { AarohiLogo, SakhiAvatar, ArrowRight, ShieldCheck } from '../components/Icons';
 
 const About = () => {
   return (
     <div className="about-page">
-      <Navbar />
-
       {/* ========== HERO ========== */}
       <section className="about-hero">
         <div className="about-deco about-deco-1" />
@@ -20,14 +17,7 @@ const About = () => {
         <div className="about-hero-content">
           <div className="about-hero-left">
             <div className="about-tagline">
-              <svg className="about-tagline-icon" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#c084a1"/>
-                <circle cx="8" cy="10" r="1.5" fill="#c084a1"/>
-                <circle cx="16" cy="10" r="1.5" fill="#c084a1"/>
-                <circle cx="12" cy="14" r="1.5" fill="#c084a1"/>
-                <circle cx="10" cy="12" r="1.5" fill="#c084a1"/>
-                <circle cx="14" cy="12" r="1.5" fill="#c084a1"/>
-              </svg>
+              <AarohiLogo className="about-tagline-icon" />
               <span>ABOUT US</span>
             </div>
             <h1 className="about-hero-title">
@@ -40,9 +30,7 @@ const About = () => {
             <div className="about-hero-buttons">
               <Link to="/not-found" className="btn btn-primary">
                 Explore Learning
-                <svg className="btn-arrow" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <ArrowRight className="btn-arrow" />
               </Link>
               <Link to="/not-found" className="btn btn-secondary">
                 Meet Sakhi
@@ -54,12 +42,7 @@ const About = () => {
               <img src={heroImage} alt="Student learning with AI Sakhi" className="about-hero-image" />
               <div className="about-sakhi-bubble">
                 <div className="about-sakhi-bubble-avatar">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" fill="#2d3748"/>
-                    <circle cx="9" cy="10" r="1.5" fill="white"/>
-                    <circle cx="15" cy="10" r="1.5" fill="white"/>
-                    <path d="M8 14c0 2.21 1.79 4 4 4s4-1.79 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
+                  <SakhiAvatar />
                 </div>
                 <div className="about-sakhi-bubble-text">
                   <strong>Hi! I&apos;m Sakhi</strong><br />
@@ -202,10 +185,7 @@ const About = () => {
             </div>
             <div className="value-item">
               <div className="value-item-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2l8 4v6c0 5.55-3.84 10.74-8 12-4.16-1.26-8-6.45-8-12V6l8-4z"/>
-                  <path d="M9 12l2 2 4-4"/>
-                </svg>
+                <ShieldCheck />
               </div>
               <div className="value-dot value-dot-3" />
               <h4>Trust</h4>
@@ -386,8 +366,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* ========== FOOTER ========== */}
-      <Footer />
     </div>
   );
 };

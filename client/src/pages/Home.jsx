@@ -1,27 +1,17 @@
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import '../styles/Home.css';
 import heroImage from '../assets/hero.png';
+import { AarohiLogo, ShieldCheck, Shield, SakhiAvatar, ArrowRight } from '../components/Icons';
 
 const Home = () => {
   return (
     <div className="home-container">
-      {/* Navigation */}
-      <Navbar />
-
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-left">
             <div className="tagline">
-              <svg className="tagline-icon" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#c084a1"/>
-                <circle cx="8" cy="10" r="1.5" fill="#c084a1"/>
-                <circle cx="16" cy="10" r="1.5" fill="#c084a1"/>
-                <circle cx="12" cy="14" r="1.5" fill="#c084a1"/>
-                <circle cx="10" cy="12" r="1.5" fill="#c084a1"/>
-                <circle cx="14" cy="12" r="1.5" fill="#c084a1"/>
-              </svg>
+              <AarohiLogo className="tagline-icon" />
               <span>EDUCATE • EMPOWER • ELEVATE</span>
             </div>
             
@@ -49,9 +39,7 @@ const Home = () => {
             <div className="hero-buttons">
               <Link to="/not-found" className="btn btn-primary">
                 Get Started
-                <svg className="btn-arrow" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <ArrowRight className="btn-arrow" />
               </Link>
               <Link to="/not-found" className="btn btn-secondary">
                 Explore Lessons
@@ -62,10 +50,7 @@ const Home = () => {
             <div className="features">
               <div className="feature">
                 <div className="feature-icon-bg">
-                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2l8 4v6c0 5.55-3.84 10.74-8 12-4.16-1.26-8-6.45-8-12V6l8-4z"/>
-                    <path d="M9 12l2 2 4-4"/>
-                  </svg>
+                  <ShieldCheck className="feature-icon" />
                 </div>
                 <div>
                   <div className="feature-title">Trusted</div>
@@ -90,9 +75,7 @@ const Home = () => {
               
               <div className="feature">
                 <div className="feature-icon-bg">
-                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2l8 4v6c0 5.55-3.84 10.74-8 12-4.16-1.26-8-6.45-8-12V6l8-4z"/>
-                  </svg>
+                  <Shield className="feature-icon" />
                 </div>
                 <div>
                   <div className="feature-title">Safe &</div>
@@ -125,12 +108,7 @@ const Home = () => {
               <div className="ai-chatbox">
                 <div className="chatbox-header">
                   <div className="ai-avatar">
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" fill="#2d3748"/>
-                      <circle cx="9" cy="10" r="1.5" fill="white"/>
-                      <circle cx="15" cy="10" r="1.5" fill="white"/>
-                      <path d="M8 14c0 2.21 1.79 4 4 4s4-1.79 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                    </svg>
+                    <SakhiAvatar />
                   </div>
                   <div className="chatbox-text">
                     <div className="chatbox-title">Hi! I'm Sakhi</div>
