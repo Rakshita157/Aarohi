@@ -486,6 +486,7 @@
 }
 
 .module-card[data-category="Basics"] .module-card-illus { background: linear-gradient(135deg, #f0faf9 0%, #e0f2ef 100%); }
+.module-card[data-module-id="2"] .module-card-illus { background: linear-gradient(135deg, #fef6f0 0%, #f5e6dc 100%); }
 .module-card[data-category="Hygiene"] .module-card-illus { background: linear-gradient(135deg, #fdf8fa 0%, #f5edf1 100%); }
 .module-card[data-category="Nutrition"] .module-card-illus { background: linear-gradient(135deg, #fdf8f0 0%, #f5ede0 100%); }
 .module-card[data-category="Wellness"] .module-card-illus { background: linear-gradient(135deg, #f5f0fa 0%, #ede0f2 100%); }

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../styles/Footer.css';
-import { AarohiLogo } from './Icons';
+import { AarohiLogo, AarohiLogoFull } from './Icons';
 
 const XIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -21,8 +21,7 @@ const Footer = () => {
         <div className="footer-top">
           <div className="footer-brand">
             <div className="footer-logo">
-              <AarohiLogo className="footer-logo-icon" />
-              <span className="footer-logo-text">Aarohi</span>
+              <AarohiLogoFull className="footer-logo-icon" />
             </div>
             <p className="footer-tagline">
               Empowering Every Cycle Through Education
@@ -33,7 +32,7 @@ const Footer = () => {
             <Link to="/">Home</Link>
             <Link to="/learn">Learn</Link>
             <Link to="/ask-sakhi">Ask Sakhi</Link>
-            <Link to="/resources">Resources</Link>
+            <Link to="/resources">Know the Truth</Link>
           </div>
           <div className="footer-col">
             <h4>Company</h4>

@@ -138,6 +138,158 @@ const Home = () => {
           </svg>
         </div>
       </section>
+
+      {/* ── Stats Section ── */}
+      <section className="stats-section">
+        <div className="stats-grid">
+          <div className="stat-card">
+            <span className="stat-number">40+</span>
+            <span className="stat-label">Myths Busted</span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-number">24/7</span>
+            <span className="stat-label">AI Support</span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-number">100%</span>
+            <span className="stat-label">Safe Content</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── What We Offer ── */}
+      <section className="offer-section">
+        <h2 className="section-title">What We Offer</h2>
+        <p className="section-subtitle">Everything you need to understand menstrual health, all in one place.</p>
+        <div className="offer-grid">
+          <Link to="/learn" className="offer-card">
+            <div className="offer-icon" style={{ background: 'linear-gradient(135deg, #e0f2ef, #c8e8e3)' }}>
+              <svg viewBox="0 0 32 32" fill="none" stroke="#2d7a6e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 28V6a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v16H8a4 4 0 0 0-4 4z" />
+                <path d="M12 12h8M12 16h6" />
+              </svg>
+            </div>
+            <h3>Interactive Lessons</h3>
+            <p>Learn about menstrual health through engaging, age-appropriate lessons designed by experts.</p>
+            <span className="offer-link">Start Learning <ArrowRight className="offer-arrow" /></span>
+          </Link>
+
+          <Link to="/resources" className="offer-card">
+            <div className="offer-icon" style={{ background: 'linear-gradient(135deg, #f5f0fa, #ede0f2)' }}>
+              <svg viewBox="0 0 32 32" fill="none" stroke="#8f4d69" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="16" cy="16" r="12" />
+                <path d="M16 10v6l4 2" />
+              </svg>
+            </div>
+            <h3>Know the Truth</h3>
+            <p>Separate fact from fiction. Bust common myths and discover real science-backed answers.</p>
+            <span className="offer-link">Explore Myths <ArrowRight className="offer-arrow" /></span>
+          </Link>
+
+          <Link to="/ask-sakhi" className="offer-card">
+            <div className="offer-icon" style={{ background: 'linear-gradient(135deg, #fdf8f0, #f5ede0)' }}>
+              <svg viewBox="0 0 32 32" fill="none" stroke="#b8860b" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                <circle cx="11" cy="10" r="1.5" fill="#b8860b" />
+                <circle cx="15" cy="10" r="1.5" fill="#b8860b" />
+              </svg>
+            </div>
+            <h3>Ask Sakhi</h3>
+            <p>Your AI guide. Ask anything about menstrual health in a safe, private, judgment-free space.</p>
+            <span className="offer-link">Chat Now <ArrowRight className="offer-arrow" /></span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ── How It Works ── */}
+      <section className="how-it-works-section">
+        <h2 className="section-title">How It Works</h2>
+        <p className="section-subtitle">Three simple steps to start your menstrual health journey.</p>
+        <div className="how-grid">
+          <div className="how-step">
+            <div className="how-number">1</div>
+            <div className="how-icon" style={{ background: 'linear-gradient(135deg, #e0f2ef, #c8e8e3)' }}>
+              <svg viewBox="0 0 28 28" fill="none" stroke="#2d7a6e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 24V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12H8a4 4 0 0 0-4 4z" />
+                <path d="M10 10h8M10 14h5" />
+              </svg>
+            </div>
+            <h3>Learn</h3>
+            <p>Go through interactive lessons at your own pace. Each module is designed to be clear, engaging, and stigma-free.</p>
+          </div>
+
+          <div className="how-step">
+            <div className="how-number">2</div>
+            <div className="how-icon" style={{ background: 'linear-gradient(135deg, #fdf8f0, #f5ede0)' }}>
+              <svg viewBox="0 0 28 28" fill="none" stroke="#b8860b" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 13a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                <circle cx="10" cy="10" r="1.5" fill="#b8860b" />
+              </svg>
+            </div>
+            <h3>Ask</h3>
+            <p>Have questions? Sakhi is available 24/7 to answer anything you're curious about in a safe, private space.</p>
+          </div>
+
+          <div className="how-step">
+            <div className="how-number">3</div>
+            <div className="how-icon" style={{ background: 'linear-gradient(135deg, #f5f0fa, #ede0f2)' }}>
+              <svg viewBox="0 0 28 28" fill="none" stroke="#8f4d69" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="14" cy="14" r="10" />
+                <path d="M14 8v6l4 2" />
+              </svg>
+            </div>
+            <h3>Explore</h3>
+            <p>Bust myths, track what you learn, and build confidence with real science — not gossip or guesswork.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Coming Soon ── */}
+      <section className="coming-soon-section">
+        <div className="coming-soon-content">
+          <div className="coming-soon-badge">Coming Soon</div>
+          <h2 className="coming-soon-title">Video Lessons Are on the Way</h2>
+          <p className="coming-soon-text">
+            We're working hard to bring you engaging video lessons with animations, real-life stories, and expert explanations — making menstrual health education even more interactive and fun.
+          </p>
+          <div className="coming-soon-features">
+            <div className="coming-soon-feature">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="5 3 19 10 5 17 5 3" />
+              </svg>
+              <span>Animated explainers</span>
+            </div>
+            <div className="coming-soon-feature">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="10" cy="10" r="7" />
+                <path d="M10 7v3l2 1" />
+              </svg>
+              <span>Bite-sized & easy to follow</span>
+            </div>
+            <div className="coming-soon-feature">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <span>Expert-led sessions</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Final CTA ── */}
+      <section className="cta-section">
+        <div className="cta-content">
+          <h2 className="cta-title">Ready to Start Your Journey?</h2>
+          <p className="cta-text">
+            Join thousands of girls taking control of their menstrual health through education.
+          </p>
+          <Link to="/learn" className="btn btn-primary" style={{ display: 'inline-flex', width: 'auto' }}>
+            Get Started for Free
+            <ArrowRight className="btn-arrow" />
+          </Link>
+        </div>
+      </section>
     </div>
   );
 };

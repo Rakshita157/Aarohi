@@ -24,53 +24,82 @@ const categories = [
   { key: 'social', label: 'Social' }
 ];
 
-const MythCard = ({ item, cardState, onClick, index }) => (
-  <div
-    className={`flip-card ${cardState === 0 ? '' : 'flipped'}`}
-    onClick={onClick}
-    style={{ animationDelay: `${index * 0.08}s` }}
-  >
-    <div className="flip-card-inner">
-      <div className="flip-card-front">
-        <div className="card-accent-top" />
-        <div className="card-blob" />
-        <div className="card-dots" />
-        <span className="card-label"><span className="card-emoji">🛑</span> MYTH</span>
-        <p className="flip-text">{item.myth}</p>
-        <div className="tap-hint pulse-hint">
-          <span className="tap-icon">👆</span> Tap to reveal
-        </div>
-      </div>
+const categoryColors = {
+  health: { border: '#dc7e96', badge: '#fdf8fa', badgeText: '#d05a7a' },
+  hygiene: { border: '#10b981', badge: '#d1fae5', badgeText: '#047857' },
+  body: { border: '#8b5cf6', badge: '#f3e8ff', badgeText: '#6d28d9' },
+  social: { border: '#d4a853', badge: '#fef3c7', badgeText: '#b45309' }
+};
 
-      <div className="flip-card-back">
-        <div className={`back-panel ${cardState === 1 ? 'active' : ''}`}>
-          <div className="card-accent-top green" />
-          <div className="card-blob" />
-          <div className="fact-badge">
-            <span className="card-emoji">✅</span>
-            <span>FACT</span>
+const categoryLabels = { health: 'Health', hygiene: 'Hygiene', body: 'Body', social: 'Social' };
+
+const stateDots = [0, 1, 2];
+
+const MythCard = ({ item, cardState, onClick, index, category }) => {
+  const [pressing, setPressing] = useState(false);
+  const cc = categoryColors[category] || categoryColors.health;
+
+  return (
+    <div
+      className={`flip-card ${cardState === 0 ? '' : 'flipped'}${pressing ? ' pressing' : ''}`}
+      onClick={onClick}
+      onMouseDown={() => setPressing(true)}
+      onMouseUp={() => setPressing(false)}
+      onMouseLeave={() => setPressing(false)}
+      style={{ animationDelay: `${index * 0.08}s`, '--cat-color': cc.border }}
+    >
+      <div className="flip-card-inner">
+        <div className="flip-card-front">
+          <div className="card-accent-top" />
+          <span className="card-label"><span className="card-emoji">🛑</span> MYTH</span>
+          <p className="flip-text">{item.myth}</p>
+          <div className="card-footer">
+            <div className="state-dots">
+              {stateDots.map(s => (
+                <span
+                  key={s}
+                  className={`state-dot${cardState === s ? ' active' : ''}`}
+                  style={{ '--dot-color': s === 0 ? cc.border : s === 1 ? '#10b981' : '#8b5cf6' }}
+                />
+              ))}
+            </div>
+            <span className="card-category-tag" style={{ background: cc.badge, color: cc.badgeText }}>
+              {categoryLabels[category]}
+            </span>
           </div>
-          <p className="flip-text">{item.fact}</p>
-          <div className="tap-hint">
-            💡 Tap to learn more
+          <div className="tap-hint pulse-hint">
+            <span className="tap-icon">👆</span> Tap to reveal
           </div>
         </div>
-        <div className={`back-panel ${cardState === 2 ? 'active' : ''}`}>
-          <div className="card-accent-top purple" />
-          <div className="card-blob" />
-          <div className="fact-badge" style={{ color: '#d05a7a' }}>
-            <span className="card-emoji">💡</span>
-            <span>KNOW MORE</span>
+
+        <div className="flip-card-back">
+          <div className={`back-panel ${cardState === 1 ? 'active' : ''}`}>
+            <div className="card-accent-top" />
+            <div className="fact-badge">
+              <span className="card-emoji">✅</span>
+              <span>FACT</span>
+            </div>
+            <p className="flip-text">{item.fact}</p>
+            <div className="tap-hint">
+              💡 Tap to learn more
+            </div>
           </div>
-          <p className="flip-text">{item.knowMore}</p>
-          <div className="tap-hint">
-            🔄 Tap to go back
+          <div className={`back-panel ${cardState === 2 ? 'active' : ''}`}>
+            <div className="card-accent-top" />
+            <div className="fact-badge" style={{ color: '#d05a7a' }}>
+              <span className="card-emoji">💡</span>
+              <span>KNOW MORE</span>
+            </div>
+            <p className="flip-text">{item.knowMore}</p>
+            <div className="tap-hint">
+              🔄 Tap to go back
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Resources = () => {
   const [page, setPage] = useState(0);
@@ -120,14 +149,58 @@ const Resources = () => {
 
   return (
     <div className="resources-container">
+      {/* Decorative floating elements */}
+      <div className="resources-deco resources-deco-1" />
+      <div className="resources-deco resources-deco-2" />
+      <div className="resources-deco resources-deco-3" />
+      <div className="resources-deco resources-deco-4" />
+
       <div className="resources-content">
-        <div className="section-header">
-          <div className="header-image">
-            <img src={mythVsFactsImg} alt="Facts vs Myths Illustration" className="facts-myths-img" />
+        {/* Hero Section */}
+        <section className="resources-hero">
+          <div className="resources-hero-content">
+            <div className="resources-hero-left">
+              <div className="resources-tagline">
+                <svg className="resources-tagline-icon" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="#e8917a" strokeWidth="2" />
+                  <path d="M9 12l2 2 4-4" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>MYTH BUSTING • FACTS • TRUTH</span>
+              </div>
+              <h1 className="resources-hero-title">Facts vs Myths</h1>
+              <p className="resources-hero-desc">
+                Turns out, most period "facts" are just myths with good PR. Let's fix that.
+              </p>
+              <div className="resources-hero-stats">
+                <div className="resources-hero-stat">
+                  <span className="resources-hero-stat-num">40</span>
+                  <span className="resources-hero-stat-label">Myths Busted</span>
+                </div>
+                <div className="resources-hero-stat-dot" />
+                <div className="resources-hero-stat">
+                  <span className="resources-hero-stat-num">5</span>
+                  <span className="resources-hero-stat-label">Categories</span>
+                </div>
+                <div className="resources-hero-stat-dot" />
+                <div className="resources-hero-stat">
+                  <span className="resources-hero-stat-num">✓</span>
+                  <span className="resources-hero-stat-label">Science-Based</span>
+                </div>
+              </div>
+              <div className="resources-hero-buttons">
+                <button className="btn btn-primary" onClick={() => document.querySelector('.myth-grid')?.scrollIntoView({ behavior: 'smooth' })}>
+                  Explore Myths
+                  <svg className="btn-arrow" viewBox="0 0 24 24" fill="none" style={{ width: 20, height: 20 }}>
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className="resources-hero-right">
+              <img src={mythVsFactsImg} alt="Facts vs Myths Illustration" className="resources-hero-img" />
+            </div>
           </div>
-          <h1 className="main-title">Facts vs Myths</h1>
-          <p className="subtitle">Learn the truth. Break the stigma.</p>
-        </div>
+        </section>
 
         <div className="stats-bar">
           <span className="stat-item">
@@ -158,6 +231,7 @@ const Resources = () => {
               key={item.id}
               item={item}
               index={idx}
+              category={categoryMap[item.id]}
               cardState={cardStates[item.id] || 0}
               onClick={() => handleCardClick(item.id)}
             />

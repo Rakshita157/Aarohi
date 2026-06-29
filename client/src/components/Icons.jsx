@@ -1,12 +1,11 @@
+import aarohiLogo from '../assets/Aarohi logo.png';
+
 export const AarohiLogo = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none">
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#dc7e96"/>
-    <circle cx="8" cy="10" r="1.5" fill="#dc7e96"/>
-    <circle cx="16" cy="10" r="1.5" fill="#dc7e96"/>
-    <circle cx="12" cy="14" r="1.5" fill="#dc7e96"/>
-    <circle cx="10" cy="12" r="1.5" fill="#dc7e96"/>
-    <circle cx="14" cy="12" r="1.5" fill="#dc7e96"/>
-  </svg>
+  <img src={aarohiLogo} alt="Aarohi" className={className} />
+);
+
+export const AarohiLogoFull = ({ className }) => (
+  <img src={aarohiLogo} alt="Aarohi" className={className} />
 );
 
 export const SakhiAvatar = ({ className }) => (

@@ -35,14 +35,8 @@
 }
 
 .footer-logo-icon {
-  width: 22px;
-  height: 22px;
-}
-
-.footer-logo-text {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2d3748;
+  width: 100px;
+  height: auto;
 }
 
 /* ── Column headings & links ── */

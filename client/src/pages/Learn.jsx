@@ -206,7 +206,7 @@ const Learn = () => {
             <>
             <div className="learn-grid">
               {visibleModules.map((mod, index) => (
-                <div className="module-card" key={mod.id} data-category={mod.category} style={{ animationDelay: `${index * 0.08}s` }}>
+                <div className="module-card" key={mod.id} data-category={mod.category} data-module-id={mod.id} style={{ animationDelay: `${index * 0.08}s` }}>
                   <div className="module-card-illus">
                     <ModuleIllus id={mod.id} completed={completed.has(mod.id)} />
                   </div>

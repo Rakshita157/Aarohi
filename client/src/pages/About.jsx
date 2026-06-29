@@ -5,7 +5,7 @@ import mythImage from '../assets/myth vs facts.png';
 import sakhiImage from '../assets/AskSakhi.png';
 import trustedResourcesImage from '../assets/trusted resources.png';
 import interactiveLessonsImage from '../assets/Interactive lessons.png';
-import { AarohiLogo, SakhiAvatar, ArrowRight, ShieldCheck } from '../components/Icons';
+import { AarohiLogo, AarohiLogoFull, SakhiAvatar, ArrowRight, ShieldCheck } from '../components/Icons';
 
 const About = () => {
   return (
@@ -59,25 +59,7 @@ const About = () => {
         <div className="story-wrapper">
           <div className="story-grid">
             <div className="story-image">
-              <svg viewBox="0 0 340 360" fill="none">
-                <circle cx="170" cy="200" r="140" fill="white" opacity="0.5"/>
-                <path d="M170 320 Q120 280 100 220 Q80 160 120 120 Q150 90 170 100 Q190 90 220 120 Q260 160 240 220 Q220 280 170 320Z" fill="#f5edf1"/>
-                <path d="M170 300 Q140 270 125 225 Q110 180 140 150 Q155 135 170 140 Q185 135 200 150 Q230 180 215 225 Q200 270 170 300Z" fill="#fdf8fa"/>
-                <path d="M170 280 Q150 258 140 230 Q130 202 150 180 Q160 168 170 172 Q180 168 190 180 Q210 202 200 230 Q190 258 170 280Z" fill="#e8dfe5"/>
-                <circle cx="170" cy="200" r="40" fill="white"/>
-                <circle cx="170" cy="195" r="30" fill="#f5f0f3"/>
-                <path d="M155 185 Q160 175 170 178 Q180 175 185 185" stroke="#dc7e96" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                <circle cx="160" cy="192" r="3" fill="#dc7e96"/>
-                <circle cx="180" cy="192" r="3" fill="#dc7e96"/>
-                <path d="M170 230 Q165 220 170 215 Q175 220 170 230Z" fill="#d4739f"/>
-                <path d="M140 210 Q120 200 115 185 Q110 170 125 165" stroke="#e5a4c4" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8"/>
-                <path d="M200 210 Q220 200 225 185 Q230 170 215 165" stroke="#e5a4c4" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8"/>
-                <circle cx="110" cy="155" r="4" fill="#e5a4c4" opacity="0.5"/>
-                <circle cx="230" cy="155" r="4" fill="#e5a4c4" opacity="0.5"/>
-                <path d="M170 320 Q170 340 165 350 Q160 360 170 360 Q180 360 175 350 Q170 340 170 320Z" fill="#dc7e96" opacity="0.3"/>
-                <circle cx="90" cy="130" r="3" fill="#dc7e96" opacity="0.25"/>
-                <circle cx="250" cy="130" r="3" fill="#dc7e96" opacity="0.25"/>
-              </svg>
+              <AarohiLogoFull className="story-logo" />
             </div>
             <div className="story-content">
               <h2 className="about-section-heading">Our Story</h2>
@@ -161,56 +143,49 @@ const About = () => {
               The principles that guide everything we create.
             </p>
           </div>
-          <div className="values-timeline">
-            <div className="value-item">
-              <div className="value-item-icon">
+          <div className="values-grid">
+            <div className="value-card">
+              <div className="value-card-icon" style={{ background: '#e8917a1a', color: '#e8917a' }}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M6 12v5c3 2 9 2 12 0v-5"/>
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>
                 </svg>
               </div>
-              <div className="value-dot value-dot-1" />
               <h4>Education</h4>
               <p>Accurate, science-based knowledge for everyone</p>
             </div>
-            <div className="value-item">
-              <div className="value-item-icon">
+            <div className="value-card">
+              <div className="value-card-icon" style={{ background: '#d4a8531a', color: '#d4a853' }}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="#d4a853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                 </svg>
               </div>
-              <div className="value-dot value-dot-2" />
               <h4>Empathy</h4>
               <p>Understanding every unique journey with compassion</p>
             </div>
-            <div className="value-item">
-              <div className="value-item-icon">
-                <ShieldCheck style={{ stroke: '#b794d4' }} />
+            <div className="value-card">
+              <div className="value-card-icon" style={{ background: '#b794d41a', color: '#b794d4' }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#b794d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2l8 4v6c0 5.55-3.84 10.74-8 12-4.16-1.26-8-6.45-8-12V6l8-4z"/><path d="M9 12l2 2 4-4"/>
+                </svg>
               </div>
-              <div className="value-dot value-dot-3" />
               <h4>Trust</h4>
               <p>Reliable information reviewed by health experts</p>
             </div>
-            <div className="value-item">
-              <div className="value-item-icon">
+            <div className="value-card">
+              <div className="value-card-icon" style={{ background: '#e8917a1a', color: '#e8917a' }}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2"/>
-                  <path d="M7 11V7a5 5 0 0110 0v4"/>
+                  <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
               </div>
-              <div className="value-dot value-dot-4" />
               <h4>Privacy</h4>
-              <p>Your data stays yours - always safe and secure</p>
+              <p>Your data stays yours — always safe and secure</p>
             </div>
-            <div className="value-item">
-              <div className="value-item-icon">
+            <div className="value-card">
+              <div className="value-card-icon" style={{ background: '#e8917a1a', color: '#e8917a' }}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M2 12h20"/>
-                  <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                  <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
                 </svg>
               </div>
-              <div className="value-dot value-dot-5" />
               <h4>Inclusivity</h4>
               <p>Safe, welcoming space for students of all backgrounds</p>
             </div>

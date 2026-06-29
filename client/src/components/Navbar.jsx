@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Navbar.css';
-import { AarohiLogo } from './Icons';
+import { AarohiLogo, AarohiLogoFull } from './Icons';
 
 const Navbar = () => {
   const location = useLocation();
@@ -17,15 +17,14 @@ const Navbar = () => {
       <div className="nav-content">
         <div className="logo">
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-            <AarohiLogo className="logo-icon" />
-            <span className="logo-text">Aarohi</span>
+            <AarohiLogoFull className="logo-icon" />
           </Link>
         </div>
         <ul className="nav-links">
           <li><Link to="/" className={`nav-link${isActive('/') && location.pathname === '/' ? ' active' : ''}`}>Home</Link></li>
           <li><Link to="/learn" className={`nav-link${isActive('/learn') ? ' active' : ''}`}>Learn</Link></li>
           <li><Link to="/ask-sakhi" className={`nav-link${isActive('/ask-sakhi') ? ' active' : ''}`}>Ask Sakhi</Link></li>
-          <li><Link to="/resources" className={`nav-link${isActive('/resources') ? ' active' : ''}`}>Resources</Link></li>
+          <li><Link to="/resources" className={`nav-link${isActive('/resources') ? ' active' : ''}`}>Know the Truth</Link></li>
           <li><Link to="/not-found" className="nav-link">Community</Link></li>
           <li><Link to="/about" className={`nav-link${isActive('/about') ? ' active' : ''}`}>About Us</Link></li>
         </ul>
