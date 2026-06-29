@@ -84,6 +84,18 @@
   color: #68d391;
 }
 
+.chat-widget-memory-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(104, 211, 145, 0.15);
+  color: #68d391;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  cursor: default;
+}
+
 .chat-widget-header-actions {
   display: flex;
   gap: 4px;

@@ -1,5 +1,6 @@
 const Conversation = require('../models/Conversation');
 const { chatWithSakhi } = require('../services/geminiService');
+const { updateMemory } = require('../services/memoryService');
 
 const sendMessage = async (req, res) => {
   try {
@@ -32,7 +33,7 @@ const sendMessage = async (req, res) => {
       content: msg.content,
     }));
 
-    const reply = await chatWithSakhi(history, message);
+    const reply = await chatWithSakhi(history, message, req.user._id);
 
     conversation.messages.push(
       { role: 'user', content: message },
@@ -40,6 +41,8 @@ const sendMessage = async (req, res) => {
     );
 
     await conversation.save();
+
+    await updateMemory(req.user._id, message);
 
     res.json({
       reply,

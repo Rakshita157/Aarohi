@@ -32,12 +32,11 @@ const conversationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-conversationSchema.pre('save', function (next) {
+conversationSchema.pre('save', function () {
   if (this.messages.length > 0 && this.title === 'New Chat') {
     const firstMsg = this.messages[0].content;
     this.title = firstMsg.length > 60 ? firstMsg.slice(0, 60) + '...' : firstMsg;
   }
-  next();
 });
 
 module.exports = mongoose.model('Conversation', conversationSchema);

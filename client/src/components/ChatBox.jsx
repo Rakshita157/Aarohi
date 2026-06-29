@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { chatAPI } from '../services/api';
+import { chatAPI, memoryAPI } from '../services/api';
 import { SakhiAvatar } from './Icons';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ChatBox.css';
@@ -13,6 +13,7 @@ const ChatBox = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [userMemory, setUserMemory] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -29,6 +30,12 @@ const ChatBox = () => {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen && user) {
+      memoryAPI.getMemory().then((res) => setUserMemory(res.data)).catch(() => {});
+    }
+  }, [isOpen, user]);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -48,6 +55,7 @@ const ChatBox = () => {
       const res = await chatAPI.sendMessage(userMessage, conversationId);
       setMessages((prev) => [...prev, { role: 'model', content: res.data.reply }]);
       setConversationId(res.data.conversationId);
+      memoryAPI.getMemory().then((mr) => setUserMemory(mr.data)).catch(() => {});
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -62,7 +70,12 @@ const ChatBox = () => {
     setConversationId(null);
     setMessages([]);
     setInput('');
+    setUserMemory(null);
   };
+
+  const memoryTopics = userMemory?.recentTopics?.length > 0
+    ? userMemory.recentTopics.slice(0, 3).join(', ')
+    : null;
 
   return (
     <>
@@ -81,7 +94,16 @@ const ChatBox = () => {
               </div>
               <div>
                 <div className="chat-widget-title">Sakhi</div>
-                <div className="chat-widget-status">Online</div>
+                <div className="chat-widget-status">
+                  {memoryTopics ? (
+                    <span className="chat-widget-memory-badge" title={`I remember you asked about: ${memoryTopics}`}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="12" height="12">
+                        <path d="M12 2l8 4v6c0 5.55-3.84 10.74-8 12-4.16-1.26-8-6.45-8-12V6l8-4z"/>
+                      </svg>
+                      Knows you
+                    </span>
+                  ) : 'Online'}
+                </div>
               </div>
             </div>
             <div className="chat-widget-header-actions">
@@ -102,7 +124,11 @@ const ChatBox = () => {
             {messages.length === 0 && !loading && (
               <div className="chat-widget-empty">
                 <SakhiAvatar />
-                <p>Hi! I'm Sakhi, your menstrual health guide. Ask me anything!</p>
+                <p>
+                  {userMemory?.totalInteractions > 0
+                    ? `Welcome back! I'm Sakhi. I remember we've talked ${userMemory.totalInteractions} times. What's on your mind today?`
+                    : "Hi! I'm Sakhi, your menstrual health guide. Ask me anything!"}
+                </p>
               </div>
             )}
             {messages.map((msg, i) => (

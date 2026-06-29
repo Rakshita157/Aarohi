@@ -43,4 +43,10 @@ export const chatAPI = {
   deleteConversation: (id) => api.delete(`/chat/conversations/${id}`),
 };
 
+export const memoryAPI = {
+  getMemory: () => api.get('/memory'),
+  updatePreferences: (data) => api.put('/memory/preferences', data),
+  clearMemory: () => api.delete('/memory'),
+};
+
 export default api;
