@@ -1,4 +1,5 @@
 const Conversation = require('../models/Conversation');
+const { getModel } = require('../config/gemini');
 const { chatWithSakhi } = require('../services/geminiService');
 const { updateMemory, updateSessionContext } = require('../services/memoryService');
 
@@ -33,7 +34,7 @@ const sendMessage = async (req, res) => {
       content: msg.content,
     }));
 
-    const reply = await chatWithSakhi(history, message, req.user._id);
+    const reply = await chatWithSakhi(history, message, req.user._id, conversation.summary);
 
     conversation.messages.push(
       { role: 'user', content: message },
@@ -41,6 +42,11 @@ const sendMessage = async (req, res) => {
     );
 
     await conversation.save();
+
+    const userMsgCount = conversation.messages.filter((m) => m.role === 'user').length;
+    if (userMsgCount > 0 && userMsgCount % 6 === 0) {
+      summarizeConversation(conversation);
+    }
 
     await updateMemory(req.user._id, message);
     await updateMemory(req.user._id, reply);
@@ -53,6 +59,25 @@ const sendMessage = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+const summarizeConversation = async (conversation) => {
+  try {
+    const model = getModel('gemini-2.5-flash-lite');
+    const allMessages = conversation.messages.map((m) => `${m.role}: ${m.content}`).join('\n');
+    const prevSummary = conversation.summary ? `Previous summary: ${conversation.summary}\n\n` : '';
+
+    const prompt = `${prevSummary}Summarize the key topics and questions the user asked about in this conversation. Keep it under 40 words. Focus on what the user cares about.\n\n${allMessages}`;
+
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    });
+    const summary = result.response.text().trim();
+
+    await Conversation.updateOne({ _id: conversation._id }, { summary });
+  } catch {
+    // summarization failure should not break the chat flow
   }
 };
 

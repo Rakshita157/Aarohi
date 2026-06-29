@@ -28,6 +28,10 @@ const conversationSchema = new mongoose.Schema(
       default: 'New Chat',
     },
     messages: [messageSchema],
+    summary: {
+      type: String,
+      default: '',
+    },
   },
   { timestamps: true }
 );

@@ -28,7 +28,9 @@ async function tryGenerate(modelName, contents) {
   return result.response.text();
 }
 
-const chatWithSakhi = async (messageHistory, newMessage, userId) => {
+const MAX_RECENT_MSGS = 4;
+
+const chatWithSakhi = async (messageHistory, newMessage, userId, conversationSummary = '') => {
   let memoryContext = '';
   if (userId) {
     memoryContext = await buildMemoryContext(userId);
@@ -38,13 +40,26 @@ const chatWithSakhi = async (messageHistory, newMessage, userId) => {
     ? `${BASE_SYSTEM_PROMPT}\n\n${memoryContext}`
     : BASE_SYSTEM_PROMPT;
 
+  let historyParts = [];
+  if (conversationSummary) {
+    historyParts.push(
+      { role: 'user', parts: [{ text: `Here is a summary of our conversation so far: ${conversationSummary}` }] },
+      { role: 'model', parts: [{ text: 'Got it, I will use this summary for context.' }] }
+    );
+  }
+
+  const recent = messageHistory.slice(-MAX_RECENT_MSGS);
+  historyParts.push(
+    ...recent.flatMap((msg) => ({
+      role: msg.role,
+      parts: [{ text: msg.content }],
+    }))
+  );
+
   const contents = [
     { role: 'user', parts: [{ text: fullSystemPrompt }] },
     { role: 'model', parts: [{ text: 'Understood. I will follow these guidelines as Sakhi.' }] },
-    ...messageHistory.flatMap((msg) => ({
-      role: msg.role,
-      parts: [{ text: msg.content }],
-    })),
+    ...historyParts,
     { role: 'user', parts: [{ text: newMessage }] },
   ];
 

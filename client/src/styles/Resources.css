@@ -400,11 +400,11 @@
 }
 
 .flip-card-front {
-  background: linear-gradient(145deg, #fce7f3 0%, #f9d8e8 100%);
+  background: #ffffff;
 }
 
 .flip-card-back {
-  background: linear-gradient(145deg, #d1fae5 0%, #b8f0d0 100%);
+  background: #ffffff;
   transform: rotateY(180deg);
   position: relative;
   overflow: hidden;
@@ -472,11 +472,11 @@
 }
 
 .back-panel:first-child.active {
-  background: linear-gradient(145deg, #d1fae5 0%, #a7f3d0 100%);
+  background: #ffffff;
 }
 
 .back-panel:last-child.active {
-  background: linear-gradient(145deg, #f3e8ff 0%, #e9d5ff 100%);
+  background: #ffffff;
 }
 
 /* Fade-in content inside active back panel */
@@ -723,11 +723,11 @@
 }
 
 .myth-grid .flip-card-front {
-  background: linear-gradient(145deg, #fdf8fa 0%, #f5edf1 100%);
+  background: #ffffff;
 }
 
 .myth-grid .flip-card-back {
-  background: linear-gradient(145deg, #d1fae5 0%, #a7f3d0 100%);
+  background: #ffffff;
 }
 
 .myth-grid .card-label {
