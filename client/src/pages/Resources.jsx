@@ -149,6 +149,9 @@ const Resources = () => {
 
   return (
     <div className="resources-container">
+      <div className="resources-deco resources-deco-1" />
+      <div className="resources-deco resources-deco-2" />
+      <div className="resources-deco resources-deco-3" />
       {/* Decorative floating elements */}
       <div className="resources-deco resources-deco-1" />
       <div className="resources-deco resources-deco-2" />

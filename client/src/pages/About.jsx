@@ -24,33 +24,51 @@ const About = () => {
               About Aarohi
             </h1>
             <p className="about-hero-description">
-              We empower students with accurate menstrual health education through
-              AI-guided lessons, breaking stigma and building confidence - one cycle at a time.
+              We make learning about your body easy, safe, and even fun. No awkwardness, no judgment — just real answers and a friendly AI guide (hi, that's Sakhi!) to help you every step of the way.
             </p>
             <div className="about-hero-buttons">
-              <Link to="/not-found" className="btn btn-primary">
+              <Link to="/learn" className="btn btn-primary">
                 Explore Learning
                 <ArrowRight className="btn-arrow" />
               </Link>
-              <Link to="/not-found" className="btn btn-secondary">
+              <Link to="/ask-sakhi" className="btn btn-secondary">
                 Meet Sakhi
               </Link>
+            </div>
+            <div className="about-mini-stats">
+              <div className="about-mini-stat">
+                <span className="about-mini-stat-number">40+</span>
+                <span className="about-mini-stat-label">Myths Busted</span>
+              </div>
+              <div className="about-mini-stat">
+                <span className="about-mini-stat-number">24/7</span>
+                <span className="about-mini-stat-label">AI Support</span>
+              </div>
+              <div className="about-mini-stat">
+                <span className="about-mini-stat-number">100%</span>
+                <span className="about-mini-stat-label">Safe Content</span>
+              </div>
             </div>
           </div>
           <div className="about-hero-right">
             <div className="about-hero-image-container">
               <img src={heroImage} alt="Student learning with AI Sakhi" className="about-hero-image" />
-              <div className="about-sakhi-bubble">
+              <div className="about-sakhi-bubble" onClick={() => window.location.href = '/ask-sakhi'} style={{ cursor: 'pointer' }}>
                 <div className="about-sakhi-bubble-avatar">
                   <SakhiAvatar />
                 </div>
                 <div className="about-sakhi-bubble-text">
                   <strong>Hi! I&apos;m Sakhi</strong><br />
-                  Let&apos;s learn together!
+                  Ask me anything!
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div className="about-scroll-indicator">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7 10l5 5 5-5" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
       </section>
 
@@ -80,8 +98,8 @@ const About = () => {
 
       {/* ========== WHY AAROHI ========== */}
       <section className="about-section">
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 className="about-section-heading" style={{ marginBottom: '0.75rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <h2 className="about-section-heading" style={{ marginBottom: '0.5rem' }}>
             Why Aarohi?
           </h2>
           <p className="about-section-sub" style={{ margin: '0 auto' }}>
@@ -195,8 +213,8 @@ const About = () => {
 
       {/* ========== HOW WE HELP ========== */}
       <section className="about-section">
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 className="about-section-heading" style={{ marginBottom: '0.75rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <h2 className="about-section-heading" style={{ marginBottom: '0.5rem' }}>
             How We Help
           </h2>
           <p className="about-section-sub" style={{ margin: '0 auto' }}>
@@ -268,8 +286,8 @@ const About = () => {
 
       {/* ========== IMPACT ========== */}
       <section className="about-section">
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 className="about-section-heading" style={{ marginBottom: '0.75rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <h2 className="about-section-heading" style={{ marginBottom: '0.5rem' }}>
             Our Impact
           </h2>
           <p className="about-section-sub" style={{ margin: '0 auto' }}>
