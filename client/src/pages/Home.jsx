@@ -1,10 +1,28 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import '../styles/Home.css';
 import heroImage from '../assets/hero.png';
 import { AarohiLogo, ShieldCheck, Shield, SakhiAvatar, ArrowRight } from '../components/Icons';
 
 const Home = () => {
   const navigate = useNavigate();
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-visible');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll('.fade-on-scroll').forEach(el => observerRef.current.observe(el));
+    return () => observerRef.current?.disconnect();
+  }, []);
 
   return (
     <div className="home-container">
@@ -24,11 +42,11 @@ const Home = () => {
             <h1 className="hero-title">
               Aarohi
               <svg className="title-flower" viewBox="0 0 40 40" fill="none">
-                <path d="M20 5C20 5 15 10 15 15C15 18.866 17.134 22 20 22C22.866 22 25 18.866 25 15C25 10 20 5 20 5Z" fill="#e5a4c4"/>
-                <path d="M35 20C35 20 30 15 25 15C21.134 15 18 17.134 18 20C18 22.866 21.134 25 25 25C30 25 35 20 35 20Z" fill="#e5a4c4"/>
-                <path d="M20 35C20 35 25 30 25 25C25 21.134 22.866 18 20 18C17.134 18 15 21.134 15 25C15 30 20 35 20 35Z" fill="#e5a4c4"/>
-                <path d="M5 20C5 20 10 25 15 25C18.866 25 22 22.866 22 20C22 17.134 18.866 15 15 15C10 15 5 20 5 20Z" fill="#e5a4c4"/>
-                <circle cx="20" cy="20" r="3" fill="#d4739f"/>
+                <path d="M20 5C20 5 15 10 15 15C15 18.866 17.134 22 20 22C22.866 22 25 18.866 25 15C25 10 20 5 20 5Z" fill="#dc7e96" opacity="0.7"/>
+                <path d="M35 20C35 20 30 15 25 15C21.134 15 18 17.134 18 20C18 22.866 21.134 25 25 25C30 25 35 20 35 20Z" fill="#e8917a" opacity="0.7"/>
+                <path d="M20 35C20 35 25 30 25 25C25 21.134 22.866 18 20 18C17.134 18 15 21.134 15 25C15 30 20 35 20 35Z" fill="#d05a7a" opacity="0.7"/>
+                <path d="M5 20C5 20 10 25 15 25C18.866 25 22 22.866 22 20C22 17.134 18.866 15 15 15C10 15 5 20 5 20Z" fill="#dc7e96" opacity="0.7"/>
+                <circle cx="20" cy="20" r="3" fill="#d05a7a"/>
               </svg>
             </h1>
 
@@ -140,7 +158,7 @@ const Home = () => {
       </section>
 
       {/* ── Stats Section ── */}
-      <section className="stats-section">
+      <section className="stats-section fade-on-scroll">
         <div className="stats-grid">
           <div className="stat-card">
             <span className="stat-number">40+</span>
@@ -158,7 +176,7 @@ const Home = () => {
       </section>
 
       {/* ── What We Offer ── */}
-      <section className="offer-section">
+      <section className="offer-section fade-on-scroll">
         <h2 className="section-title">What We Offer</h2>
         <p className="section-subtitle">Everything you need to understand menstrual health, all in one place.</p>
         <div className="offer-grid">
@@ -202,7 +220,7 @@ const Home = () => {
       </section>
 
       {/* ── How It Works ── */}
-      <section className="how-it-works-section">
+      <section className="how-it-works-section fade-on-scroll">
         <h2 className="section-title">How It Works</h2>
         <p className="section-subtitle">Three simple steps to start your menstrual health journey.</p>
         <div className="how-grid">
@@ -245,7 +263,7 @@ const Home = () => {
       </section>
 
       {/* ── Coming Soon ── */}
-      <section className="coming-soon-section">
+      <section className="coming-soon-section fade-on-scroll">
         <div className="coming-soon-content">
           <div className="coming-soon-badge">Coming Soon</div>
           <h2 className="coming-soon-title">Video Lessons Are on the Way</h2>
@@ -278,7 +296,7 @@ const Home = () => {
       </section>
 
       {/* ── Final CTA ── */}
-      <section className="cta-section">
+      <section className="cta-section fade-on-scroll">
         <div className="cta-content">
           <h2 className="cta-title">Ready to Start Your Journey?</h2>
           <p className="cta-text">

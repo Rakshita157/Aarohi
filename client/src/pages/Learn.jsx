@@ -76,6 +76,9 @@ const Learn = () => {
 
   return (
     <div className="learn-page">
+      <div className="learn-deco learn-deco-1" />
+      <div className="learn-deco learn-deco-2" />
+      <div className="learn-deco learn-deco-3" />
       {/* Decorative floating elements */}
       <div className="learn-deco learn-deco-1" />
       <div className="learn-deco learn-deco-2" />
