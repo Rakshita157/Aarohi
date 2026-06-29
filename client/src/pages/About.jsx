@@ -66,17 +66,17 @@ const About = () => {
                 <path d="M170 280 Q150 258 140 230 Q130 202 150 180 Q160 168 170 172 Q180 168 190 180 Q210 202 200 230 Q190 258 170 280Z" fill="#e8dfe5"/>
                 <circle cx="170" cy="200" r="40" fill="white"/>
                 <circle cx="170" cy="195" r="30" fill="#f5f0f3"/>
-                <path d="M155 185 Q160 175 170 178 Q180 175 185 185" stroke="#c084a1" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                <circle cx="160" cy="192" r="3" fill="#c084a1"/>
-                <circle cx="180" cy="192" r="3" fill="#c084a1"/>
+                <path d="M155 185 Q160 175 170 178 Q180 175 185 185" stroke="#dc7e96" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                <circle cx="160" cy="192" r="3" fill="#dc7e96"/>
+                <circle cx="180" cy="192" r="3" fill="#dc7e96"/>
                 <path d="M170 230 Q165 220 170 215 Q175 220 170 230Z" fill="#d4739f"/>
                 <path d="M140 210 Q120 200 115 185 Q110 170 125 165" stroke="#e5a4c4" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8"/>
                 <path d="M200 210 Q220 200 225 185 Q230 170 215 165" stroke="#e5a4c4" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8"/>
                 <circle cx="110" cy="155" r="4" fill="#e5a4c4" opacity="0.5"/>
                 <circle cx="230" cy="155" r="4" fill="#e5a4c4" opacity="0.5"/>
-                <path d="M170 320 Q170 340 165 350 Q160 360 170 360 Q180 360 175 350 Q170 340 170 320Z" fill="#c084a1" opacity="0.3"/>
-                <circle cx="90" cy="130" r="3" fill="#c084a1" opacity="0.25"/>
-                <circle cx="250" cy="130" r="3" fill="#c084a1" opacity="0.25"/>
+                <path d="M170 320 Q170 340 165 350 Q160 360 170 360 Q180 360 175 350 Q170 340 170 320Z" fill="#dc7e96" opacity="0.3"/>
+                <circle cx="90" cy="130" r="3" fill="#dc7e96" opacity="0.25"/>
+                <circle cx="250" cy="130" r="3" fill="#dc7e96" opacity="0.25"/>
               </svg>
             </div>
             <div className="story-content">
@@ -107,9 +107,9 @@ const About = () => {
           </p>
         </div>
         <div className="why-grid">
-          <div className="why-card about-fade-in about-fade-in-d1">
+            <div className="why-card about-fade-in about-fade-in-d1">
             <div className="why-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#a65e7c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                 <path d="M8 7h8M8 11h6"/>
@@ -120,7 +120,7 @@ const About = () => {
           </div>
           <div className="why-card about-fade-in about-fade-in-d2">
             <div className="why-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#a65e7c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#b794d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="5" y="9" width="14" height="10" rx="2"/>
                 <path d="M9 5v2M15 5v2M9 13h.01M15 13h.01M12 17h.01"/>
               </svg>
@@ -130,7 +130,7 @@ const About = () => {
           </div>
           <div className="why-card about-fade-in about-fade-in-d3">
             <div className="why-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#a65e7c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#d4a853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
               </svg>
             </div>
@@ -139,7 +139,7 @@ const About = () => {
           </div>
           <div className="why-card about-fade-in about-fade-in-d4">
             <div className="why-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#a65e7c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                 <circle cx="9" cy="7" r="4"/>
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
@@ -164,7 +164,7 @@ const About = () => {
           <div className="values-timeline">
             <div className="value-item">
               <div className="value-item-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 2L2 7l10 5 10-5-10-5z"/>
                   <path d="M6 12v5c3 2 9 2 12 0v-5"/>
                 </svg>
@@ -175,7 +175,7 @@ const About = () => {
             </div>
             <div className="value-item">
               <div className="value-item-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#d4a853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                 </svg>
               </div>
@@ -185,7 +185,7 @@ const About = () => {
             </div>
             <div className="value-item">
               <div className="value-item-icon">
-                <ShieldCheck />
+                <ShieldCheck style={{ stroke: '#b794d4' }} />
               </div>
               <div className="value-dot value-dot-3" />
               <h4>Trust</h4>
@@ -193,7 +193,7 @@ const About = () => {
             </div>
             <div className="value-item">
               <div className="value-item-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2"/>
                   <path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
@@ -204,7 +204,7 @@ const About = () => {
             </div>
             <div className="value-item">
               <div className="value-item-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10"/>
                   <path d="M2 12h20"/>
                   <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
@@ -304,7 +304,7 @@ const About = () => {
         <div className="impact-grid">
           <div className="impact-stat about-fade-in about-fade-in-d1">
             <div className="impact-stat-icon">
-              <svg viewBox="0 0 40 40" fill="none" stroke="#a65e7c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 40 40" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="6" y="10" width="28" height="22" rx="3" fill="none"/>
                 <path d="M12 16h16M12 22h12M12 28h8"/>
               </svg>
@@ -315,11 +315,11 @@ const About = () => {
           </div>
           <div className="impact-stat about-fade-in about-fade-in-d2">
             <div className="impact-stat-icon">
-              <svg viewBox="0 0 40 40" fill="none" stroke="#a65e7c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 40 40" fill="none" stroke="#b794d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="10" y="12" width="20" height="14" rx="3" fill="none"/>
-                <circle cx="16" cy="18" r="1.5" fill="#a65e7c"/>
-                <circle cx="20" cy="18" r="1.5" fill="#a65e7c"/>
-                <circle cx="24" cy="18" r="1.5" fill="#a65e7c"/>
+                <circle cx="16" cy="18" r="1.5" fill="#b794d4"/>
+                <circle cx="20" cy="18" r="1.5" fill="#b794d4"/>
+                <circle cx="24" cy="18" r="1.5" fill="#b794d4"/>
                 <path d="M14 12v-3M26 12v-3"/>
               </svg>
             </div>
@@ -329,7 +329,7 @@ const About = () => {
           </div>
           <div className="impact-stat about-fade-in about-fade-in-d3">
             <div className="impact-stat-icon">
-              <svg viewBox="0 0 40 40" fill="none" stroke="#a65e7c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 40 40" fill="none" stroke="#d4a853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="20" cy="20" r="12" fill="none"/>
                 <ellipse cx="20" cy="20" rx="6" ry="12" fill="none"/>
                 <path d="M8 20h24"/>
@@ -341,10 +341,10 @@ const About = () => {
           </div>
           <div className="impact-stat about-fade-in about-fade-in-d4">
             <div className="impact-stat-icon">
-              <svg viewBox="0 0 40 40" fill="none" stroke="#a65e7c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 40 40" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="8" y="18" width="24" height="14" rx="3" fill="none"/>
                 <path d="M14 18v-5a6 6 0 0112 0v5" fill="none"/>
-                <circle cx="20" cy="24" r="3" fill="#a65e7c"/>
+                <circle cx="20" cy="24" r="3" fill="#e8917a"/>
                 <path d="M20 24v3"/>
               </svg>
             </div>

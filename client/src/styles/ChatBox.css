@@ -169,7 +169,7 @@
 }
 
 .chat-msg.user .chat-msg-bubble {
-  background: #c084a1;
+  background: #dc7e96;
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -195,7 +195,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #c084a1;
+  background: #dc7e96;
   animation: typing 1.4s infinite ease-in-out;
 }
 
@@ -241,7 +241,7 @@
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: #c084a1;
+  background: #dc7e96;
   color: white;
   cursor: pointer;
   display: flex;
@@ -252,7 +252,7 @@
 }
 
 .chat-widget-input button:hover:not(:disabled) {
-  background: #a65e7c;
+  background: #d05a7a;
   transform: scale(1.05);
 }
 

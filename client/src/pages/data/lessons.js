@@ -1,0 +1,76 @@
+export const categories = [
+  'All',
+  'Basics',
+  'Hygiene',
+  'Nutrition',
+  'Wellness',
+  'Myths',
+  'AI'
+];
+
+export const modules = [
+  {
+    id: 1,
+    title: 'Your First Period',
+    description: 'Everything you need to know about your first period — what to expect and how to prepare with confidence.',
+    category: 'Basics',
+    readingTime: '5 min read',
+    beginner: true,
+  },
+  {
+    id: 2,
+    title: 'Know Your Cycle',
+    description: 'Understand the four phases of your menstrual cycle and how they affect your body and emotions.',
+    category: 'Basics',
+    readingTime: '7 min read',
+    beginner: true,
+  },
+  {
+    id: 3,
+    title: 'Healthy Habits',
+    description: 'Simple daily routines to support your menstrual health and boost your overall well-being.',
+    category: 'Wellness',
+    readingTime: '6 min read',
+    beginner: false,
+  },
+  {
+    id: 4,
+    title: 'Period Care',
+    description: 'Explore different period products and find the comfort that works best for your body.',
+    category: 'Hygiene',
+    readingTime: '8 min read',
+    beginner: false,
+  },
+  {
+    id: 5,
+    title: 'Nourish Yourself',
+    description: 'Discover foods that help balance hormones and ease period discomfort naturally.',
+    category: 'Nutrition',
+    readingTime: '6 min read',
+    beginner: false,
+  },
+  {
+    id: 6,
+    title: 'Mind & Mood',
+    description: 'Learn how hormones influence your emotions and practice mindfulness techniques.',
+    category: 'Wellness',
+    readingTime: '7 min read',
+    beginner: false,
+  },
+  {
+    id: 7,
+    title: 'Myth Busters',
+    description: 'Separate fact from fiction with science-backed answers to common period myths.',
+    category: 'Myths',
+    readingTime: '5 min read',
+    beginner: false,
+  },
+  {
+    id: 8,
+    title: 'Ask Sakhi',
+    description: 'Meet your AI companion for trusted, personalized menstrual health guidance anytime.',
+    category: 'AI',
+    readingTime: '3 min read',
+    beginner: false,
+  },
+];

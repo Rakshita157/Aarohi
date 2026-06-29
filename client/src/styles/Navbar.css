@@ -60,19 +60,19 @@
   left: 0;
   right: 0;
   height: 2px;
-  background-color: #c084a1;
+  background-color: #dc7e96;
 }
 
 .nav-link:hover {
-  color: #c084a1;
+  color: #dc7e96;
 }
 
 .login-btn {
   padding: 0.65rem 2rem;
-  border: 2px solid #c084a1;
+  border: 2px solid #dc7e96;
   border-radius: 50px;
   background-color: transparent;
-  color: #c084a1;
+  color: #dc7e96;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -81,7 +81,7 @@
 }
 
 .login-btn:hover {
-  background-color: #c084a1;
+  background-color: #dc7e96;
   color: white;
 }
 

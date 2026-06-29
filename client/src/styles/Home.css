@@ -3,6 +3,40 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f0f3 0%, #e8dfe5 100%);
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Decorative blobs */
+.home-deco {
+  position: fixed;
+  border-radius: 50%;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home-deco-1 {
+  width: 350px;
+  height: 350px;
+  background: #e8917a;
+  top: -120px;
+  left: -80px;
+}
+
+.home-deco-2 {
+  width: 250px;
+  height: 250px;
+  background: #d4a853;
+  bottom: 10%;
+  right: -60px;
+}
+
+.home-deco-3 {
+  width: 180px;
+  height: 180px;
+  background: #b794d4;
+  top: 40%;
+  left: 60%;
 }
 
 /* Hero Section */
@@ -43,7 +77,7 @@
 .tagline span {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #c084a1;
+  color: #dc7e96;
   letter-spacing: 0.1em;
 }
 
@@ -103,15 +137,15 @@
 }
 
 .btn-primary {
-  background-color: #a65e7c;
+  background-color: #d05a7a;
   color: white;
-  box-shadow: 0 4px 12px rgba(166, 94, 124, 0.3);
+  box-shadow: 0 4px 12px rgba(208, 90, 122, 0.3);
 }
 
 .btn-primary:hover {
   background-color: #8f4d69;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(166, 94, 124, 0.4);
+  box-shadow: 0 6px 16px rgba(208, 90, 122, 0.4);
 }
 
 .btn-arrow {
@@ -121,8 +155,8 @@
 
 .btn-secondary {
   background-color: transparent;
-  color: #a65e7c;
-  border: 2px solid #a65e7c;
+  color: #d05a7a;
+  border: 2px solid #d05a7a;
 }
 
 .btn-secondary:hover {
@@ -163,6 +197,12 @@
   flex-shrink: 0;
   transition: transform 0.3s ease;
 }
+
+/* Color-coded feature icon backgrounds */
+.feature:nth-child(1) .feature-icon-bg { background: linear-gradient(135deg, #e0f2ef, #c8e8e3); }
+.feature:nth-child(2) .feature-icon-bg { background: linear-gradient(135deg, #f5f0fa, #ede0f2); }
+.feature:nth-child(3) .feature-icon-bg { background: linear-gradient(135deg, #fdf8f0, #f5ede0); }
+.feature:nth-child(4) .feature-icon-bg { background: linear-gradient(135deg, #fdf0f0, #f5e0e0); }
 
 .feature:hover .feature-icon-bg {
   transform: scale(1.05);
@@ -206,7 +246,7 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 10px 30px rgba(192, 132, 161, 0.2));
+  filter: drop-shadow(0 10px 30px rgba(220, 126, 150, 0.2));
   animation: fadeInUp 1s ease-out;
 }
 
@@ -305,7 +345,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #e5a4c4 0%, #c084a1 100%);
+  background: linear-gradient(135deg, #e8917a 0%, #e07a60 100%);
   border: none;
   color: white;
   display: flex;
@@ -341,6 +381,10 @@
 .scroll-indicator svg {
   width: 100%;
   height: 100%;
+}
+
+.scroll-indicator svg path {
+  stroke: #dc7e96;
 }
 
 @keyframes bounce {

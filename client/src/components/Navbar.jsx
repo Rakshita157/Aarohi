@@ -23,7 +23,7 @@ const Navbar = () => {
         </div>
         <ul className="nav-links">
           <li><Link to="/" className={`nav-link${isActive('/') && location.pathname === '/' ? ' active' : ''}`}>Home</Link></li>
-          <li><Link to="/not-found" className="nav-link">Learn</Link></li>
+          <li><Link to="/learn" className={`nav-link${isActive('/learn') ? ' active' : ''}`}>Learn</Link></li>
           <li><Link to="/ask-sakhi" className={`nav-link${isActive('/ask-sakhi') ? ' active' : ''}`}>Ask Sakhi</Link></li>
           <li><Link to="/not-found" className="nav-link">Resources</Link></li>
           <li><Link to="/not-found" className="nav-link">Community</Link></li>

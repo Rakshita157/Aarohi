@@ -1,7 +1,7 @@
 /* Footer Styles */
 .footer {
   background-color: #f9f6f8;
-  border-top: 1px solid rgba(192, 132, 161, 0.15);
+  border-top: 1px solid rgba(220, 126, 150, 0.15);
   padding: 4rem 0 0;
 }
 
@@ -68,11 +68,11 @@
 }
 
 .footer-col a:hover {
-  color: #c084a1;
+  color: #dc7e96;
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(192, 132, 161, 0.1);
+  border-top: 1px solid rgba(220, 126, 150, 0.1);
   padding: 1.5rem 0;
   text-align: center;
 }

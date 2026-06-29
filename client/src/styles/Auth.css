@@ -72,12 +72,12 @@
 }
 
 .auth-field input:focus {
-  border-color: #c084a1;
+  border-color: #dc7e96;
 }
 
 .auth-submit {
   padding: 12px;
-  background: #c084a1;
+  background: #dc7e96;
   color: white;
   border: none;
   border-radius: 12px;
@@ -90,7 +90,7 @@
 }
 
 .auth-submit:hover:not(:disabled) {
-  background: #a65e7c;
+  background: #d05a7a;
 }
 
 .auth-submit:disabled {
@@ -106,7 +106,7 @@
 }
 
 .auth-footer a {
-  color: #c084a1;
+  color: #dc7e96;
   font-weight: 600;
   text-decoration: none;
 }

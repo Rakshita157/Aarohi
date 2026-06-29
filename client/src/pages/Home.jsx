@@ -8,6 +8,11 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      {/* Decorative floating elements */}
+      <div className="home-deco home-deco-1" />
+      <div className="home-deco home-deco-2" />
+      <div className="home-deco home-deco-3" />
+
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-left">
@@ -48,9 +53,9 @@ const Home = () => {
             </div>
 
             <div className="features">
-              <div className="feature">
+                    <div className="feature">
                 <div className="feature-icon-bg">
-                  <ShieldCheck className="feature-icon" />
+                  <ShieldCheck className="feature-icon" style={{ stroke: '#e8917a' }} />
                 </div>
                 <div>
                   <div className="feature-title">Trusted</div>
@@ -60,11 +65,11 @@ const Home = () => {
 
               <div className="feature">
                 <div className="feature-icon-bg">
-                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#b794d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                    <circle cx="12" cy="10" r="1" fill="#c084a1"/>
-                    <circle cx="9" cy="10" r="1" fill="#c084a1"/>
-                    <circle cx="15" cy="10" r="1" fill="#c084a1"/>
+                    <circle cx="12" cy="10" r="1" fill="#b794d4"/>
+                    <circle cx="9" cy="10" r="1" fill="#b794d4"/>
+                    <circle cx="15" cy="10" r="1" fill="#b794d4"/>
                   </svg>
                 </div>
                 <div>
@@ -75,7 +80,7 @@ const Home = () => {
 
               <div className="feature">
                 <div className="feature-icon-bg">
-                  <Shield className="feature-icon" />
+                  <Shield className="feature-icon" style={{ stroke: '#d4a853' }} />
                 </div>
                 <div>
                   <div className="feature-title">Safe &</div>
@@ -85,7 +90,7 @@ const Home = () => {
 
               <div className="feature">
                 <div className="feature-icon-bg">
-                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                     <circle cx="9" cy="7" r="4"/>
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
@@ -129,7 +134,7 @@ const Home = () => {
 
         <div className="scroll-indicator">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M7 10l5 5 5-5" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M7 10l5 5 5-5" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
       </section>
