@@ -1,0 +1,420 @@
+.sakhi-page {
+  display: flex;
+  height: calc(100vh - 80px - 200px);
+  min-height: 600px;
+  background: #f9f6f8;
+  position: relative;
+}
+
+.sakhi-sidebar-toggle {
+  display: none;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  background: white;
+  border: 1px solid #e8dfe5;
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+  color: #4a5568;
+}
+
+.sakhi-sidebar {
+  width: 300px;
+  background: white;
+  border-right: 1px solid #e8dfe5;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sakhi-sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #e8dfe5;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sakhi-sidebar-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+}
+
+.sakhi-new-chat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #c084a1;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.sakhi-new-chat-btn:hover {
+  background: #a65e7c;
+}
+
+.sakhi-new-chat-btn.header-only {
+  display: none;
+}
+
+.sakhi-conv-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.sakhi-conv-loading,
+.sakhi-conv-empty {
+  text-align: center;
+  color: #718096;
+  padding: 24px 16px;
+  font-size: 0.9rem;
+}
+
+.sakhi-conv-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 4px;
+}
+
+.sakhi-conv-item:hover {
+  background: #f5f0f3;
+}
+
+.sakhi-conv-item.active {
+  background: #f0e6ec;
+}
+
+.sakhi-conv-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sakhi-conv-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2d3748;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sakhi-conv-date {
+  font-size: 0.75rem;
+  color: #718096;
+  margin-top: 2px;
+}
+
+.sakhi-conv-delete {
+  background: none;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  opacity: 0;
+}
+
+.sakhi-conv-item:hover .sakhi-conv-delete {
+  opacity: 1;
+}
+
+.sakhi-conv-delete:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.sakhi-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sakhi-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e8dfe5;
+  background: white;
+}
+
+.sakhi-chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sakhi-chat-avatar svg {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.sakhi-chat-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.sakhi-chat-subtitle {
+  font-size: 0.8rem;
+  color: #718096;
+}
+
+.sakhi-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sakhi-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 24px;
+}
+
+.sakhi-empty-icon svg {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+}
+
+.sakhi-empty h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.sakhi-empty p {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 24px;
+}
+
+.sakhi-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 520px;
+}
+
+.sakhi-suggestions button {
+  padding: 10px 18px;
+  background: white;
+  border: 1px solid #e8dfe5;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.sakhi-suggestions button:hover {
+  border-color: #c084a1;
+  color: #c084a1;
+  background: #fdf8fa;
+}
+
+.sakhi-msg {
+  display: flex;
+  gap: 12px;
+  max-width: 80%;
+}
+
+.sakhi-msg.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.sakhi-msg.model {
+  align-self: flex-start;
+}
+
+.sakhi-msg-avatar svg {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.sakhi-msg-bubble {
+  padding: 12px 18px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.sakhi-msg-bubble.user {
+  background: #c084a1;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.sakhi-msg-bubble.model {
+  background: white;
+  color: #2d3748;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.sakhi-msg-content {
+  word-wrap: break-word;
+}
+
+.sakhi-typing {
+  display: flex;
+  gap: 5px;
+  padding: 4px 0;
+}
+
+.sakhi-typing span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #c084a1;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.sakhi-typing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.sakhi-typing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sakhi-input-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #e8dfe5;
+  background: white;
+}
+
+.sakhi-input-area input {
+  flex: 1;
+  border: 1px solid #e8dfe5;
+  outline: none;
+  font-size: 0.95rem;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.sakhi-input-area input:focus {
+  border-color: #c084a1;
+}
+
+.sakhi-input-area button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #c084a1;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.sakhi-input-area button:hover:not(:disabled) {
+  background: #a65e7c;
+  transform: scale(1.05);
+}
+
+.sakhi-input-area button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sakhi-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px - 200px);
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .sakhi-page {
+    height: calc(100vh - 80px);
+    min-height: auto;
+  }
+
+  .sakhi-sidebar-toggle {
+    display: block;
+  }
+
+  .sakhi-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .sakhi-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sakhi-new-chat-btn.header-only {
+    display: inline-flex;
+  }
+
+  .sakhi-msg {
+    max-width: 90%;
+  }
+}

@@ -25,7 +25,7 @@ const About = () => {
             </h1>
             <p className="about-hero-description">
               We empower students with accurate menstrual health education through
-              AI-guided lessons, breaking stigma and building confidence — one cycle at a time.
+              AI-guided lessons, breaking stigma and building confidence - one cycle at a time.
             </p>
             <div className="about-hero-buttons">
               <Link to="/not-found" className="btn btn-primary">
@@ -82,7 +82,7 @@ const About = () => {
             <div className="story-content">
               <h2 className="about-section-heading">Our Story</h2>
               <p>
-                Aarohi was born from a simple yet powerful realization — millions of students
+                Aarohi was born from a simple yet powerful realization - millions of students
                 lack access to accurate menstrual health education. Misinformation, stigma, and
                 cultural taboos leave young minds confused and anxious about a natural biological process.
               </p>
@@ -116,7 +116,7 @@ const About = () => {
               </svg>
             </div>
             <h3>Learn with Confidence</h3>
-            <p>Curated, age-appropriate lessons that explain menstrual health clearly and accurately — no confusion, no shame.</p>
+            <p>Curated, age-appropriate lessons that explain menstrual health clearly and accurately - no confusion, no shame.</p>
           </div>
           <div className="why-card about-fade-in about-fade-in-d2">
             <div className="why-card-icon">
@@ -147,7 +147,7 @@ const About = () => {
               </svg>
             </div>
             <h3>Inclusive Learning</h3>
-            <p>Designed for every student regardless of background — multilingual, accessible, and welcoming to all identities.</p>
+            <p>Designed for every student regardless of background - multilingual, accessible, and welcoming to all identities.</p>
           </div>
         </div>
       </section>
@@ -200,7 +200,7 @@ const About = () => {
               </div>
               <div className="value-dot value-dot-4" />
               <h4>Privacy</h4>
-              <p>Your data stays yours — always safe and secure</p>
+              <p>Your data stays yours - always safe and secure</p>
             </div>
             <div className="value-item">
               <div className="value-item-icon">
@@ -241,7 +241,7 @@ const About = () => {
           <div className="help-card help-card-sakhi about-fade-in about-fade-in-d2">
             <div className="help-card-content">
               <h3>AI Sakhi</h3>
-              <p>An AI companion available 24/7 to answer any question — no judgment, no embarrassment. Sakhi provides accurate, age-appropriate responses with warmth and empathy.</p>
+              <p>An AI companion available 24/7 to answer any question - no judgment, no embarrassment. Sakhi provides accurate, age-appropriate responses with warmth and empathy.</p>
             </div>
             <div className="help-card-visual">
               <img src={sakhiImage} alt="Ask Sakhi" className="help-card-image-full" />
@@ -286,7 +286,7 @@ const About = () => {
             We envision a world where every student grows up with accurate knowledge about their body,
             where menstrual health is discussed openly without shame, and where AI-powered education
             bridges the gap between curiosity and understanding. Aarohi is building a future where
-            menstruation is just a normal part of life — not a secret.
+            menstruation is just a normal part of life, not a secret.
           </p>
         </div>
       </section>

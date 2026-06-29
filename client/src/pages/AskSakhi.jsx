@@ -1,0 +1,250 @@
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { chatAPI } from '../services/api';
+import { SakhiAvatar } from '../components/Icons';
+import { useNavigate } from 'react-router-dom';
+import '../styles/AskSakhi.css';
+
+const AskSakhi = () => {
+  const { user, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
+  const [conversations, setConversations] = useState([]);
+  const [activeConvId, setActiveConvId] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [sending, setSending] = useState(false);
+  const [convLoading, setConvLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+  const convLoadedRef = useRef(false);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    if (authLoading || convLoadedRef.current) return;
+    convLoadedRef.current = true;
+
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    chatAPI.getConversations().then((res) => {
+      setConversations(res.data);
+    }).catch(() => {
+      // silently fail
+    }).finally(() => {
+      setConvLoading(false);
+    });
+  }, [user, authLoading, navigate]);
+
+  const loadConversation = async (id) => {
+    setActiveConvId(id);
+    setSending(true);
+    try {
+      const res = await chatAPI.getConversation(id);
+      setMessages(res.data.messages);
+    } catch {
+      setMessages([]);
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+    if (!input.trim() || sending) return;
+
+    const userMessage = input.trim();
+    setInput('');
+    setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
+    setSending(true);
+
+    try {
+      const res = await chatAPI.sendMessage(userMessage, activeConvId);
+      setMessages((prev) => [...prev, { role: 'model', content: res.data.reply }]);
+      const newConvId = res.data.conversationId;
+      if (activeConvId !== newConvId) {
+        setActiveConvId(newConvId);
+        chatAPI.getConversations().then((r) => setConversations(r.data)).catch(() => {});
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { role: 'model', content: 'Sorry, I had trouble responding. Please try again.' },
+      ]);
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const refreshConversations = useCallback(() => {
+    chatAPI.getConversations().then((res) => {
+      setConversations(res.data);
+    }).catch(() => {});
+  }, []);
+
+  const handleNewChat = () => {
+    setActiveConvId(null);
+    setMessages([]);
+    setInput('');
+    inputRef.current?.focus();
+  };
+
+  const handleDeleteConv = async (id, e) => {
+    e.stopPropagation();
+    try {
+      await chatAPI.deleteConversation(id);
+      if (activeConvId === id) {
+        setActiveConvId(null);
+        setMessages([]);
+      }
+      refreshConversations();
+    } catch {
+      // silently fail
+    }
+  };
+
+  if (authLoading) {
+    return <div className="sakhi-loading">Loading...</div>;
+  }
+
+  return (
+    <div className="sakhi-page">
+      <button className="sakhi-sidebar-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+
+      <div className={`sakhi-sidebar ${sidebarOpen ? 'open' : ''}`}>
+        <div className="sakhi-sidebar-header">
+          <h2>Chats</h2>
+          <button className="sakhi-new-chat-btn" onClick={handleNewChat}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            New Chat
+          </button>
+        </div>
+        <div className="sakhi-conv-list">
+          {convLoading ? (
+            <div className="sakhi-conv-loading">Loading conversations...</div>
+          ) : conversations.length === 0 ? (
+            <div className="sakhi-conv-empty">No conversations yet</div>
+          ) : (
+            conversations.map((conv) => (
+              <div
+                key={conv._id}
+                className={`sakhi-conv-item ${activeConvId === conv._id ? 'active' : ''}`}
+                onClick={() => loadConversation(conv._id)}
+              >
+                <div className="sakhi-conv-item-content">
+                  <div className="sakhi-conv-title">{conv.title}</div>
+                  <div className="sakhi-conv-date">
+                    {new Date(conv.updatedAt).toLocaleDateString()}
+                  </div>
+                </div>
+                <button
+                  className="sakhi-conv-delete"
+                  onClick={(e) => handleDeleteConv(conv._id, e)}
+                  title="Delete conversation"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                  </svg>
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      <div className="sakhi-main">
+        <div className="sakhi-chat-header">
+          <div className="sakhi-chat-header-left">
+            <div className="sakhi-chat-avatar">
+              <SakhiAvatar />
+            </div>
+            <div>
+              <div className="sakhi-chat-title">Sakhi</div>
+              <div className="sakhi-chat-subtitle">Menstrual Health Assistant</div>
+            </div>
+          </div>
+          <button className="sakhi-new-chat-btn header-only" onClick={handleNewChat}>
+            New Chat
+          </button>
+        </div>
+
+        <div className="sakhi-messages">
+          {messages.length === 0 && !sending && (
+            <div className="sakhi-empty">
+              <div className="sakhi-empty-icon">
+                <SakhiAvatar />
+              </div>
+              <h2>Hi! I'm Sakhi</h2>
+              <p>Your AI guide for menstrual health. Ask me anything about periods, puberty, cramps, cycle tracking, or any questions you have!</p>
+              <div className="sakhi-suggestions">
+                <button onClick={() => setInput('What happens during a menstrual cycle?')}>What happens during a menstrual cycle?</button>
+                <button onClick={() => setInput('How can I manage period cramps?')}>How can I manage period cramps?</button>
+                <button onClick={() => setInput('What is a normal cycle length?')}>What is a normal cycle length?</button>
+                <button onClick={() => setInput('Can I exercise during my period?')}>Can I exercise during my period?</button>
+              </div>
+            </div>
+          )}
+          {messages.map((msg, i) => (
+            <div key={i} className={`sakhi-msg ${msg.role}`}>
+              {msg.role === 'model' && (
+                <div className="sakhi-msg-avatar">
+                  <SakhiAvatar />
+                </div>
+              )}
+              <div className={`sakhi-msg-bubble ${msg.role}`}>
+                <div className="sakhi-msg-content">{msg.content}</div>
+              </div>
+            </div>
+          ))}
+          {sending && messages.length > 0 && (
+            <div className="sakhi-msg model">
+              <div className="sakhi-msg-avatar">
+                <SakhiAvatar />
+              </div>
+              <div className="sakhi-msg-bubble model">
+                <div className="sakhi-typing">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        <form className="sakhi-input-area" onSubmit={handleSend}>
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Ask me anything about menstrual health..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={sending}
+          />
+          <button type="submit" disabled={!input.trim() || sending}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AskSakhi;

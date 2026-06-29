@@ -1,12 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import heroImage from '../assets/hero.png';
 import { AarohiLogo, ShieldCheck, Shield, SakhiAvatar, ArrowRight } from '../components/Icons';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="home-container">
-      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-left">
@@ -14,7 +15,7 @@ const Home = () => {
               <AarohiLogo className="tagline-icon" />
               <span>EDUCATE • EMPOWER • ELEVATE</span>
             </div>
-            
+
             <h1 className="hero-title">
               Aarohi
               <svg className="title-flower" viewBox="0 0 40 40" fill="none">
@@ -25,28 +26,27 @@ const Home = () => {
                 <circle cx="20" cy="20" r="3" fill="#d4739f"/>
               </svg>
             </h1>
-            
+
             <h2 className="hero-subtitle">
               Empowering Every Cycle<br />
               Through Education
             </h2>
-            
+
             <p className="hero-description">
               Learn menstrual health through engaging lessons,<br />
               AI guidance, and a safe learning experience.
             </p>
-            
+
             <div className="hero-buttons">
-              <Link to="/not-found" className="btn btn-primary">
-                Get Started
+              <Link to="/ask-sakhi" className="btn btn-primary">
+                Chat with Sakhi
                 <ArrowRight className="btn-arrow" />
               </Link>
-              <Link to="/not-found" className="btn btn-secondary">
-                Explore Lessons
+              <Link to="/about" className="btn btn-secondary">
+                About Us
               </Link>
             </div>
-            
-            {/* Features */}
+
             <div className="features">
               <div className="feature">
                 <div className="feature-icon-bg">
@@ -57,7 +57,7 @@ const Home = () => {
                   <div className="feature-subtitle">Content</div>
                 </div>
               </div>
-              
+
               <div className="feature">
                 <div className="feature-icon-bg">
                   <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -72,7 +72,7 @@ const Home = () => {
                   <div className="feature-subtitle">Guidance</div>
                 </div>
               </div>
-              
+
               <div className="feature">
                 <div className="feature-icon-bg">
                   <Shield className="feature-icon" />
@@ -82,7 +82,7 @@ const Home = () => {
                   <div className="feature-subtitle">Inclusive</div>
                 </div>
               </div>
-              
+
               <div className="feature">
                 <div className="feature-icon-bg">
                   <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -99,13 +99,12 @@ const Home = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="hero-right">
             <div className="hero-image-container">
               <img src={heroImage} alt="Woman reading about menstrual health" className="hero-image" />
-              
-              {/* AI Chat Box Overlay */}
-              <div className="ai-chatbox">
+
+              <div className="ai-chatbox" onClick={() => navigate('/ask-sakhi')} style={{ cursor: 'pointer' }}>
                 <div className="chatbox-header">
                   <div className="ai-avatar">
                     <SakhiAvatar />
@@ -127,8 +126,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        
-        {/* Scroll indicator */}
+
         <div className="scroll-indicator">
           <svg viewBox="0 0 24 24" fill="none">
             <path d="M7 10l5 5 5-5" stroke="#c084a1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

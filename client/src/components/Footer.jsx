@@ -21,7 +21,7 @@ const Footer = () => {
               <h4>Platform</h4>
               <Link to="/">Home</Link>
               <Link to="/not-found">Learn</Link>
-              <Link to="/not-found">Ask Sakhi</Link>
+              <Link to="/ask-sakhi">Ask Sakhi</Link>
               <Link to="/not-found">Resources</Link>
             </div>
             <div className="footer-col">
