@@ -1,0 +1,329 @@
+/* ============ SIDEBAR ============ */
+.learn-sidebar {
+  width: 310px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+}
+
+.sidebar-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(220, 126, 150, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.sidebar-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2d3748;
+  font-family: 'Georgia', serif;
+  margin: 0 0 0.1rem;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-card-sub {
+  font-size: 0.78rem;
+  color: #8a7a82;
+  line-height: 1.5;
+  margin: 0.25rem 0 0.85rem;
+}
+
+/* ============ PROGRESS CARD ============ */
+.sidebar-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.25rem 0 0.1rem;
+}
+
+.sidebar-ring {
+  width: 110px;
+  height: 110px;
+}
+
+.sidebar-ring-fill {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sidebar-ring-pct {
+  font-size: 1.35rem;
+  font-weight: 700;
+  fill: #2d3748;
+}
+
+.sidebar-ring-label {
+  font-size: 0.6rem;
+  font-weight: 500;
+  fill: #8a7a82;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sidebar-motivation {
+  font-size: 0.82rem;
+  color: #4a5568;
+  line-height: 1.45;
+  margin: 0.6rem 0 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.sidebar-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.9rem;
+}
+
+.sidebar-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.6rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #dc7e96, #d05a7a);
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.sidebar-cta:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(220, 126, 150, 0.25);
+}
+
+/* ============ FEATURES CARD ============ */
+.sidebar-features {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-feat-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.7rem 0.65rem;
+  transition: background 0.25s ease, transform 0.25s ease;
+  position: relative;
+}
+
+.sidebar-feat-row + .sidebar-feat-row {
+  border-top: 1px solid rgba(220, 126, 150, 0.06);
+}
+
+.sidebar-feat-row:hover {
+  background: rgba(245, 240, 243, 0.7);
+  border-radius: 12px;
+  transform: translateX(3px);
+}
+
+.sidebar-feat-icon-wrap {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(220, 126, 150, 0.08);
+  color: #dc7e96;
+  transition: background 0.25s ease;
+}
+
+.sidebar-feat-row:hover .sidebar-feat-icon-wrap {
+  background: rgba(220, 126, 150, 0.14);
+}
+
+.feat-icon-svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sidebar-feat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar-feat-text strong {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.sidebar-feat-text span {
+  font-size: 0.7rem;
+  color: #8a7a82;
+  line-height: 1.4;
+}
+
+/* ============ PATH CARD ============ */
+.sidebar-path {
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.path-line {
+  position: absolute;
+  left: 13px;
+  top: 26px;
+  bottom: 26px;
+  width: 2px;
+  background: rgba(220, 126, 150, 0.1);
+  border-radius: 1px;
+}
+
+.path-step {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  text-decoration: none;
+  position: relative;
+  transition: opacity 0.2s;
+}
+
+.path-step:hover {
+  opacity: 0.85;
+}
+
+.path-step-badge {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(220, 126, 150, 0.08);
+  position: relative;
+  z-index: 1;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.path-step-done .path-step-badge {
+  background: transparent;
+}
+
+.path-step-current .path-step-badge {
+  background: #dc7e96;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 4px rgba(220, 126, 150, 0.15);
+}
+
+.path-step-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #dc7e96;
+}
+
+.path-step-current .path-step-num {
+  color: white;
+}
+
+.path-check {
+  width: 26px;
+  height: 26px;
+}
+
+.path-step-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4a5568;
+  transition: color 0.25s ease, font-weight 0.25s ease;
+}
+
+.path-step-done .path-step-label {
+  color: #38a169;
+}
+
+.path-step-current .path-step-label {
+  color: #2d3748;
+  font-weight: 700;
+}
+
+.path-step-line {
+  position: absolute;
+  left: 13px;
+  bottom: -8px;
+  width: 2px;
+  height: 16px;
+  background: rgba(220, 126, 150, 0.1);
+  z-index: 0;
+}
+
+.sidebar-path-flower {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+  opacity: 0.5;
+}
+
+.sidebar-path-flower svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Path Toggle Button */
+.path-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  margin-top: 0.25rem;
+  border: 1.5px solid rgba(220, 126, 150, 0.15);
+  border-radius: 50px;
+  background: transparent;
+  color: #dc7e96;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  width: 100%;
+  justify-content: center;
+}
+
+.path-toggle-btn:hover {
+  background: rgba(220, 126, 150, 0.06);
+  border-color: #dc7e96;
+}
+
+.path-toggle-arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease;
+}
+
+.path-toggle-arrow.up {
+  transform: rotate(180deg);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1200px) {
+  .learn-sidebar {
+    width: 280px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .learn-sidebar {
+    display: none;
+  }
+}

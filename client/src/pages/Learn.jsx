@@ -1,124 +1,67 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Learn.css';
 import { modules, categories } from './data/lessons';
 import { ArrowRight } from '../components/Icons';
+import LearnSidebar from '../components/LearnSidebar';
 
-const ModuleIllus = ({ id }) => {
-  const illus = {
-     1: (
-      <svg viewBox="0 0 180 130" fill="none" className="mod-illus">
-        <rect x="60" y="30" width="60" height="55" rx="10" stroke="#e8917a" strokeWidth="2" fill="white" />
-        <rect x="60" y="40" width="60" height="18" rx="5" fill="#e0f2ef" />
-        <line x1="72" y1="49" x2="108" y2="49" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" />
-        <line x1="78" y1="65" x2="102" y2="65" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="78" y1="73" x2="98" y2="73" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M90 25c0 0-6 9-6 13s2.7 6 6 6 6-2.7 6-6-6-13-6-13z" fill="#e8917a" opacity="0.6" />
-        <circle cx="90" cy="52" r="2" fill="#d4739f" />
-        <circle cx="84" cy="71" r="2" fill="#d4739f" />
-        <circle cx="96" cy="71" r="2" fill="#d4739f" />
-        <circle cx="45" cy="42" r="3" fill="#e8917a" opacity="0.4" />
-        <circle cx="135" cy="58" r="2.5" fill="#d4a853" opacity="0.4" />
-        <circle cx="50" cy="90" r="2" fill="#e8917a" opacity="0.4" />
-      </svg>
-    ),
-     2: (
-      <svg viewBox="0 0 180 130" fill="none" className="mod-illus">
-        <circle cx="90" cy="58" r="32" stroke="#e8917a" strokeWidth="2" />
-        <circle cx="90" cy="58" r="16" stroke="#e5a4c4" strokeWidth="2" strokeDasharray="4 3" />
-        <circle cx="90" cy="58" r="4" fill="#dc7e96" />
-        <path d="M110 38l8 8-8 8" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M70 78l-8-8 8-8" stroke="#e5a4c4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="45" cy="72" r="3" fill="#d4a853" opacity="0.5" />
-        <circle cx="138" cy="48" r="2.5" fill="#e8917a" opacity="0.5" />
-        <circle cx="58" cy="30" r="2" fill="#e8917a" opacity="0.5" />
-        <circle cx="130" cy="80" r="2" fill="#b794d4" opacity="0.5" />
-        <circle cx="42" cy="42" r="2" fill="#e8917a" opacity="0.4" />
-      </svg>
-    ),
-     3: (
-      <svg viewBox="0 0 180 130" fill="none" className="mod-illus">
-        <path d="M90 98c-18-10-32-24-36-36-5-14 2-28 14-30 8-2 18 2 22 10 4-8 14-12 22-10 12 2 19 16 14 30-4 12-18 26-36 36z" stroke="#b794d4" strokeWidth="2" fill="#f5f0fa" />
-        <path d="M94 70l-8 8 14 14" stroke="#e8917a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="48" cy="48" r="3" fill="#b794d4" opacity="0.5" />
-        <circle cx="135" cy="55" r="2.5" fill="#d4a853" opacity="0.5" />
-        <circle cx="62" cy="92" r="2" fill="#e8917a" opacity="0.5" />
-        <circle cx="128" cy="82" r="2" fill="#e8917a" opacity="0.4" />
-        <circle cx="55" cy="25" r="2" fill="#d4a853" opacity="0.4" />
-      </svg>
-    ),
-     4: (
-      <svg viewBox="0 0 180 130" fill="none" className="mod-illus">
-        <path d="M90 30c-10 0-18 10-18 22 0 16 18 38 18 38s18-22 18-38c0-12-8-22-18-22z" stroke="#dc7e96" strokeWidth="2" fill="#fdf8fa" />
-        <path d="M90 44c-2.8 0-5 2.5-5 5.5" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" />
-        <path d="M62 68l6-4" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" />
-        <path d="M118 68l-6-4" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" />
-        <path d="M82 82l8-4 8 4" stroke="#d4a853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="45" cy="55" r="3" fill="#dc7e96" opacity="0.4" />
-        <circle cx="138" cy="62" r="2.5" fill="#d4a853" opacity="0.5" />
-        <circle cx="55" cy="38" r="2" fill="#e8917a" opacity="0.4" />
-        <circle cx="60" cy="95" r="2.5" fill="#e8917a" opacity="0.3" />
-      </svg>
-    ),
-     5: (
-      <svg viewBox="0 0 180 130" fill="none" className="mod-illus">
-        <circle cx="90" cy="60" r="28" stroke="#d4a853" strokeWidth="2" fill="#fdf8f0" />
-        <path d="M90 44c-4.4 0-8 3.6-8 8 0 3 1.6 5.5 4 7-2.4 1.5-4 4-4 7 0 4.4 3.6 8 8 8s8-3.6 8-8c0-3-1.6-5.5-4-7 2.4-1.5 4-4 4-7 0-4.4-3.6-8-8-8z" fill="#f5ede0" stroke="#d4a853" strokeWidth="1.5" />
-        <path d="M90 46v28" stroke="#d4a853" strokeWidth="1.5" />
-        <path d="M78 60h24" stroke="#d4a853" strokeWidth="1.5" />
-        <circle cx="48" cy="48" r="3" fill="#e8917a" opacity="0.5" />
-        <circle cx="135" cy="55" r="2.5" fill="#d4a853" opacity="0.5" />
-        <circle cx="130" cy="78" r="2" fill="#e8917a" opacity="0.4" />
-        <circle cx="56" cy="30" r="2" fill="#b794d4" opacity="0.4" />
-      </svg>
-    ),
-     6: (
-      <svg viewBox="0 0 180 130" fill="none" className="mod-illus">
-        <circle cx="90" cy="55" r="30" stroke="#b794d4" strokeWidth="2" fill="#f5f0fa" />
-        <circle cx="82" cy="48" r="6" fill="#ede0f2" stroke="#b794d4" strokeWidth="1.5" />
-        <circle cx="98" cy="48" r="6" fill="#ede0f2" stroke="#b794d4" strokeWidth="1.5" />
-        <circle cx="82" cy="48" r="2.5" fill="#b794d4" />
-        <circle cx="98" cy="48" r="2.5" fill="#b794d4" />
-        <path d="M74 62c4 6 8 8 16 8s12-2 16-8" stroke="#b794d4" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="48" cy="42" r="3" fill="#e8917a" opacity="0.5" />
-        <circle cx="135" cy="48" r="2.5" fill="#d4a853" opacity="0.5" />
-        <circle cx="58" cy="90" r="2" fill="#b794d4" opacity="0.5" />
-        <circle cx="130" cy="82" r="2" fill="#e8917a" opacity="0.4" />
-        <circle cx="50" cy="28" r="2" fill="#d4a853" opacity="0.4" />
-      </svg>
-    ),
-     7: (
-      <svg viewBox="0 0 180 130" fill="none" className="mod-illus">
-        <path d="M90 38c-14 0-25 10-25 22 0 8 4 14 10 18l-3 12 12-8c2 0 4 1 6 1 14 0 25-10 25-22s-11-22-25-22z" stroke="#e8917a" strokeWidth="2" fill="#fdf0f0" />
-        <path d="M82 48l-4 12h8l-4 12" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <line x1="91" y1="52" x2="99" y2="52" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" />
-        <line x1="91" y1="58" x2="99" y2="58" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="48" cy="52" r="3" fill="#e8917a" opacity="0.5" />
-        <circle cx="135" cy="58" r="2.5" fill="#b794d4" opacity="0.5" />
-        <circle cx="60" cy="82" r="2" fill="#e8917a" opacity="0.5" />
-        <circle cx="52" cy="28" r="2" fill="#d4a853" opacity="0.4" />
-      </svg>
-    ),
-     8: (
-      <svg viewBox="0 0 180 130" fill="none" className="mod-illus">
-        <path d="M50 48c0-8 6-14 14-14h52c8 0 14 6 14 14v26c0 8-6 14-14 14h-8l-12 10v-10h-32c-8 0-14-6-14-14V48z" stroke="#e8917a" strokeWidth="2" fill="#f0faf9" />
-        <circle cx="80" cy="55" r="3" fill="#e8917a" />
-        <circle cx="95" cy="55" r="3" fill="#e8917a" />
-        <circle cx="110" cy="55" r="3" fill="#e8917a" />
-        <path d="M74 68c4 4 8 5 12 5s8-1 12-5" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="45" cy="38" r="3" fill="#e8917a" opacity="0.5" />
-        <circle cx="140" cy="42" r="2.5" fill="#d4a853" opacity="0.5" />
-        <circle cx="55" cy="92" r="2" fill="#e8917a" opacity="0.4" />
-        <circle cx="140" cy="80" r="2" fill="#b794d4" opacity="0.4" />
-      </svg>
-    ),
-  };
-  return illus[id] || null;
-};
+import img1 from '../assets/first period.png';
+import img2 from '../assets/know your cycle.png';
+import img3 from '../assets/healthy habits.png';
+import img4 from '../assets/period care.png';
+import img5 from '../assets/nourish yourself.png';
+import img6 from '../assets/mind&mood.png';
+import img7 from '../assets/myth busters.png';
+import heroImg from '../assets/learn hero.png';
+
+const moduleImages = { 1: img1, 2: img2, 3: img3, 4: img4, 5: img5, 6: img6, 7: img7 };
+
+const ModuleIllus = ({ id, completed }) => (
+  <>
+    <img src={moduleImages[id]} alt="" className="mod-illus" />
+    {completed && (
+      <div className="module-card-completed-overlay">
+        <svg viewBox="0 0 12 12" fill="none" className="badge-check">
+          <path d="M3 6l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        Completed
+      </div>
+    )}
+  </>
+);
 
 const Learn = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAllModules, setShowAllModules] = useState(false);
+  const [completed, setCompleted] = useState(() => {
+    try {
+      return new Set(JSON.parse(localStorage.getItem('aarohi_progress') || '[]'));
+    } catch { return new Set(); }
+  });
+
+  useEffect(() => {
+    const sync = () => {
+      try {
+        setCompleted(new Set(JSON.parse(localStorage.getItem('aarohi_progress') || '[]')));
+      } catch {}
+    };
+    window.addEventListener('focus', sync);
+    window.addEventListener('storage', sync);
+    const id = setInterval(sync, 2000);
+    return () => {
+      window.removeEventListener('focus', sync);
+      window.removeEventListener('storage', sync);
+      clearInterval(id);
+    };
+  }, []);
+
+  useEffect(() => {
+    setShowAllModules(false);
+  }, [activeCategory, searchQuery]);
+
+  const nextIncomplete = modules.find((m) => !completed.has(m.id));
+  const allDone = !nextIncomplete;
 
   const filteredModules = useMemo(() => {
     return modules.filter(mod => {
@@ -129,6 +72,8 @@ const Learn = () => {
     });
   }, [activeCategory, searchQuery]);
 
+  const visibleModules = showAllModules ? filteredModules : filteredModules.slice(0, 4);
+
   return (
     <div className="learn-page">
       {/* Decorative floating elements */}
@@ -138,7 +83,7 @@ const Learn = () => {
       <div className="learn-deco learn-deco-4" />
 
       {/* Hero */}
-      <section className="learn-hero">
+      <section className="learn-hero" style={{ backgroundImage: `url(${heroImg})` }}>
         <div className="learn-hero-content">
           <div className="learn-hero-left">
             <div className="learn-tagline">
@@ -156,6 +101,22 @@ const Learn = () => {
               Explore structured menstrual health lessons through simple,<br />
               beginner-friendly modules designed just for you.
             </p>
+            <div className="hero-stats">
+              <div className="hero-stat">
+                <span className="hero-stat-num">7</span>
+                <span className="hero-stat-label">Modules</span>
+              </div>
+              <div className="hero-stat-dot" />
+              <div className="hero-stat">
+                <span className="hero-stat-num">5</span>
+                <span className="hero-stat-label">Topics</span>
+              </div>
+              <div className="hero-stat-dot" />
+              <div className="hero-stat">
+                <span className="hero-stat-num">Free</span>
+                <span className="hero-stat-label">Forever</span>
+              </div>
+            </div>
             <div className="learn-hero-buttons">
               <a href="#modules" className="btn btn-primary">
                 Explore Modules
@@ -164,55 +125,20 @@ const Learn = () => {
             </div>
           </div>
           <div className="learn-hero-right">
-            <div className="learn-hero-illustration">
-              <svg viewBox="0 0 360 320" fill="none" className="hero-illus-svg">
-                <defs>
-                  <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#f5f0f3" />
-                    <stop offset="100%" stopColor="#f0e6ec" />
-                  </linearGradient>
-                </defs>
-                {/* Tablet */}
-                <rect x="130" y="120" width="140" height="100" rx="14" stroke="#dc7e96" strokeWidth="2" fill="white" />
-                <rect x="140" y="130" width="120" height="70" rx="6" fill="#fdf8fa" />
-                {/* Screen content - chart/learning */}
-                <rect x="150" y="138" width="40" height="30" rx="4" stroke="#e5a4c4" strokeWidth="1.5" fill="#fff5f9" />
-                <rect x="150" y="174" width="100" height="8" rx="3" fill="#f5edf1" />
-                <rect x="150" y="186" width="80" height="8" rx="3" fill="#f5edf1" />
-                <line x1="155" y1="148" x2="185" y2="148" stroke="#dc7e96" strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="158" y1="155" x2="175" y2="155" stroke="#dc7e96" strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="155" y1="162" x2="182" y2="162" stroke="#e5a4c4" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="205" cy="153" r="10" fill="#f5edf1" stroke="#e5a4c4" strokeWidth="1.5" />
-                <circle cx="205" cy="153" r="3" fill="#dc7e96" />
-                <path d="M205 143v4" stroke="#dc7e96" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M200 153h10" stroke="#dc7e96" strokeWidth="1.5" strokeLinecap="round" />
-                {/* Book */}
-                <rect x="285" y="145" width="40" height="32" rx="4" stroke="#dc7e96" strokeWidth="2" fill="white" transform="rotate(12 285 145)" />
-                <line x1="292" y1="152" x2="318" y2="148" stroke="#e5a4c4" strokeWidth="1.5" strokeLinecap="round" transform="rotate(12 285 145)" />
-                <line x1="292" y1="160" x2="318" y2="156" stroke="#e5a4c4" strokeWidth="1.5" strokeLinecap="round" transform="rotate(12 285 145)" />
-                <line x1="292" y1="168" x2="315" y2="164" stroke="#e5a4c4" strokeWidth="1.5" strokeLinecap="round" transform="rotate(12 285 145)" />
-                {/* Pencil */}
-                <line x1="280" y1="170" x2="260" y2="140" stroke="#d4739f" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M258 138l-4 4 2 2 4-4-2-2z" fill="#dc7e96" />
-                {/* Sparkles / floating elements */}
-                <path d="M200 90c0 0-3 5-3 8s1.3 4 3 4 3-1.3 3-3-3-9-3-9z" fill="#e8917a" opacity="0.6" className="float-elem-1" />
-                <path d="M310 110c0 0-2 4-2 6s1 3 2 3 2-1 2-2-2-7-2-7z" fill="#d4a853" opacity="0.6" className="float-elem-2" />
-                <path d="M80 135c0 0-2 4-2 6s1 3 2 3 2-1 2-2-2-7-2-7z" fill="#e8917a" opacity="0.6" className="float-elem-3" />
-                <circle cx="160" cy="105" r="3" fill="#e8917a" opacity="0.5" className="float-elem-4" />
-                <circle cx="300" cy="95" r="2.5" fill="#d4a853" opacity="0.5" className="float-elem-1" />
-                <circle cx="70" cy="200" r="2" fill="#b794d4" opacity="0.5" className="float-elem-2" />
-                <circle cx="330" cy="180" r="3" fill="#e8917a" opacity="0.4" className="float-elem-3" />
-                {/* Extra colorful doodads */}
-                <circle cx="220" cy="130" r="2" fill="#e8917a" opacity="0.4" className="float-elem-4" />
-                <circle cx="60" cy="160" r="2.5" fill="#d4a853" opacity="0.3" className="float-elem-1" />
-              </svg>
             </div>
-          </div>
         </div>
       </section>
 
       {/* Search & Filters */}
       <section className="learn-tools" id="modules">
+        <div className="section-divider">
+          <div className="section-divider-line" />
+          <svg className="section-divider-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor" opacity="0.3" />
+            <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          <div className="section-divider-line" />
+        </div>
         <div className="learn-tools-inner">
           <div className="learn-search-wrap">
             <svg className="learn-search-icon" viewBox="0 0 24 24" fill="none">
@@ -231,6 +157,7 @@ const Learn = () => {
             {categories.map(cat => (
               <button
                 key={cat}
+                data-category={cat}
                 className={`cat-btn${activeCategory === cat ? ' cat-btn-active' : ''}`}
                 onClick={() => setActiveCategory(cat)}
               >
@@ -241,15 +168,47 @@ const Learn = () => {
         </div>
       </section>
 
-      {/* Module Cards */}
+      {/* Module Cards + Sidebar */}
       <section className="learn-modules-section">
         <div className="learn-modules-inner">
-          {filteredModules.length > 0 ? (
+          <div className="learn-layout">
+            <div className="learn-main">
+              {/* Continue Learning Row */}
+              {allDone ? (
+                <div className="continue-all-done">
+                  <svg viewBox="0 0 36 36" fill="none" className="continue-all-done-icon">
+                    <circle cx="18" cy="18" r="16" fill="#38a169" opacity="0.15" />
+                    <circle cx="18" cy="18" r="11" fill="#38a169" />
+                    <path d="M11 18l5 5 9-9" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <div>
+                    <div className="continue-all-done-text">All modules completed!</div>
+                    <div className="continue-all-done-sub">Great job — you've mastered everything.</div>
+                  </div>
+                </div>
+              ) : (
+                <div className="continue-row">
+                  <div className="continue-row-illus">
+                    <img src={moduleImages[nextIncomplete.id]} alt="" />
+                  </div>
+                  <div className="continue-row-body">
+                    <div className="continue-row-label">Continue Learning</div>
+                    <h4 className="continue-row-title">{nextIncomplete.title}</h4>
+                    <p className="continue-row-desc">{nextIncomplete.description}</p>
+                  </div>
+                  <Link to={`/learn/${nextIncomplete.id}`} className="continue-row-cta">
+                    Continue
+                    <ArrowRight className="cta-arrow" />
+                  </Link>
+                </div>
+              )}
+              {filteredModules.length > 0 ? (
+            <>
             <div className="learn-grid">
-              {filteredModules.map((mod, index) => (
+              {visibleModules.map((mod, index) => (
                 <div className="module-card" key={mod.id} data-category={mod.category} style={{ animationDelay: `${index * 0.08}s` }}>
                   <div className="module-card-illus">
-                    <ModuleIllus id={mod.id} />
+                    <ModuleIllus id={mod.id} completed={completed.has(mod.id)} />
                   </div>
                   <div className="module-card-body">
                     <div className="module-card-meta">
@@ -259,7 +218,7 @@ const Learn = () => {
                     </div>
                     <h3 className="module-card-title">{mod.title}</h3>
                     <p className="module-card-desc">{mod.description}</p>
-                    <Link to={mod.id === 8 ? '/ask-sakhi' : '/not-found'} className="module-card-cta">
+                    <Link to={`/learn/${mod.id}`} className="module-card-cta">
                       Explore
                       <ArrowRight className="cta-arrow" />
                     </Link>
@@ -267,6 +226,17 @@ const Learn = () => {
                 </div>
               ))}
             </div>
+            {filteredModules.length > 4 && (
+              <div className="show-more-wrap">
+                <button className="show-more-btn" onClick={() => setShowAllModules(p => !p)}>
+                  {showAllModules ? 'Show Less' : `Show All ${filteredModules.length} Modules`}
+                  <svg className={`show-more-arrow${showAllModules ? ' up' : ''}`} viewBox="0 0 14 14" fill="none">
+                    <path d="M3.5 5l3.5 3.5L10.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            )}
+            </>
           ) : (
             <div className="learn-empty">
               <svg viewBox="0 0 80 80" fill="none" style={{ width: 64, height: 64, marginBottom: '1rem' }}>
@@ -280,211 +250,9 @@ const Learn = () => {
               </button>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Your Learning Path */}
-      <section className="path-section">
-        <div className="path-container">
-          {/* Decorative paper airplane */}
-          <svg className="path-plane" viewBox="0 0 60 60" fill="none">
-            <path d="M50 10L10 28l14 6 4 14 6-20 16-18z" fill="#e8917a" opacity="0.2" />
-            <path d="M28 34l-4 14 16-18-12 4z" fill="#e8917a" opacity="0.35" />
-            <path d="M50 10L10 28l14 6 6-20 20-4z" fill="#d4a853" opacity="0.2" />
-          </svg>
-          <svg className="path-plane-trail" viewBox="0 0 180 120" fill="none">
-            <path d="M140 20C120 30 100 50 90 60S60 80 50 90s-20 20-20 20" stroke="#e8917a" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.5" fill="none" />
-            <circle cx="40" cy="86" r="2" fill="#e8917a" opacity="0.5" />
-            <circle cx="55" cy="78" r="1.5" fill="#d4a853" opacity="0.4" />
-            <circle cx="68" cy="68" r="1.5" fill="#e8917a" opacity="0.4" />
-            <circle cx="85" cy="56" r="2" fill="#b794d4" opacity="0.5" />
-            <circle cx="100" cy="48" r="1.5" fill="#e8917a" opacity="0.4" />
-          </svg>
-
-          <div className="learn-section-label">YOUR PATH</div>
-          <h2 className="learn-section-title">Your Learning Path</h2>
-          <p className="learn-section-desc">
-            Follow this journey to build your menstrual health knowledge step by step.
-          </p>
-
-          <div className="path-track">
-            <div className="path-steps">
-              <div className="path-step">
-                <div className="path-step-badge">01</div>
-                <div className="path-step-circle">
-                  <svg viewBox="0 0 72 72" fill="none">
-                    <circle cx="36" cy="36" r="34" fill="white" stroke="#e8917a" strokeWidth="1.5" />
-                    <path d="M36 18c-6 0-10 4-10 9 0 7 10 15 10 15s10-8 10-15c0-5-4-9-10-9z" fill="#e0f2ef" stroke="#e8917a" strokeWidth="1.5" />
-                    <path d="M36 22v10" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-                    <circle cx="28" cy="22" r="2" fill="#d4a853" opacity="0.6" />
-                    <circle cx="44" cy="24" r="1.5" fill="#e8917a" opacity="0.5" />
-                  </svg>
-                </div>
-                <span className="path-step-label">Your First Period</span>
-              </div>
-
-              <div className="path-arrow">
-                <svg viewBox="0 0 40 24" fill="none">
-                  <path d="M4 12h28M26 6l8 6-8 6" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              <div className="path-step">
-                <div className="path-step-badge">02</div>
-                <div className="path-step-circle">
-                  <svg viewBox="0 0 72 72" fill="none">
-                    <circle cx="36" cy="36" r="34" fill="white" stroke="#e8917a" strokeWidth="1.5" />
-                    <rect x="24" y="20" width="24" height="30" rx="4" stroke="#e8917a" strokeWidth="1.5" fill="white" />
-                    <line x1="28" y1="30" x2="44" y2="30" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-                    <line x1="28" y1="38" x2="40" y2="38" stroke="#d4a853" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M30 20v-4" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M42 20v-4" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-                    <circle cx="28" cy="48" r="2" fill="#d4a853" opacity="0.6" />
-                    <circle cx="48" cy="22" r="1.5" fill="#e8917a" opacity="0.5" />
-                  </svg>
-                </div>
-                <span className="path-step-label">Know Your Cycle</span>
-              </div>
-
-              <div className="path-arrow">
-                <svg viewBox="0 0 40 24" fill="none">
-                  <path d="M4 12h28M26 6l8 6-8 6" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              <div className="path-step">
-                <div className="path-step-badge">03</div>
-                <div className="path-step-circle">
-                  <svg viewBox="0 0 72 72" fill="none">
-                    <circle cx="36" cy="36" r="34" fill="white" stroke="#b794d4" strokeWidth="1.5" />
-                    <path d="M36 52c-8-5-16-12-18-18-2-7 1-14 7-15 4-1 9 1 11 5 2-4 7-6 11-5 6 1 9 8 7 15-2 6-10 13-18 18z" stroke="#b794d4" strokeWidth="1.5" fill="#f5f0fa" />
-                    <path d="M38 38l-4 4 7 7" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <circle cx="24" cy="24" r="1.5" fill="#d4a853" opacity="0.6" />
-                    <circle cx="48" cy="22" r="2" fill="#e8917a" opacity="0.5" />
-                  </svg>
-                </div>
-                <span className="path-step-label">Healthy Habits</span>
-              </div>
-
-              <div className="path-arrow">
-                <svg viewBox="0 0 40 24" fill="none">
-                  <path d="M4 12h28M26 6l8 6-8 6" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              <div className="path-step">
-                <div className="path-step-badge">04</div>
-                <div className="path-step-circle">
-                  <svg viewBox="0 0 72 72" fill="none">
-                    <circle cx="36" cy="36" r="34" fill="white" stroke="#e8917a" strokeWidth="1.5" />
-                    <ellipse cx="36" cy="42" rx="14" ry="16" stroke="#e8917a" strokeWidth="1.5" fill="#fdf0f0" />
-                    <path d="M36 30c-3 0-5 2-5 5s2 5 5 5 5-2 5-5-2-5-5-5z" fill="#f5e0e0" stroke="#e8917a" strokeWidth="1" />
-                    <path d="M30 48l4-2 2-1 2 1 4 2" stroke="#d4a853" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <circle cx="24" cy="28" r="1.5" fill="#e8917a" opacity="0.6" />
-                    <circle cx="50" cy="30" r="2" fill="#d4a853" opacity="0.5" />
-                  </svg>
-                </div>
-                <span className="path-step-label">Period Care</span>
-              </div>
-
-              <div className="path-arrow">
-                <svg viewBox="0 0 40 24" fill="none">
-                  <path d="M4 12h28M26 6l8 6-8 6" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              <div className="path-step">
-                <div className="path-step-badge">05</div>
-                <div className="path-step-circle">
-                  <svg viewBox="0 0 72 72" fill="none">
-                    <circle cx="36" cy="36" r="34" fill="white" stroke="#d4a853" strokeWidth="1.5" />
-                    <circle cx="36" cy="36" r="16" stroke="#d4a853" strokeWidth="1.5" fill="#fdf8f0" />
-                    <path d="M36 26c-2.5 0-4.5 2-4.5 4.5 0 1.7.9 3 2.3 4-1.4.9-2.3 2.3-2.3 4 0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5c0-1.7-.9-3-2.3-4 1.4-.9 2.3-2.3 2.3-4 0-2.5-2-4.5-4.5-4.5z" fill="#f5ede0" stroke="#d4a853" strokeWidth="1" />
-                    <path d="M36 28v16" stroke="#d4a853" strokeWidth="1.5" />
-                    <path d="M28 36h16" stroke="#d4a853" strokeWidth="1.5" />
-                    <circle cx="24" cy="24" r="1.5" fill="#e8917a" opacity="0.6" />
-                    <circle cx="50" cy="22" r="2" fill="#e8917a" opacity="0.5" />
-                  </svg>
-                </div>
-                <span className="path-step-label">Nourish Yourself</span>
-              </div>
-
-              <div className="path-arrow">
-                <svg viewBox="0 0 40 24" fill="none">
-                  <path d="M4 12h28M26 6l8 6-8 6" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              <div className="path-step">
-                <div className="path-step-badge">06</div>
-                <div className="path-step-circle">
-                  <svg viewBox="0 0 72 72" fill="none">
-                    <circle cx="36" cy="36" r="34" fill="white" stroke="#b794d4" strokeWidth="1.5" />
-                    <circle cx="36" cy="34" r="12" stroke="#b794d4" strokeWidth="1.5" fill="#f5f0fa" />
-                    <circle cx="32" cy="30" r="3" fill="#ede0f2" stroke="#b794d4" strokeWidth="1" />
-                    <circle cx="40" cy="30" r="3" fill="#ede0f2" stroke="#b794d4" strokeWidth="1" />
-                    <circle cx="32" cy="30" r="1.2" fill="#b794d4" />
-                    <circle cx="40" cy="30" r="1.2" fill="#b794d4" />
-                    <path d="M30 40c2 3 4 4 6 4s4-1 6-4" stroke="#b794d4" strokeWidth="1.5" strokeLinecap="round" />
-                    <circle cx="22" cy="22" r="1.5" fill="#e8917a" opacity="0.6" />
-                    <circle cx="52" cy="24" r="2" fill="#d4a853" opacity="0.5" />
-                  </svg>
-                </div>
-                <span className="path-step-label">Mind &amp; Mood</span>
-              </div>
-
-              <div className="path-arrow">
-                <svg viewBox="0 0 40 24" fill="none">
-                  <path d="M4 12h28M26 6l8 6-8 6" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              <div className="path-step">
-                <div className="path-step-badge">07</div>
-                <div className="path-step-circle">
-                  <svg viewBox="0 0 72 72" fill="none">
-                    <circle cx="36" cy="36" r="34" fill="white" stroke="#e8917a" strokeWidth="1.5" />
-                    <path d="M36 24c-8 0-14 6-14 12 0 4 2 8 6 10l-2 7 7-5c1 0 2 1 3 1 8 0 14-6 14-12s-6-12-14-12z" stroke="#e8917a" strokeWidth="1.5" fill="#fdf0f0" />
-                    <path d="M32 30l-2 6h5l-2 6" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <line x1="38" y1="32" x2="43" y2="32" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-                    <line x1="38" y1="36" x2="42" y2="36" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-                    <circle cx="22" cy="24" r="1.5" fill="#e8917a" opacity="0.6" />
-                    <circle cx="52" cy="22" r="2" fill="#b794d4" opacity="0.5" />
-                  </svg>
-                </div>
-                <span className="path-step-label">Myth Busters</span>
-              </div>
-
-              <div className="path-arrow">
-                <svg viewBox="0 0 40 24" fill="none">
-                  <path d="M4 12h28M26 6l8 6-8 6" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-
-              <div className="path-step">
-                <div className="path-step-badge">08</div>
-                <div className="path-step-circle">
-                  <svg viewBox="0 0 72 72" fill="none">
-                    <circle cx="36" cy="36" r="34" fill="white" stroke="#e8917a" strokeWidth="1.5" />
-                    <circle cx="36" cy="36" r="16" fill="#e0f2ef" stroke="#e8917a" strokeWidth="1.5" />
-                    <circle cx="30" cy="32" r="2.5" fill="#e8917a" />
-                    <circle cx="42" cy="32" r="2.5" fill="#e8917a" />
-                    <path d="M30 42c3 2 6 3 9 3s6-1 9-3" stroke="#e8917a" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M46 28l2-4" stroke="#d4a853" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M48 26l4-2" stroke="#d4a853" strokeWidth="1.5" strokeLinecap="round" />
-                    <circle cx="22" cy="22" r="1.5" fill="#b794d4" opacity="0.6" />
-                    <circle cx="52" cy="24" r="2" fill="#e8917a" opacity="0.5" />
-                  </svg>
-                </div>
-                <span className="path-step-label">Ask Sakhi</span>
-              </div>
             </div>
+            <LearnSidebar />
           </div>
-
-          <div className="path-deco path-deco-1" />
-          <div className="path-deco path-deco-2" />
-          <div className="path-deco path-deco-3" />
-          <div className="path-deco path-deco-4" />
         </div>
       </section>
 
@@ -536,28 +304,28 @@ const Learn = () => {
                 <text x="60" y="55" fontSize="6" fill="#4a5568" fontWeight="600">Sakhi</text>
                 <text x="60" y="63" fontSize="5" fill="#718096">AI Assistant</text>
                 {/* Chat bubble 1 - Sakhi */}
-                <rect x="42" y="76" width="104" height="32" rx="10" fill="white" stroke="#e8dfe5" strokeWidth="0.5" />
-                <text x="50" y="90" fontSize="6.5" fill="#4a5568" fontFamily="system-ui">Mild cramps happen because your</text>
-                <text x="50" y="100" fontSize="6.5" fill="#4a5568" fontFamily="system-ui">uterus contracts to shed its lining.</text>
+                <rect x="42" y="76" width="122" height="28" rx="10" fill="white" stroke="#e8dfe5" strokeWidth="0.5" />
+                <text x="50" y="90" fontSize="6.5" fill="#4a5568" fontFamily="system-ui">Fun fact: those cramps are just</text>
+                <text x="50" y="100" fontSize="6.5" fill="#4a5568" fontFamily="system-ui">your uterus working out. Flex! 💪</text>
                 {/* Chat bubble 2 - User */}
-                <rect x="98" y="116" width="94" height="24" rx="10" fill="url(#chatUser)" />
-                <text x="108" y="128" fontSize="6.5" fill="white" fontFamily="system-ui">Why do I get cramps</text>
-                <text x="108" y="138" fontSize="6.5" fill="white" fontFamily="system-ui">during periods?</text>
-                <circle cx="94" cy="128" r="6" fill="#fdf8fa" stroke="#e5a4c4" strokeWidth="0.5" />
-                <text x="91" y="131" fontSize="6">👧</text>
+                <rect x="86" y="114" width="118" height="28" rx="10" fill="url(#chatUser)" />
+                <text x="96" y="128" fontSize="6.5" fill="white" fontFamily="system-ui">So my uterus is at the gym</text>
+                <text x="96" y="138" fontSize="6.5" fill="white" fontFamily="system-ui">while I cry at puppy ads? 😂</text>
+                <circle cx="82" cy="128" r="6" fill="#fdf8fa" stroke="#e5a4c4" strokeWidth="0.5" />
+                <text x="79" y="131" fontSize="6">👧</text>
                 {/* Chat bubble 3 - Sakhi */}
-                <rect x="42" y="148" width="108" height="20" rx="10" fill="white" stroke="#e8dfe5" strokeWidth="0.5" />
-                <text x="50" y="156" fontSize="6.5" fill="#4a5568" fontFamily="system-ui">Yes! Especially during the teenage</text>
-                <text x="50" y="165" fontSize="6.5" fill="#4a5568" fontFamily="system-ui">years, your cycle may take time.</text>
+                <rect x="42" y="152" width="120" height="28" rx="10" fill="white" stroke="#e8dfe5" strokeWidth="0.5" />
+                <text x="50" y="166" fontSize="6.5" fill="#4a5568" fontFamily="system-ui">Haha same hormones make you</text>
+                <text x="50" y="176" fontSize="6.5" fill="#4a5568" fontFamily="system-ui">emotional AND help you shed 🎭</text>
                 {/* Chat bubble 4 - typing indicator */}
-                <rect x="42" y="176" width="52" height="24" rx="10" fill="white" stroke="#e8dfe5" strokeWidth="0.5" />
-                <circle cx="56" cy="188" r="3" fill="#e8917a" opacity="0.5">
+                <rect x="42" y="190" width="52" height="24" rx="10" fill="white" stroke="#e8dfe5" strokeWidth="0.5" />
+                <circle cx="56" cy="202" r="3" fill="#e8917a" opacity="0.5">
                   <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite" begin="0s" />
                 </circle>
-                <circle cx="66" cy="188" r="3" fill="#e8917a" opacity="0.5">
+                <circle cx="66" cy="202" r="3" fill="#e8917a" opacity="0.5">
                   <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite" begin="0.2s" />
                 </circle>
-                <circle cx="76" cy="188" r="3" fill="#e8917a" opacity="0.5">
+                <circle cx="76" cy="202" r="3" fill="#e8917a" opacity="0.5">
                   <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite" begin="0.4s" />
                 </circle>
                 {/* Input bar */}

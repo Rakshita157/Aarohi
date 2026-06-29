@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { chatAPI } from '../services/api';
+import { chatAPI, memoryAPI } from '../services/api';
 import { SakhiAvatar } from '../components/Icons';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AskSakhi.css';
 
 const AskSakhi = () => {
-  const { user, loading: authLoading } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [conversations, setConversations] = useState([]);
   const [activeConvId, setActiveConvId] = useState(null);
@@ -15,9 +15,10 @@ const AskSakhi = () => {
   const [sending, setSending] = useState(false);
   const [convLoading, setConvLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [userMemory, setUserMemory] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
-  const convLoadedRef = useRef(false);
+  const loadedRef = useRef(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -28,22 +29,26 @@ const AskSakhi = () => {
   }, [messages]);
 
   useEffect(() => {
-    if (authLoading || convLoadedRef.current) return;
-    convLoadedRef.current = true;
-
     if (!user) {
       navigate('/login');
       return;
     }
 
-    chatAPI.getConversations().then((res) => {
-      setConversations(res.data);
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+
+    Promise.all([
+      chatAPI.getConversations(),
+      memoryAPI.getMemory(),
+    ]).then(([convRes, memRes]) => {
+      setConversations(convRes.data);
+      setUserMemory(memRes.data);
     }).catch(() => {
       // silently fail
     }).finally(() => {
       setConvLoading(false);
     });
-  }, [user, authLoading, navigate]);
+  }, [user, navigate]);
 
   const loadConversation = async (id) => {
     setActiveConvId(id);
@@ -75,6 +80,7 @@ const AskSakhi = () => {
         setActiveConvId(newConvId);
         chatAPI.getConversations().then((r) => setConversations(r.data)).catch(() => {});
       }
+      memoryAPI.getMemory().then((mr) => setUserMemory(mr.data)).catch(() => {});
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -111,10 +117,6 @@ const AskSakhi = () => {
       // silently fail
     }
   };
-
-  if (authLoading) {
-    return <div className="sakhi-loading">Loading...</div>;
-  }
 
   return (
     <div className="sakhi-page">
@@ -176,7 +178,11 @@ const AskSakhi = () => {
             </div>
             <div>
               <div className="sakhi-chat-title">Sakhi</div>
-              <div className="sakhi-chat-subtitle">Menstrual Health Assistant</div>
+              <div className="sakhi-chat-subtitle">
+                {userMemory?.recentTopics?.length > 0
+                  ? `I know about: ${userMemory.recentTopics.slice(0, 3).join(', ')}`
+                  : 'Menstrual Health Assistant'}
+              </div>
             </div>
           </div>
           <button className="sakhi-new-chat-btn header-only" onClick={handleNewChat}>

@@ -1,6 +1,7 @@
-const model = require('../config/gemini');
+const { getModel, FALLBACK_MODELS } = require('../config/gemini');
+const { buildMemoryContext } = require('./memoryService');
 
-const SYSTEM_PROMPT = `You are Sakhi, an empathetic, caring, and knowledgeable AI assistant focused exclusively on menstrual health and puberty education. Your tone is warm, supportive, and non-judgmental, like a trusted older sister or friend.
+const BASE_SYSTEM_PROMPT = `You are Sakhi, an empathetic, caring, and knowledgeable AI assistant focused exclusively on menstrual health and puberty education. Your tone is warm, supportive, and non-judgmental, like a trusted older sister or friend.
 
 ## Your Role
 - Answer questions about menstrual health, puberty, periods, cycle tracking, cramps, PMS, hygiene, common myths, and related topics.
@@ -16,9 +17,29 @@ const SYSTEM_PROMPT = `You are Sakhi, an empathetic, caring, and knowledgeable A
 - Do NOT diagnose medical conditions or prescribe treatments.
 - Do NOT engage with inappropriate, sexual, or offensive content, redirect to menstrual health.`;
 
-const chatWithSakhi = async (messageHistory, newMessage) => {
+function isRetryableError(err) {
+  const msg = err?.message || '';
+  return msg.includes('429') || msg.includes('quota') || msg.includes('rate limit') || msg.includes('not found');
+}
+
+async function tryGenerate(modelName, contents) {
+  const model = getModel(modelName);
+  const result = await model.generateContent({ contents });
+  return result.response.text();
+}
+
+const chatWithSakhi = async (messageHistory, newMessage, userId) => {
+  let memoryContext = '';
+  if (userId) {
+    memoryContext = await buildMemoryContext(userId);
+  }
+
+  const fullSystemPrompt = memoryContext
+    ? `${BASE_SYSTEM_PROMPT}\n\n${memoryContext}`
+    : BASE_SYSTEM_PROMPT;
+
   const contents = [
-    { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
+    { role: 'user', parts: [{ text: fullSystemPrompt }] },
     { role: 'model', parts: [{ text: 'Understood. I will follow these guidelines as Sakhi.' }] },
     ...messageHistory.flatMap((msg) => ({
       role: msg.role,
@@ -27,9 +48,21 @@ const chatWithSakhi = async (messageHistory, newMessage) => {
     { role: 'user', parts: [{ text: newMessage }] },
   ];
 
-  const result = await model.generateContent({ contents });
-  const response = result.response;
-  return response.text();
+  const errors = [];
+
+  for (const modelName of FALLBACK_MODELS) {
+    try {
+      const reply = await tryGenerate(modelName, contents);
+      return reply;
+    } catch (err) {
+      errors.push(`${modelName}: ${err.message}`);
+      if (!isRetryableError(err)) {
+        throw err;
+      }
+    }
+  }
+
+  throw new Error(`All models exhausted. Errors: ${errors.join(' | ')}`);
 };
 
 module.exports = { chatWithSakhi };

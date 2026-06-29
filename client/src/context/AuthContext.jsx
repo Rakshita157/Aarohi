@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 import { authAPI } from '../services/api';
 
 const AuthContext = createContext(null);
@@ -24,31 +24,6 @@ function getInitialUser() {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getInitialUser);
-  const [loading, setLoading] = useState(() => Boolean(getInitialUser()));
-  const verified = useRef(false);
-
-  useEffect(() => {
-    if (verified.current || !user) return;
-    verified.current = true;
-
-    let cancelled = false;
-
-    authAPI.getMe().then((res) => {
-      if (cancelled) return;
-      const updated = { ...res.data, token: user.token };
-      setUser(updated);
-      localStorage.setItem('user', JSON.stringify(updated));
-    }).catch(() => {
-      if (cancelled) return;
-      localStorage.removeItem('user');
-      setUser(null);
-    }).finally(() => {
-      if (!cancelled) setLoading(false);
-    });
-
-    return () => { cancelled = true; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const login = useCallback(async (email, password) => {
     const res = await authAPI.login({ email, password });
@@ -72,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
