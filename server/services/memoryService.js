@@ -1,27 +1,65 @@
 const UserMemory = require('../models/UserMemory');
 
 const MENSTRUAL_TOPICS = [
-  'period', 'menstrual cycle', 'cramps', 'pms', 'puberty', 'ovulation',
-  'fertility', 'hygiene', 'sanitary', 'tampon', 'pad', 'menstrual cup',
-  'cycle tracking', 'irregular periods', 'amenorrhea', 'dysmenorrhea',
-  'endometriosis', 'pcos', 'hormones', 'spotting', 'menopause',
+  'period', 'periods', 'menstrual', 'menstruation', 'menstrual cycle', 'cycle',
+  'cramps', 'cramping', 'pms', 'pmdd', 'puberty', 'ovulation',
+  'fertility', 'hygiene', 'sanitary', 'sanitary pad', 'sanitary napkin',
+  'tampon', 'tampons', 'pad', 'pads', 'menstrual cup', 'period panties',
+  'cycle tracking', 'irregular periods', 'irregular', 'amenorrhea',
+  'dysmenorrhea', 'endometriosis', 'pcos', 'pcod', 'hormones', 'hormonal',
+  'spotting', 'menopause', 'perimenopause',
   'premenstrual', 'mood swings', 'bloating', 'acne', 'breast tenderness',
-  'period pain', 'back pain', 'nausea', 'fatigue', 'headache',
-  'heavy bleeding', 'light bleeding', 'clots', 'color', 'discharge',
-  'white discharge', 'brown discharge', 'itch', 'infection', 'uti',
-  'yeast infection', 'exercise', 'diet', 'nutrition', 'sleep',
-  'stress', 'mental health', 'anxiety', 'depression', 'self care',
-  'sex education', 'consent', 'safe sex', 'contraception', 'pregnancy',
+  'period pain', 'back pain', 'nausea', 'fatigue', 'headache', 'dizziness',
+  'heavy bleeding', 'menorrhagia', 'light bleeding', 'clots', 'color',
+  'discharge', 'vaginal discharge', 'white discharge', 'brown discharge',
+  'itch', 'itching', 'infection', 'uti', 'vaginal infection',
+  'yeast infection', 'bacterial vaginosis',
+  'exercise', 'workout', 'yoga', 'walking', 'running', 'stretching',
+  'diet', 'nutrition', 'food', 'eating', 'iron', 'vitamin', 'calcium',
+  'sleep', 'insomnia', 'rest',
+  'stress', 'mental health', 'anxiety', 'depression', 'mood', 'moody', 'self care',
+  'sex education', 'consent', 'safe sex', 'contraception', 'birth control',
+  'pregnancy', 'conception', 'fertility window', 'safe period',
+  'pelvic pain', 'lower back', 'abdomen', 'stomach',
+  'weight', 'weight gain', 'weight loss', 'body changes',
+  'embarrassed', 'ashamed', 'scared', 'nervous', 'worried',
+  'teen', 'adolescent', 'first period', 'menarche',
 ];
+
+const MENSTRUAL_TOPIC_MAP = {
+  period: 'menstruation', periods: 'menstruation', menstrual: 'menstruation',
+  cramps: 'cramps', cramping: 'cramps', pms: 'pms', pmdd: 'pms',
+  puberty: 'puberty', ovulation: 'ovulation',
+  exercise: 'exercise', workout: 'exercise', yoga: 'exercise', walking: 'exercise', running: 'exercise',
+  diet: 'diet & nutrition', nutrition: 'diet & nutrition', food: 'diet & nutrition', iron: 'diet & nutrition',
+  sleep: 'sleep & rest', insomnia: 'sleep & rest', rest: 'sleep & rest',
+  stress: 'mental health', anxiety: 'mental health', depression: 'mental health',
+  mood: 'mood swings', 'mood swings': 'mood swings', bloating: 'bloating',
+  acne: 'skin changes', 'breast tenderness': 'body changes',
+  'sex education': 'sex education', consent: 'sex education', 'safe sex': 'sex education',
+  contraception: 'contraception', 'birth control': 'contraception',
+  pregnancy: 'pregnancy & fertility', conception: 'pregnancy & fertility',
+  endometriosis: 'endometriosis', pcos: 'pcos', pcod: 'pcos',
+  hygiene: 'hygiene', sanitary: 'hygiene', tampon: 'hygiene', pad: 'hygiene',
+  'menstrual cup': 'hygiene',
+  discharge: 'vaginal health', infection: 'vaginal health',
+};
 
 function extractTopics(message) {
   const lower = message.toLowerCase();
   const found = [];
 
-  for (const topic of MENSTRUAL_TOPICS) {
-    if (lower.includes(topic)) {
-      found.push(topic);
+  for (const keyword of MENSTRUAL_TOPICS) {
+    if (lower.includes(keyword)) {
+      const mapped = MENSTRUAL_TOPIC_MAP[keyword] || keyword;
+      if (!found.includes(mapped)) {
+        found.push(mapped);
+      }
     }
+  }
+
+  if (found.length === 0 && /\b(what|how|why|when|tell|explain|about)\b/.test(lower)) {
+    found.push('general question');
   }
 
   return found;
@@ -50,29 +88,108 @@ function detectConcern(message) {
   const lower = message.toLowerCase();
   const concerns = [];
 
-  if (/\b(pain|hurts|hurt|cramp|cramping|agonizing|unbearable)\b/.test(lower)) {
+  if (/\b(pain|hurts|hurt|cramp|cramping|cramps|agonizing|unbearable|ache|aching|sore)\b/.test(lower)) {
     concerns.push('pain management');
   }
-  if (/\b(irregular|missed|skipped|late|absent)\b/.test(lower) && /\b(period|cycle)\b/.test(lower)) {
+  if (/\b(irregular|missed|skipped|late|absent|unpredictable)\b/.test(lower) && /\b(period|cycle)\b/.test(lower)) {
     concerns.push('irregular cycles');
   }
-  if (/\b(heavy|flood|soaking|flooding|gush)\b/.test(lower)) {
+  if (/\b(heavy|flood|soaking|flooding|gush|gushing|clot|clots)\b/.test(lower)) {
     concerns.push('heavy bleeding');
   }
-  if (/\b(discharge|smell|odor|itch|irritation)\b/.test(lower)) {
+  if (/\b(discharge|smell|odor|itch|itching|irritation|burning)\b/.test(lower)) {
     concerns.push('vaginal health');
   }
-  if (/\b(worry|scared|nervous|anxious|embarrass|ashamed|afraid)\b/.test(lower)) {
+  if (/\b(worry|worried|scared|nervous|anxious|embarrass|embarrassed|ashamed|afraid|fear|frightened)\b/.test(lower)) {
     concerns.push('anxiety or fear');
   }
-  if (/\b(pimple|acne|breakout|skin|hair|growth)\b/.test(lower)) {
+  if (/\b(pimple|pimples|acne|breakout|skin|hair|growth|developing|changing)\b/.test(lower)) {
     concerns.push('body changes');
   }
-  if (/\b(mood|emotion|cry|irritable|angry|sad)\b/.test(lower)) {
+  if (/\b(mood|moody|emotion|emotional|cry|crying|irritable|irritated|angry|sad|upset)\b/.test(lower)) {
     concerns.push('mood changes');
+  }
+  if (/\b(tired|fatigue|exhausted|energy|low energy|dizzy|dizziness|faint|nausea|vomit)\b/.test(lower)) {
+    concerns.push('fatigue or energy');
   }
 
   return concerns;
+}
+
+let classificationModel = null;
+
+function getClassificationModel() {
+  if (!classificationModel) {
+    try {
+      const { getModel } = require('../config/gemini');
+      classificationModel = getModel('gemini-2.5-flash-lite');
+    } catch {
+      classificationModel = null;
+    }
+  }
+  return classificationModel;
+}
+
+const CLASSIFICATION_CACHE = new Map();
+
+async function classifyTopicsWithAI(message) {
+  if (CLASSIFICATION_CACHE.has(message)) {
+    return CLASSIFICATION_CACHE.get(message);
+  }
+
+  const model = getClassificationModel();
+  if (!model) return [];
+
+  try {
+    const prompt = `You are a topic classifier for a menstrual health chatbot.
+From this list, pick ALL topics that the user's message relates to:
+- menstruation
+- cramps
+- pms
+- puberty
+- ovulation
+- exercise
+- diet & nutrition
+- sleep & rest
+- mental health
+- mood swings
+- bloating
+- hygiene
+- vaginal health
+- body changes
+- sex education
+- contraception
+- pregnancy & fertility
+- endometriosis
+- pcos
+- menopause
+- general
+
+Return ONLY a JSON array of strings. Example: ["cramps", "exercise"]
+For general health questions with no specific topic, return ["general"].
+
+Message: "${message.replace(/"/g, '\\"').slice(0, 500)}"`;
+
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    });
+
+    const text = result.response.text().trim();
+    const parsed = JSON.parse(text);
+
+    if (Array.isArray(parsed)) {
+      const valid = parsed.filter((t) => typeof t === 'string' && t !== 'general');
+      CLASSIFICATION_CACHE.set(message, valid);
+      if (CLASSIFICATION_CACHE.size > 100) {
+        const firstKey = CLASSIFICATION_CACHE.keys().next().value;
+        CLASSIFICATION_CACHE.delete(firstKey);
+      }
+      return valid;
+    }
+    return [];
+  } catch {
+    return [];
+  }
 }
 
 async function getOrCreateMemory(userId) {
@@ -86,9 +203,21 @@ async function getOrCreateMemory(userId) {
 async function updateMemory(userId, message) {
   const memory = await getOrCreateMemory(userId);
 
-  const topics = extractTopics(message);
+  let topics = extractTopics(message);
+
+  if (topics.length === 0 || (topics.length === 1 && topics[0] === 'general question')) {
+    const aiTopics = await classifyTopicsWithAI(message);
+    for (const topic of aiTopics) {
+      if (!topics.includes(topic)) topics.push(topic);
+    }
+  }
+
   for (const topic of topics) {
     memory.recordTopic(topic);
+  }
+
+  if (topics.length > 0) {
+    memory.lastTopic = topics[0];
   }
 
   const ageGroup = detectAgeGroup(message);
@@ -110,6 +239,33 @@ async function updateMemory(userId, message) {
   return memory;
 }
 
+async function updateSessionContext(userId, userMessage, sakhiReply) {
+  try {
+    const memory = await getOrCreateMemory(userId);
+
+    const model = getClassificationModel();
+    if (!model || memory.totalInteractions % 3 !== 0) return;
+
+    const prompt = `Summarize this exchange in one short sentence (max 15 words):
+User: "${userMessage.replace(/"/g, '\\"').slice(0, 200)}"
+Assistant: "${sakhiReply.replace(/"/g, '\\"').slice(0, 200)}"
+
+Summary:`;
+
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    });
+
+    const summary = result.response.text().trim();
+    if (summary && summary.length < 150) {
+      memory.sessionSummary = summary;
+      await memory.save();
+    }
+  } catch {
+    // silently fail
+  }
+}
+
 async function buildMemoryContext(userId) {
   const memory = await UserMemory.findOne({ userId });
   if (!memory || memory.totalInteractions === 0) {
@@ -118,6 +274,14 @@ async function buildMemoryContext(userId) {
 
   const summary = memory.getSummary();
   const parts = [];
+
+  if (summary.lastTopic) {
+    parts.push(`- Last discussed topic: ${summary.lastTopic}`);
+  }
+
+  if (summary.sessionSummary) {
+    parts.push(`- Recent conversation context: ${summary.sessionSummary}`);
+  }
 
   if (summary.ageGroup !== 'unspecified') {
     parts.push(`- User age group: ${summary.ageGroup}`);
@@ -142,6 +306,8 @@ async function buildMemoryContext(userId) {
 module.exports = {
   updateMemory,
   buildMemoryContext,
+  updateSessionContext,
+  classifyTopicsWithAI,
   getOrCreateMemory,
   extractTopics,
   detectAgeGroup,

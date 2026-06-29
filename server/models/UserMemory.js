@@ -25,6 +25,8 @@ const userMemorySchema = new mongoose.Schema({
     language: { type: String, default: 'english' },
     detailLevel: { type: String, enum: ['basic', 'moderate', 'detailed'], default: 'moderate' },
   },
+  lastTopic: { type: String, default: '' },
+  sessionSummary: { type: String, default: '' },
   lastInteraction: { type: Date, default: Date.now },
   totalInteractions: { type: Number, default: 0 },
 }, { timestamps: true });
@@ -52,6 +54,8 @@ userMemorySchema.methods.getSummary = function () {
     recentTopics,
     concerns: this.concerns,
     detailLevel: this.preferences.detailLevel,
+    lastTopic: this.lastTopic,
+    sessionSummary: this.sessionSummary,
     totalInteractions: this.totalInteractions,
   };
 };

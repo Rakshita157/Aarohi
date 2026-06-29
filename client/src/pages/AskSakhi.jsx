@@ -81,10 +81,14 @@ const AskSakhi = () => {
         chatAPI.getConversations().then((r) => setConversations(r.data)).catch(() => {});
       }
       memoryAPI.getMemory().then((mr) => setUserMemory(mr.data)).catch(() => {});
-    } catch {
+    } catch (err) {
+      const serverMsg = err?.response?.data?.message;
+      const displayMsg = serverMsg
+        ? `Sorry, I had trouble responding: ${serverMsg}`
+        : 'Sorry, I had trouble responding. Please try again.';
       setMessages((prev) => [
         ...prev,
-        { role: 'model', content: 'Sorry, I had trouble responding. Please try again.' },
+        { role: 'model', content: displayMsg },
       ]);
     } finally {
       setSending(false);
