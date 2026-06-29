@@ -56,10 +56,14 @@ const ChatBox = () => {
       setMessages((prev) => [...prev, { role: 'model', content: res.data.reply }]);
       setConversationId(res.data.conversationId);
       memoryAPI.getMemory().then((mr) => setUserMemory(mr.data)).catch(() => {});
-    } catch {
+    } catch (err) {
+      const serverMsg = err?.response?.data?.message;
+      const displayMsg = serverMsg
+        ? `Sorry, I had trouble responding: ${serverMsg}`
+        : 'Sorry, I had trouble responding. Please try again.';
       setMessages((prev) => [
         ...prev,
-        { role: 'model', content: 'Sorry, I had trouble responding. Please try again.' },
+        { role: 'model', content: displayMsg },
       ]);
     } finally {
       setLoading(false);
