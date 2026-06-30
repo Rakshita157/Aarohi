@@ -37,7 +37,7 @@ const Footer = () => {
           <div className="footer-col">
             <h4>Company</h4>
             <Link to="/about">About Us</Link>
-            <a href="#">Community</a>
+            <Link to="/community">Community</Link>
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Use</a>
           </div>

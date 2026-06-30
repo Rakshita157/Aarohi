@@ -5,6 +5,7 @@ import Learn from './pages/Learn';
 import Lesson from './pages/Lesson';
 import AskSakhi from './pages/AskSakhi';
 import Resources from './pages/Resources';
+import Community from './pages/Community';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/learn/:moduleId" element={<Lesson />} />
           <Route path="/ask-sakhi" element={<AskSakhi />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/community" element={<Community />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Route>

@@ -150,11 +150,6 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="scroll-indicator">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M7 10l5 5 5-5" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
       </section>
 
       {/* ── Stats Section ── */}
@@ -266,9 +261,9 @@ const Home = () => {
       <section className="coming-soon-section fade-on-scroll">
         <div className="coming-soon-content">
           <div className="coming-soon-badge">Coming Soon</div>
-          <h2 className="coming-soon-title">Video Lessons Are on the Way</h2>
+          <h2 className="coming-soon-title">Video Lessons & Community Are on the Way</h2>
           <p className="coming-soon-text">
-            We're working hard to bring you engaging video lessons with animations, real-life stories, and expert explanations — making menstrual health education even more interactive and fun.
+            We're working hard to bring you engaging video lessons and a supportive community space — making menstrual health education even more interactive, social, and fun.
           </p>
           <div className="coming-soon-features">
             <div className="coming-soon-feature">
@@ -290,6 +285,15 @@ const Home = () => {
                 <circle cx="12" cy="12" r="3" />
               </svg>
               <span>Expert-led sessions</span>
+            </div>
+            <div className="coming-soon-feature">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#b794d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <span>Community space</span>
             </div>
           </div>
         </div>

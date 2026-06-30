@@ -25,7 +25,7 @@ const Navbar = () => {
           <li><Link to="/learn" className={`nav-link${isActive('/learn') ? ' active' : ''}`}>Learn</Link></li>
           <li><Link to="/ask-sakhi" className={`nav-link${isActive('/ask-sakhi') ? ' active' : ''}`}>Ask Sakhi</Link></li>
           <li><Link to="/resources" className={`nav-link${isActive('/resources') ? ' active' : ''}`}>Know the Truth</Link></li>
-          <li><Link to="/not-found" className="nav-link">Community</Link></li>
+          <li><Link to="/community" className={`nav-link${isActive('/community') ? ' active' : ''}`}>Community</Link></li>
           <li><Link to="/about" className={`nav-link${isActive('/about') ? ' active' : ''}`}>About Us</Link></li>
         </ul>
         {user ? (
