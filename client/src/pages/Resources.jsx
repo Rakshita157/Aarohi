@@ -1,7 +1,20 @@
 import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { mythsData } from './data/resources';
 import '../styles/Resources.css';
+import '../styles/Lesson.css';
 import mythVsFactsImg from '../assets/myth vs facts.png';
+
+const STORAGE_KEY = 'aarohi_progress';
+const MYTH_MODULE_ID = 7;
+
+const getCompleted = () => {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+  } catch {
+    return new Set();
+  }
+};
 
 const ITEMS_PER_LOAD = 6;
 
@@ -106,6 +119,19 @@ const Resources = () => {
   const [cardStates, setCardStates] = useState({});
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [completed, setCompleted] = useState(() => getCompleted());
+  const isComplete = completed.has(MYTH_MODULE_ID);
+
+  const toggleComplete = () => {
+    const next = new Set(getCompleted());
+    if (next.has(MYTH_MODULE_ID)) {
+      next.delete(MYTH_MODULE_ID);
+    } else {
+      next.add(MYTH_MODULE_ID);
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...next]));
+    setCompleted(next);
+  };
 
   const filteredMyths = useMemo(() =>
     activeCategory === 'all'
@@ -328,6 +354,22 @@ const Resources = () => {
               <span className="info-subtitle">Safe Space</span>
             </div>
           </div>
+        </div>
+
+        <div className="lesson-footer">
+          <div className="lesson-complete-wrap">
+            <button
+              className={`lesson-complete-btn${isComplete ? ' lesson-complete-done' : ''}`}
+              onClick={toggleComplete}
+            >
+              <svg viewBox="0 0 20 20" fill="none" className="complete-check-icon">
+                <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="2" />
+                <path d="M6 10l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {isComplete ? 'Completed' : 'Mark as Complete'}
+            </button>
+          </div>
+          <Link to="/learn" className="lesson-footer-back">All Modules</Link>
         </div>
       </div>
     </div>

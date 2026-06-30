@@ -62,12 +62,15 @@ const Lesson = () => {
   const { moduleId } = useParams();
   const mod = modules.find((m) => m.id === Number(moduleId));
   const content = lessonContent[Number(moduleId)];
-  const [quizAnswers, setQuizAnswers] = useState({});
+  const [currentQ, setCurrentQ] = useState(0);
+  const [answeredQ, setAnsweredQ] = useState({});
   const [completed, setCompleted] = useState(() => getCompleted());
   const isComplete = completed.has(Number(moduleId));
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setCurrentQ(0);
+    setAnsweredQ({});
   }, [moduleId]);
 
   const toggleComplete = () => {
@@ -81,11 +84,9 @@ const Lesson = () => {
     setCompleted(next);
   };
 
+  const quizSections = content?.sections?.filter(s => s.type === 'quiz') || [];
+  const firstQuizIdx = content?.sections?.findIndex(s => s.type === 'quiz') ?? -1;
   const totalSections = content?.sections?.length || 0;
-
-  const handleQuizAnswer = (sectionIndex, optionIndex) => {
-    setQuizAnswers((prev) => ({ ...prev, [sectionIndex]: optionIndex }));
-  };
 
   if (!mod || !content) {
     return (
@@ -100,13 +101,16 @@ const Lesson = () => {
 
   const renderSection = (section, index) => {
     switch (section.type) {
-      case 'heading':
+      case 'heading': {
+        const headingNum = content.sections.slice(0, index).filter(s => s.type === 'heading').length + 1;
+        const displayNum = headingNum < 10 ? `0${headingNum}` : headingNum;
         return (
           <div key={index} className="lesson-section lesson-section-heading">
-            <span className="section-number">0{index + 1}</span>
+            <span className="section-number">{displayNum}</span>
             <h2>{section.content}</h2>
           </div>
         );
+      }
 
       case 'body':
         return (
@@ -140,41 +144,71 @@ const Lesson = () => {
         );
 
       case 'quiz':
-        const selected = quizAnswers[index];
-        const isCorrect = selected === section.correct;
-        const showResult = selected !== undefined;
+        if (index !== firstQuizIdx) return null;
+        const qSection = quizSections[currentQ];
+        if (!qSection) return null;
+        const qSelected = answeredQ[currentQ];
+        const qCorrect = qSelected === qSection.correct;
+        const qShowResult = qSelected !== undefined;
         return (
-          <div key={index} className="lesson-section lesson-quiz">
+          <div key="quiz-group" className="lesson-section lesson-quiz">
             <div className="quiz-header">
               <QuizCheck />
-              <span>Quick Check</span>
+              <div className="quiz-header-text">
+                <span>Quick Check</span>
+                <span className="quiz-counter">Question {currentQ + 1} of {quizSections.length}</span>
+              </div>
             </div>
-            <p className="quiz-question">{section.question}</p>
+            <p className="quiz-question">{qSection.question}</p>
             <div className="quiz-options">
-              {section.options.map((opt, i) => {
+              {qSection.options.map((opt, i) => {
                 let className = 'quiz-option';
-                if (showResult && i === section.correct) className += ' quiz-option-correct';
-                if (showResult && i === selected && !isCorrect) className += ' quiz-option-wrong';
+                if (qShowResult && i === qSection.correct) className += ' quiz-option-correct';
+                if (qShowResult && i === qSelected && !qCorrect) className += ' quiz-option-wrong';
                 return (
                   <button
                     key={i}
                     className={className}
-                    onClick={() => handleQuizAnswer(index, i)}
-                    disabled={showResult}
+                    onClick={() => setAnsweredQ(prev => ({ ...prev, [currentQ]: i }))}
                   >
                     <span className="quiz-option-letter">{String.fromCharCode(65 + i)}</span>
                     {opt}
-                    {showResult && i === section.correct && <QuizCheck />}
+                    {qShowResult && i === qSection.correct && <QuizCheck />}
                   </button>
                 );
               })}
             </div>
-            {showResult && (
-              <div className={`quiz-feedback ${isCorrect ? 'quiz-feedback-correct' : 'quiz-feedback-wrong'}`}>
-                {isCorrect ? 'Correct!' : 'Not quite — '}
-                {section.explanation}
+            {qShowResult && (
+              <div className={`quiz-feedback ${qCorrect ? 'quiz-feedback-correct' : 'quiz-feedback-wrong'}`}>
+                {qCorrect ? 'Correct! ' : 'Not quite — '}
+                {qSection.explanation}
               </div>
             )}
+            <div className="quiz-nav">
+              <button
+                className="quiz-nav-btn quiz-prev-btn"
+                onClick={() => setCurrentQ(prev => prev - 1)}
+                disabled={currentQ === 0}
+              >
+                Previous
+              </button>
+              <button
+                className="quiz-nav-btn quiz-skip-btn"
+                onClick={() => setCurrentQ(prev => Math.min(quizSections.length - 1, prev + 1))}
+                disabled={currentQ === quizSections.length - 1}
+              >
+                Skip
+              </button>
+              {qShowResult && (
+                <button
+                  className="quiz-nav-btn quiz-next-btn"
+                  onClick={() => setCurrentQ(prev => Math.min(quizSections.length - 1, prev + 1))}
+                  disabled={currentQ === quizSections.length - 1}
+                >
+                  {currentQ === quizSections.length - 1 ? 'Finished' : 'Next'}
+                </button>
+              )}
+            </div>
           </div>
         );
 
@@ -216,7 +250,7 @@ const Lesson = () => {
     <div className="lesson-page">
       {/* Progress Bar */}
       <div className="lesson-progress-bar">
-        <div className="lesson-progress-fill" style={{ width: `${(Object.keys(quizAnswers).length / totalSections) * 100}%` }} />
+        <div className="lesson-progress-fill" style={{ width: `${quizSections.length > 0 ? (Object.keys(answeredQ).length / quizSections.length) * 100 : 0}%` }} />
       </div>
 
       {/* Header */}
@@ -230,6 +264,7 @@ const Lesson = () => {
         <div className="lesson-header-meta">
           <span className="lesson-category-badge" data-category={mod.category}>{mod.category}</span>
           {mod.beginner && <span className="beginner-badge-lesson">Beginner</span>}
+          {!mod.beginner && <span className="intermediate-badge-lesson">Intermediate</span>}
           <span className="lesson-reading-time">{mod.readingTime}</span>
         </div>
         <h1 className="lesson-page-title">{mod.title}</h1>

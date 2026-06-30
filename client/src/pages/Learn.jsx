@@ -221,7 +221,7 @@ const Learn = () => {
                     </div>
                     <h3 className="module-card-title">{mod.title}</h3>
                     <p className="module-card-desc">{mod.description}</p>
-                    <Link to={`/learn/${mod.id}`} className="module-card-cta">
+                    <Link to={mod.id === 7 ? '/resources' : `/learn/${mod.id}`} className="module-card-cta">
                       Explore
                       <ArrowRight className="cta-arrow" />
                     </Link>
