@@ -229,12 +229,13 @@ const Lesson = () => {
 
       case 'next':
         const nextMod = modules.find((m) => m.id === section.moduleId);
+        const nextLink = section.moduleId === 7 ? '/resources' : `/learn/${section.moduleId}`;
         return (
           <div key={index} className="lesson-section lesson-next">
             <div className="next-label">Up Next</div>
             <h3 className="next-title">{section.title}</h3>
             <p className="next-desc">{section.description}</p>
-            <Link to={`/learn/${section.moduleId}`} className="next-cta">
+            <Link to={nextLink} className="next-cta">
               Start Module
               <ArrowRight className="next-arrow" />
             </Link>
