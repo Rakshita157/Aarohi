@@ -90,11 +90,6 @@ export const lessonContent = {
           'Your period usually lasts between 3 and 7 days. The flow may be heavier on the first couple of days and lighter toward the end. The colour can range from bright red to dark brown — all of these are normal.',
       },
       {
-        type: 'image',
-        content: 'cycle-diagram',
-        caption: 'The four phases of your menstrual cycle',
-      },
-      {
         type: 'heading',
         content: 'When Will It Start?',
       },
@@ -270,6 +265,11 @@ export const lessonContent = {
         type: 'body',
         content:
           'Many people think a menstrual cycle is just a period, but your period is actually only one part of a much bigger process. Throughout the month, your body follows a natural rhythm guided by hormones. These hormones help your body prepare for a possible pregnancy, even if you\'re not planning to have a baby.',
+      },
+      {
+        type: 'pullquote',
+        content: 'Your period is only one part of a much bigger process happening in your body every month.',
+        attribution: '— Know Your Cycle',
       },
       {
         type: 'highlight',
@@ -632,6 +632,10 @@ export const lessonContent = {
         type: 'body',
         content:
           "When you're on your period, your body is shedding the lining of the uterus. During this time, it's important to maintain good hygiene and use menstrual products correctly.",
+      },
+      {
+        type: 'pullquote',
+        content: 'Period blood is not dirty. Menstruation is a healthy and natural body process.',
       },
       {
         type: 'checklist',
@@ -1112,6 +1116,10 @@ export const lessonContent = {
         icon: 'heart',
         content:
           "Having different emotions doesn't mean something is wrong. Emotions are a natural part of being human.",
+      },
+      {
+        type: 'pullquote',
+        content: 'All feelings are valid, but not all feelings need immediate action.',
       },
       {
         type: 'heading',
