@@ -252,7 +252,7 @@ const Home = () => {
               </svg>
             </div>
             <h3>Explore</h3>
-            <p>Bust myths, track what you learn, and build confidence with real science — not gossip or guesswork.</p>
+            <p>Bust myths, track what you learn, and build confidence with real science, not gossip or guesswork.</p>
           </div>
         </div>
       </section>
@@ -263,7 +263,7 @@ const Home = () => {
           <div className="coming-soon-badge">Coming Soon</div>
           <h2 className="coming-soon-title">Video Lessons & Community Are on the Way</h2>
           <p className="coming-soon-text">
-            We're working hard to bring you engaging video lessons and a supportive community space — making menstrual health education even more interactive, social, and fun.
+            We're working hard to bring you engaging video lessons and a supportive community space, making menstrual health education even more interactive, social, and fun.
           </p>
           <div className="coming-soon-features">
             <div className="coming-soon-feature">

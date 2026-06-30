@@ -186,7 +186,7 @@ const Learn = () => {
                   </svg>
                   <div>
                     <div className="continue-all-done-text">All modules completed!</div>
-                    <div className="continue-all-done-sub">Great job — you've mastered everything.</div>
+                    <div className="continue-all-done-sub">Great job, you've mastered everything.</div>
                   </div>
                 </div>
               ) : (

@@ -24,7 +24,7 @@ const About = () => {
               About Aarohi
             </h1>
             <p className="about-hero-description">
-              We make learning about your body easy, safe, and even fun. No awkwardness, no judgment — just real answers and a friendly AI guide (hi, that's Sakhi!) to help you every step of the way.
+              We make learning about your body easy, safe, and even fun. No awkwardness, no judgment, just real answers and a friendly AI guide (hi, that's Sakhi!) to help you every step of the way.
             </p>
             <div className="about-hero-buttons">
               <Link to="/learn" className="btn btn-primary">
@@ -196,7 +196,7 @@ const About = () => {
                 </svg>
               </div>
               <h4>Privacy</h4>
-              <p>Your data stays yours — always safe and secure</p>
+              <p>Your data stays yours, always safe and secure</p>
             </div>
             <div className="value-card">
               <div className="value-card-icon" style={{ background: '#e8917a1a', color: '#e8917a' }}>
