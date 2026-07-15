@@ -52,13 +52,13 @@ Myths vs Facts
 
 ### Home
 
-![Home](docs/screenshots/home.png)
+![Home](docs/screenshots/Home.png)
 
 ---
 
 ### Learning Modules
 
-![Learn](docs/screenshots/learn.png)
+![Learning Modules](docs/screenshots/Learn%20Modules.png)
 
 ---
 
@@ -70,37 +70,37 @@ Myths vs Facts
 
 ### Interactive Quiz
 
-![Quiz](docs/screenshots/quiz.png)
+![Interactive Quiz](docs/screenshots/lesson-quiz.png)
 
 ---
 
-### Module Completion
+### Lesson Completion
 
-![Completion](docs/screenshots/completion.png)
-
----
-
-### Ask Sakhi
-
-![Ask Sakhi](docs/screenshots/ask-sakhi.png)
+![Lesson Completion](docs/screenshots/lesson-complete.png)
 
 ---
 
-### AI Conversation
+### Meet Sakhi
 
-![Conversation](docs/screenshots/chat.png)
+![Meet Sakhi](docs/screenshots/Meet%20Sakhi.png)
 
 ---
 
-### Myths vs Facts
+### Sakhi Conversation
 
-![Myths Hero](docs/screenshots/myths-home.png)
+![Sakhi Conversation](docs/screenshots/Sakhi%20Conversation.png)
+
+---
+
+### Facts vs Myths
+
+![Facts vs Myths](docs/screenshots/myths-home.png)
 
 ---
 
 ### Myth Cards
 
-![Myth Cards](docs/screenshots/myths.png)
+![Myth Cards](docs/screenshots/myths-cards.png)
 
 ---
 
