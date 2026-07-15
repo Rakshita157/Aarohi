@@ -335,7 +335,7 @@ const Lesson = () => {
               </div>
               {qShowResult && (
                 <div className={`quiz-feedback ${qCorrect ? 'quiz-feedback-correct' : 'quiz-feedback-wrong'}`}>
-                  {qCorrect ? 'Correct! ' : 'Not quite — '}
+                  {qCorrect ? 'Correct! ' : 'Not quite. '}
                   {qSection.explanation}
                 </div>
               )}

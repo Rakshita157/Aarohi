@@ -11,7 +11,7 @@ export const modules = [
   {
     id: 1,
     title: 'Your First Period',
-    description: 'Everything you need to know about your first period — what to expect and how to prepare with confidence.',
+    description: 'Everything you need to know about your first period, what to expect and how to prepare with confidence.',
     category: 'Basics',
     readingTime: '5 min read',
     beginner: true,
@@ -19,7 +19,7 @@ export const modules = [
   {
     id: 2,
     title: 'Know Your Cycle',
-    description: 'Learn how your cycle affects your energy, mood, sleep, and emotions — and discover what your body is communicating each month.',
+    description: 'Learn how your cycle affects your energy, mood, sleep, and emotions, and discover what your body is communicating each month.',
     category: 'Basics',
     readingTime: '7 min read',
     beginner: true,
@@ -76,18 +76,18 @@ export const lessonContent = {
       {
         type: 'body',
         content:
-          'A period (menstruation) is the monthly shedding of the uterine lining. Each month, your body prepares for a possible pregnancy by building up a soft, nutrient-rich lining in your uterus. When pregnancy doesn\'t happen, your body sheds this lining through your vagina. This is your period — and it\'s a completely normal, healthy sign that your body is maturing.',
+          'A period (menstruation) is the monthly shedding of the uterine lining. Each month, your body prepares for a possible pregnancy by building up a soft, nutrient-rich lining in your uterus. When pregnancy doesn\'t happen, your body sheds this lining through your vagina. This is your period, and it\'s a completely normal, healthy sign that your body is maturing.',
       },
       {
         type: 'highlight',
         icon: 'sparkles',
         content:
-          'The average menstrual cycle is 28 days, but anywhere from 21 to 35 days is perfectly normal — especially in the first few years.',
+          'The average menstrual cycle is 28 days, but anywhere from 21 to 35 days is perfectly normal, especially in the first few years.',
       },
       {
         type: 'body',
         content:
-          'Your period usually lasts between 3 and 7 days. The flow may be heavier on the first couple of days and lighter toward the end. The colour can range from bright red to dark brown — all of these are normal.',
+          'Your period usually lasts between 3 and 7 days. The flow may be heavier on the first couple of days and lighter toward the end. The colour can range from bright red to dark brown, all of these are normal.',
       },
       {
         type: 'heading',
@@ -101,22 +101,22 @@ export const lessonContent = {
       {
         type: 'checklist',
         items: [
-          'Breast buds — small, tender lumps under your nipples',
-          'Vaginal discharge — clear or white fluid, often starting 6–12 months before your first period',
-          'Growth spurt — a rapid increase in height',
-          'Body hair — under your arms and in your private area',
+          'Breast buds - small, tender lumps under your nipples',
+          'Vaginal discharge - clear or white fluid, often starting 6-12 months before your first period',
+          'Growth spurt - a rapid increase in height',
+          'Body hair - under your arms and in your private area',
         ],
       },
       {
         type: 'body',
         content:
-          'If your first period hasn\'t arrived by age 16, it\'s a good idea to talk to a trusted adult or a doctor — but there\'s usually nothing to worry about.',
+          'If your first period hasn\'t arrived by age 16, it\'s a good idea to talk to a trusted adult or a doctor, but there\'s usually nothing to worry about.',
       },
       {
         type: 'highlight',
         icon: 'heart',
         content:
-          'Every body is different. Your friend may have started her period at 11, and you may start at 14. Both are completely normal. Don\'t compare — your timeline is the right timeline for you.',
+          'Every body is different. Your friend may have started her period at 11, and you may start at 14. Both are completely normal. Don\'t compare, your timeline is the right timeline for you.',
       },
       {
         type: 'heading',
@@ -125,7 +125,7 @@ export const lessonContent = {
       {
         type: 'body',
         content:
-          'Your first few periods may be irregular — this is common. Here\'s what you might experience:',
+          'Your first few periods may be irregular, this is common. Here\'s what you might experience:',
       },
       {
         type: 'checklist',
@@ -133,7 +133,7 @@ export const lessonContent = {
           'Bleeding that ranges from bright red to dark brown',
           'Mild to moderate cramps in your lower belly',
           'Bloating or feeling a bit puffy',
-          'Mood swings — feeling emotional, irritable, or tearful',
+          'Mood swings, feeling emotional, irritable, or tearful',
           'Fatigue or low energy',
           'Breast tenderness',
           'Headaches or backaches',
@@ -142,7 +142,7 @@ export const lessonContent = {
       {
         type: 'body',
         content:
-          'These symptoms are caused by hormones — chemical messengers in your body that help regulate your cycle. They usually improve after the first couple of days. If cramps are severe enough to interfere with school or daily activities, talk to a trusted adult or healthcare provider.',
+          'These symptoms are caused by hormones, chemical messengers in your body that help regulate your cycle. They usually improve after the first couple of days. If cramps are severe enough to interfere with school or daily activities, talk to a trusted adult or healthcare provider.',
       },
       {
         type: 'quiz',
@@ -212,24 +212,24 @@ export const lessonContent = {
         type: 'checklist',
         icon: 'bag',
         items: [
-          'Pads or pantyliners — start with thin, everyday pads',
+          'Pads or pantyliners, start with thin, everyday pads',
           'A spare pair of underwear',
           'Wet wipes or tissue',
           'A small pouch or makeup bag to keep everything private',
-          'Pain relief — if cramps bother you, ask a parent about safe options',
+          'Pain relief, if cramps bother you, ask a parent about safe options',
           'A period tracker app or calendar to note your start date',
         ],
       },
       {
         type: 'body',
         content:
-          'When your period starts, place a fresh pad in your underwear, change it every 4–6 hours (or more often if the flow is heavy), and wash your hands afterward. It\'s that simple.',
+          'When your period starts, place a fresh pad in your underwear, change it every 4-6 hours (or more often if the flow is heavy), and wash your hands afterward. It\'s that simple.',
       },
       {
         type: 'highlight',
         icon: 'tip',
         content:
-          'Tip: Keep a pad or two in your school locker or a small pouch in your bag. You\'ll feel more confident knowing you\'re prepared — and you might even help a friend who needs one!',
+          'Tip: Keep a pad or two in your school locker or a small pouch in your bag. You\'ll feel more confident knowing you\'re prepared, and you might even help a friend who needs one!',
       },
       {
         type: 'heading',
@@ -241,9 +241,9 @@ export const lessonContent = {
           'Your period is a normal, healthy sign that your body is developing.',
           'First periods usually arrive between ages 10–15.',
           'A typical period lasts 3–7 days and the flow varies.',
-          'Cramps, mood swings, and fatigue are common — and usually manageable.',
+          'Cramps, mood swings, and fatigue are common and usually manageable.',
           'Being prepared with a period kit helps you feel confident.',
-          'If you\'re worried about anything, talk to a trusted adult — you\'re not alone.',
+          'If you\'re worried about anything, talk to a trusted adult, you\'re not alone.',
         ],
       },
       {
@@ -251,7 +251,7 @@ export const lessonContent = {
         moduleId: 2,
         title: 'Know Your Cycle',
         description:
-          'Learn how your cycle affects your energy, mood, sleep, and emotions — and discover what your body is communicating each month.',
+          'Learn how your cycle affects your energy, mood, sleep, and emotions and discover what your body is communicating each month.',
       },
     ],
   },
@@ -269,7 +269,7 @@ export const lessonContent = {
       {
         type: 'pullquote',
         content: 'Your period is only one part of a much bigger process happening in your body every month.',
-        attribution: '— Know Your Cycle',
+        attribution: ' Know Your Cycle',
       },
       {
         type: 'highlight',
@@ -295,7 +295,7 @@ export const lessonContent = {
       {
         type: 'body',
         content:
-          'Have you ever noticed that some days you feel energetic and motivated, while other days you feel tired, emotional, or easily annoyed? Hormones are often the reason. During different parts of your cycle, your body produces varying amounts of hormones such as estrogen and progesterone. These hormones don\'t just affect your reproductive system — they can influence your brain and body too.',
+          'Have you ever noticed that some days you feel energetic and motivated, while other days you feel tired, emotional, or easily annoyed? Hormones are often the reason. During different parts of your cycle, your body produces varying amounts of hormones such as estrogen and progesterone. These hormones don\'t just affect your reproductive system, they can influence your brain and body too.',
       },
       {
         type: 'body',
@@ -408,7 +408,7 @@ export const lessonContent = {
         ],
         correct: 1,
         explanation:
-          'A normal cycle can range from 21 to 35 days. There is no single "perfect" cycle length — every person is different.',
+          'A normal cycle can range from 21 to 35 days. There is no single "perfect" cycle length, every person is different.',
       },
       {
         type: 'quiz',
@@ -430,7 +430,7 @@ export const lessonContent = {
       {
         type: 'takeaways',
         items: [
-          'Your menstrual cycle is more than just your period — it\'s a month-long process.',
+          'Your menstrual cycle is more than just your period, it\'s a month-long process.',
           'Hormones can influence your mood, energy, sleep, appetite, and physical symptoms.',
           'Every person\'s cycle is different, and there is no "perfect" cycle length.',
           'Irregular cycles are common during the first few years after your first period.',
@@ -523,7 +523,7 @@ export const lessonContent = {
         ],
         correct: 1,
         explanation:
-          'Healthy habits are simple things you do consistently. You don\'t need to change everything at once — even small daily choices can make a difference over time.',
+          'Healthy habits are simple things you do consistently. You don\'t need to change everything at once, even small daily choices can make a difference over time.',
       },
       {
         type: 'quiz',
@@ -585,7 +585,7 @@ export const lessonContent = {
         type: 'highlight',
         icon: 'heart',
         content:
-          'Many people find that light exercise, hydration, and rest can help them feel more comfortable during their period. Listen to your body — it\'s okay to slow down when you need to.',
+          'Many people find that light exercise, hydration, and rest can help them feel more comfortable during their period. Listen to your body, it\'s okay to slow down when you need to.',
       },
       {
         type: 'heading',
@@ -597,7 +597,7 @@ export const lessonContent = {
           'Healthy habits are small daily actions that support your physical and mental wellbeing.',
           'Eating balanced meals, staying hydrated, sleeping well, and being active help your body grow and stay strong.',
           'Mental health is an important part of overall health.',
-          'Healthy habits don\'t need to be perfect — consistency matters more.',
+          'Healthy habits don\'t need to be perfect, consistency matters more.',
           'Taking care of yourself during your period can help you feel more comfortable.',
           'Building healthy habits now can support your wellbeing for years to come.',
         ],
@@ -606,7 +606,7 @@ export const lessonContent = {
         type: 'highlight',
         icon: 'tip',
         content:
-          'Healthy Habit Challenge: This week, try choosing one habit to focus on — drink an extra glass of water each day, go to bed 30 minutes earlier, take a short walk or stretch break, eat a fruit or vegetable with a meal, or spend 10 minutes doing something you enjoy. Small steps lead to lasting habits!',
+          'Healthy Habit Challenge: This week, try choosing one habit to focus on, drink an extra glass of water each day, go to bed 30 minutes earlier, take a short walk or stretch break, eat a fruit or vegetable with a meal, or spend 10 minutes doing something you enjoy. Small steps lead to lasting habits!',
       },
       {
         type: 'next',
@@ -775,7 +775,7 @@ export const lessonContent = {
         ],
         correct: 2,
         explanation:
-          "Douching is not recommended — it is not necessary and can disrupt the vagina's natural balance. Your vagina is self-cleaning and does not need special cleansing products.",
+          "Douching is not recommended, it is not necessary and can disrupt the vagina's natural balance. Your vagina is self-cleaning and does not need special cleansing products.",
       },
       {
         type: 'heading',
@@ -847,7 +847,7 @@ export const lessonContent = {
         items: [
           'Good period care helps you stay comfortable, healthy, and confident.',
           'Period blood is a normal and healthy part of the menstrual cycle.',
-          'Different menstrual products work for different people — choose what feels right for you.',
+          'Different menstrual products work for different people, choose what feels right for you.',
           'Change menstrual products regularly and wash your hands before and after changing them.',
           'Drinking water, resting, and staying active can help you feel better during your period.',
           "If something doesn't feel right or you're worried about your symptoms, talk to a trusted adult or healthcare professional.",
@@ -1067,7 +1067,7 @@ export const lessonContent = {
           'Eating regularly can help you stay focused and energized.',
           'Your nutritional needs may change during growth spurts and different parts of your cycle.',
           'Iron-rich foods are especially important during menstruation.',
-          "Nourishing yourself isn't about being perfect — it's about caring for your body consistently.",
+          "Nourishing yourself isn't about being perfect, it's about caring for your body consistently.",
         ],
       },
       {
