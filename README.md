@@ -2,29 +2,49 @@
 
 > Empowering Every Cycle Through Education
 
-Aarohi is an AI-powered menstrual health education platform designed to make reliable, beginner-friendly, and stigma-free learning accessible to adolescents. The platform combines structured educational modules, interactive learning experiences, and an AI companion named **Sakhi** to create a safe environment where users can learn and ask questions confidently.
+Aarohi is an AI-powered menstrual health education platform that provides adolescents with reliable, beginner-friendly, and stigma-free learning. It combines structured educational modules, interactive quizzes, myth-busting resources, and an AI assistant named **Sakhi** to create a safe space where users can learn and ask questions confidently.
 
 ---
 
 ## Overview
 
-Menstrual health education is still surrounded by misinformation, social stigma, and limited access to reliable resources. Many adolescents rely on myths or fragmented information found online and often hesitate to ask questions openly.
+Menstrual health education is still surrounded by misinformation, myths, and social stigma. Many adolescents hesitate to ask questions openly and often rely on unreliable online information.
 
-Aarohi addresses this challenge by providing structured lessons, trusted educational content, interactive quizzes, myth-busting resources, and a conversational AI assistant—all in one place.
+Aarohi addresses this challenge by providing structured lessons, trusted educational content, interactive assessments, an AI-powered assistant, and a myth-busting platform—all in one place.
 
 ---
 
 ## Features
 
 - Structured learning modules
-- AI-powered assistant (Sakhi)
-- Interactive quizzes
-- Myths & Facts
+- Interactive quizzes after every lesson
+- AI-powered menstrual health assistant (Sakhi)
+- Myths vs Facts learning experience
 - Learning progress tracking
 - Medical glossary support
 - Conversation history
 - Secure authentication
-- Responsive design
+- Responsive user interface
+
+---
+
+## Learning Journey
+
+```text
+Home
+   ↓
+Learn Modules
+   ↓
+Interactive Lessons
+   ↓
+Quiz Assessment
+   ↓
+Progress Tracking
+   ↓
+Ask Sakhi (AI Assistant)
+   ↓
+Myths vs Facts
+```
 
 ---
 
@@ -34,29 +54,61 @@ Aarohi addresses this challenge by providing structured lessons, trusted educati
 
 ![Home](docs/screenshots/home.png)
 
-### Learn
+---
+
+### Learning Modules
 
 ![Learn](docs/screenshots/learn.png)
+
+---
 
 ### Lesson
 
 ![Lesson](docs/screenshots/lesson.png)
 
+---
+
+### Interactive Quiz
+
+![Quiz](docs/screenshots/quiz.png)
+
+---
+
+### Module Completion
+
+![Completion](docs/screenshots/completion.png)
+
+---
+
 ### Ask Sakhi
 
 ![Ask Sakhi](docs/screenshots/ask-sakhi.png)
 
-### Myths & Facts
+---
 
-![Resources](docs/screenshots/resources.png)
+### AI Conversation
+
+![Conversation](docs/screenshots/chat.png)
+
+---
+
+### Myths vs Facts
+
+![Myths Hero](docs/screenshots/myths-home.png)
+
+---
+
+### Myth Cards
+
+![Myth Cards](docs/screenshots/myths.png)
 
 ---
 
 ## Tech Stack
 
 | Layer | Technology |
-|--------|------------|
-| Frontend | React, Vite, TypeScript, Tailwind CSS |
+|-------|------------|
+| Frontend | React, Vite, JavaScript, CSS |
 | Backend | Node.js, Express.js |
 | Database | MongoDB, Mongoose |
 | AI | Google Gemini API |
@@ -69,11 +121,27 @@ Aarohi addresses this challenge by providing structured lessons, trusted educati
 
 The project follows a client-server architecture.
 
-- **Frontend** – React application built with Vite
-- **Backend** – Express REST API
-- **Database** – MongoDB using Mongoose
-- **AI Layer** – Google Gemini powering Sakhi
-- **Authentication** – JWT-based user authentication
+### Frontend
+
+- React
+- Vite
+- React Router
+- Axios
+
+### Backend
+
+- Express REST API
+- JWT Authentication
+- Gemini AI Integration
+
+### Database
+
+- MongoDB
+- Mongoose ODM
+
+### AI Layer
+
+Sakhi uses Google Gemini to answer menstrual health questions in a safe, beginner-friendly, and supportive manner.
 
 ---
 
@@ -100,40 +168,46 @@ server/
 
 ---
 
-## Getting Started
+# Getting Started
 
-### Prerequisites
+## Prerequisites
 
-- Node.js
+- Node.js (18+)
 - MongoDB
 - Google Gemini API Key
 
-### Clone the Repository
+---
+
+## Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone <YOUR_REPOSITORY_URL>
 cd Aarohi
 ```
 
-### Install Dependencies
+---
 
-Backend
+## Install Dependencies
+
+### Backend
 
 ```bash
 cd server
 npm install
 ```
 
-Frontend
+### Frontend
 
 ```bash
 cd client
 npm install
 ```
 
-### Environment Variables
+---
 
-Create a `.env` file inside the `server` directory.
+## Environment Variables
+
+Create a `.env` file inside the **server** directory.
 
 ```env
 PORT=5000
@@ -145,16 +219,18 @@ JWT_SECRET=your_jwt_secret
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-### Run the Application
+---
 
-Backend
+## Run the Application
+
+### Backend
 
 ```bash
 cd server
 npm run dev
 ```
 
-Frontend
+### Frontend
 
 ```bash
 cd client
@@ -163,36 +239,36 @@ npm run dev
 
 ---
 
-## AI Assistant
+## AI Assistant (Sakhi)
 
-**Sakhi** is an AI-powered menstrual health companion built using Google Gemini.
+Sakhi is an AI-powered menstrual health companion built using Google Gemini.
 
 It helps users by providing:
 
 - Science-backed guidance
 - Beginner-friendly explanations
-- Context-aware conversations
-- A safe and private learning experience
+- Private conversations
+- Context-aware responses
+- Safe and judgment-free support
 
 ---
 
 ## Future Improvements
 
-- AI-powered video lessons
-- Menstrual cycle tracking
-- Multilingual support
-- Community discussions
 - Personalized learning recommendations
+- Menstrual cycle tracking
+- Video learning modules
+- Multilingual support
+- Offline learning mode
 - Expert-reviewed educational resources
 
 ---
 
 ## Contributors
 
-| Name | Role |
-|------|------|
-| Rakshita Dadhich | Full Stack Developer |
-| Team Members | Design, Development & Research |
+- Rakshita Dadhich
+- Ritu Saini
+- Ridhima Bhardwaj
 
 ---
 
