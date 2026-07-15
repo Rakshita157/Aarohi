@@ -280,12 +280,11 @@ It helps users by providing:
 ## Future Improvements
 
 - Personalized learning recommendations
+- Multilingual educational content
+- Offline lesson access
 - Menstrual cycle tracking
-- Video learning modules
-- Multilingual support
-- Offline learning mode
-- Expert-reviewed educational resources
-
+- Progress analytics dashboard
+- Expert-reviewed content library
 ---
 
 ## Contributors
@@ -298,7 +297,9 @@ It helps users by providing:
 
 ## License
 
-This project was developed for educational and hackathon purposes.
+This project was developed as part of a hackathon and is intended for educational and demonstration purposes.
+
+© 2026 Team Aarohi. All rights reserved.
 
 ---
 
