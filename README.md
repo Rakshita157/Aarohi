@@ -50,58 +50,82 @@ Myths vs Facts
 
 ## Screenshots
 
+<table>
+<tr>
+<td width="50%">
+
 ### Home
+<img src="docs/screenshots/Home.png" width="100%">
 
-![Home](docs/screenshots/Home.png)
+</td>
 
----
+<td width="50%">
 
 ### Learning Modules
+<img src="docs/screenshots/Learn%20Modules.png" width="100%">
 
-![Learning Modules](docs/screenshots/Learn%20Modules.png)
+</td>
+</tr>
 
----
+<tr>
+<td width="50%">
 
 ### Lesson
+<img src="docs/screenshots/lesson.png" width="100%">
 
-![Lesson](docs/screenshots/lesson.png)
+</td>
 
----
+<td width="50%">
 
 ### Interactive Quiz
+<img src="docs/screenshots/lesson-quiz.png" width="100%">
 
-![Interactive Quiz](docs/screenshots/lesson-quiz.png)
+</td>
+</tr>
 
----
+<tr>
+<td width="50%">
 
 ### Lesson Completion
+<img src="docs/screenshots/lesson-complete.png" width="100%">
 
-![Lesson Completion](docs/screenshots/lesson-complete.png)
+</td>
 
----
+<td width="50%">
 
 ### Meet Sakhi
+<img src="docs/screenshots/Meet%20Sakhi.png" width="100%">
 
-![Meet Sakhi](docs/screenshots/Meet%20Sakhi.png)
+</td>
+</tr>
 
----
+<tr>
+<td width="50%">
 
 ### Sakhi Conversation
+<img src="docs/screenshots/Sakhi%20Conversation.png" width="100%">
 
-![Sakhi Conversation](docs/screenshots/Sakhi%20Conversation.png)
+</td>
 
----
+<td width="50%">
 
 ### Facts vs Myths
+<img src="docs/screenshots/myths-home.png" width="100%">
 
-![Facts vs Myths](docs/screenshots/myths-home.png)
+</td>
+</tr>
 
----
+<tr>
+<td width="50%">
 
 ### Myth Cards
+<img src="docs/screenshots/myths-cards.png" width="100%">
 
-![Myth Cards](docs/screenshots/myths-cards.png)
+</td>
 
+<td></td>
+</tr>
+</table>
 ---
 
 ## Tech Stack
