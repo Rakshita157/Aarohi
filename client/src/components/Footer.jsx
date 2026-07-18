@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import '../styles/Footer.css';
-import { AarohiLogo, AarohiLogoFull } from './Icons';
+import { AarohiLogoFull } from './Icons';
 
 const XIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -15,6 +16,7 @@ const InstagramIcon = () => (
 );
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -24,48 +26,48 @@ const Footer = () => {
               <AarohiLogoFull className="footer-logo-icon" />
             </div>
             <p className="footer-tagline">
-              Empowering Every Cycle Through Education
+              {t('footer.tagline')}
             </p>
           </div>
           <div className="footer-col">
-            <h4>Platform</h4>
-            <Link to="/">Home</Link>
-            <Link to="/learn">Learn</Link>
-            <Link to="/ask-sakhi">Ask Sakhi</Link>
-            <Link to="/resources">Know the Truth</Link>
+            <h4>{t('footer.platform')}</h4>
+            <Link to="/">{t('footer.home')}</Link>
+            <Link to="/learn">{t('footer.learn')}</Link>
+            <Link to="/ask-sakhi">{t('footer.askSakhi')}</Link>
+            <Link to="/resources">{t('footer.knowTheTruth')}</Link>
           </div>
           <div className="footer-col">
-            <h4>Company</h4>
-            <Link to="/about">About Us</Link>
-            <Link to="/community">Community</Link>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Use</a>
+            <h4>{t('footer.company')}</h4>
+            <Link to="/about">{t('footer.aboutUs')}</Link>
+            <Link to="/community">{t('footer.community')}</Link>
+            <a href="#">{t('footer.privacyPolicy')}</a>
+            <a href="#">{t('footer.termsOfUse')}</a>
           </div>
           <div className="footer-col">
-            <h4>Resources</h4>
-            <a href="#">Blog</a>
-            <a href="#">FAQ</a>
-            <a href="#">Guides</a>
-            <a href="#">Support</a>
+            <h4>{t('footer.resources')}</h4>
+            <a href="#">{t('footer.blog')}</a>
+            <a href="#">{t('footer.faq')}</a>
+            <a href="#">{t('footer.guides')}</a>
+            <a href="#">{t('footer.support')}</a>
           </div>
           <div className="footer-col">
-            <h4>Connect</h4>
+            <h4>{t('footer.connect')}</h4>
             <a href="mailto:hello@aarohi.edu">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
               </svg>
-              Email Us
+              {t('footer.emailUs')}
             </a>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
               <XIcon /><span>X</span>
             </a>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <InstagramIcon /> Instagram
+              <InstagramIcon /> {t('footer.instagram')}
             </a>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Aarohi. All rights reserved.</p>
+          <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
         </div>
       </div>
     </footer>

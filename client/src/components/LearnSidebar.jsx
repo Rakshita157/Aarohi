@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { modules } from '../pages/data/lessons';
 import '../styles/LearnSidebar.css';
 
@@ -14,17 +15,17 @@ const getCompleted = () => {
 };
 
 const pathSteps = [
-  { id: 1, label: 'First Period' },
-  { id: 2, label: 'Know Your Cycle' },
-  { id: 3, label: 'Healthy Habits' },
-  { id: 4, label: 'Period Care' },
-  { id: 5, label: 'Nourish Yourself' },
-  { id: 6, label: 'Mind & Mood' },
-  { id: 7, label: 'Myth Busters' },
-  { id: 8, label: 'Ask Sakhi' },
+  { id: 1, labelKey: 'firstPeriod' },
+  { id: 2, labelKey: 'knowYourCycle' },
+  { id: 3, labelKey: 'healthyHabits' },
+  { id: 4, labelKey: 'periodCare' },
+  { id: 5, labelKey: 'nourishYourself' },
+  { id: 6, labelKey: 'mindMood' },
+  { id: 7, labelKey: 'mythBusters' },
+  { id: 8, labelKey: 'askSakhi' },
 ];
 
-const CircularProgress = ({ percent }) => {
+const CircularProgress = ({ percent, t }) => {
   const r = 42;
   const circ = 2 * Math.PI * r;
   const offset = circ - (percent / 100) * circ;
@@ -47,18 +48,18 @@ const CircularProgress = ({ percent }) => {
         {Math.round(percent)}%
       </text>
       <text x="50" y="64" textAnchor="middle" dominantBaseline="central" className="sidebar-ring-label">
-        done
+        {t('learnSidebar.done')}
       </text>
     </svg>
   );
 };
 
-const getMotivation = (pct) => {
-  if (pct === 0) return "Let's begin your journey!";
-  if (pct <= 25) return 'Great start! Keep learning.';
-  if (pct <= 50) return 'Halfway there!';
-  if (pct <= 75) return "You're doing amazing!";
-  return 'Congratulations! You completed all modules!';
+const getMotivation = (pct, t) => {
+  if (pct === 0) return t('learnSidebar.motivationStart');
+  if (pct <= 25) return t('learnSidebar.motivation25');
+  if (pct <= 50) return t('learnSidebar.motivation50');
+  if (pct <= 75) return t('learnSidebar.motivation75');
+  return t('learnSidebar.motivation100');
 };
 
 const ShieldIcon = () => (
@@ -100,14 +101,8 @@ const CheckIcon = () => (
   </svg>
 );
 
-const features = [
-  { Icon: ShieldIcon, title: 'Trusted & Science-Based', desc: 'Every lesson is reviewed using trusted medical resources.' },
-  { Icon: BookIcon, title: 'Beginner-Friendly', desc: 'Simple explanations without complicated medical jargon.' },
-  { Icon: ClockIcon, title: 'Learn at Your Own Pace', desc: 'Resume anytime and continue where you left off.' },
-  { Icon: BotIcon, title: 'AI Guidance with Sakhi', desc: 'Get private answers whenever you\'re confused.' },
-];
-
 const LearnSidebar = () => {
+  const { t } = useTranslation();
   const [completed, setCompleted] = useState(getCompleted);
   const [showAllPath, setShowAllPath] = useState(false);
   const location = useLocation();
@@ -126,7 +121,7 @@ const LearnSidebar = () => {
 
   const total = modules.length;
   const pct = total ? Math.round((completed.size / total) * 100) : 0;
-  const motivation = getMotivation(pct);
+  const motivation = getMotivation(pct, t);
 
   const nextModule = modules.find((m) => !completed.has(m.id));
   const allDone = pct === 100;
@@ -134,13 +129,20 @@ const LearnSidebar = () => {
   const currentModuleId = pathSteps.find((s) => location.pathname === `/learn/${s.id}`)?.id || null;
   const visiblePathSteps = showAllPath ? pathSteps : pathSteps.slice(0, 5);
 
+  const features = [
+    { Icon: ShieldIcon, titleKey: 'trustedAndScienceBased', descKey: 'trustedDesc' },
+    { Icon: BookIcon, titleKey: 'beginnerFriendly', descKey: 'beginnerDesc' },
+    { Icon: ClockIcon, titleKey: 'learnAtYourOwnPace', descKey: 'learnPaceDesc' },
+    { Icon: BotIcon, titleKey: 'aiGuidanceWithSakhi', descKey: 'aiGuidanceDesc' },
+  ];
+
   return (
     <aside className="learn-sidebar">
       {/* Card 1 — Learning Progress */}
       <div className="sidebar-card">
-        <h3 className="sidebar-card-title">Your Learning Progress</h3>
+        <h3 className="sidebar-card-title">{t('learnSidebar.yourLearningProgress')}</h3>
         <div className="sidebar-progress">
-          <CircularProgress percent={pct} />
+          <CircularProgress percent={pct} t={t} />
           <p className="sidebar-motivation">{motivation}</p>
         </div>
         <div className="sidebar-cta-wrap">
@@ -148,15 +150,15 @@ const LearnSidebar = () => {
             to={allDone ? '/learn' : `/learn/${nextModule?.id || 1}`}
             className="sidebar-cta"
           >
-            {allDone ? 'Review Modules' : 'Continue Learning'}
+            {allDone ? t('learnSidebar.reviewModules') : t('learnSidebar.continueLearning')}
           </Link>
         </div>
       </div>
 
       {/* Card 2 — Why Learn */}
       <div className="sidebar-card">
-        <h3 className="sidebar-card-title">Why Learn with Aarohi?</h3>
-        <p className="sidebar-card-sub">Simple, trusted education designed for every learner.</p>
+        <h3 className="sidebar-card-title">{t('learnSidebar.whyLearnWithAarohi')}</h3>
+        <p className="sidebar-card-sub">{t('learnSidebar.whyLearnSub')}</p>
         <div className="sidebar-features">
           {features.map((f, i) => (
             <div key={i} className="sidebar-feat-row">
@@ -164,8 +166,8 @@ const LearnSidebar = () => {
                 <f.Icon />
               </div>
               <div className="sidebar-feat-text">
-                <strong>{f.title}</strong>
-                <span>{f.desc}</span>
+                <strong>{t(`learnSidebar.${f.titleKey}`)}</strong>
+                <span>{t(`learnSidebar.${f.descKey}`)}</span>
               </div>
             </div>
           ))}
@@ -174,7 +176,7 @@ const LearnSidebar = () => {
 
       {/* Card 3 — Learning Path */}
       <div className="sidebar-card">
-        <h3 className="sidebar-card-title">Learning Path</h3>
+        <h3 className="sidebar-card-title">{t('learnSidebar.learningPath')}</h3>
         <div className="sidebar-path">
           <div className="path-line" />
           {visiblePathSteps.map((step, i) => {
@@ -189,14 +191,14 @@ const LearnSidebar = () => {
                 <div className="path-step-badge">
                   {isCompleted ? <CheckIcon /> : <span className="path-step-num">{String(step.id).padStart(2, '0')}</span>}
                 </div>
-                <span className="path-step-label">{step.label}</span>
+                <span className="path-step-label">{t(`learnSidebar.${step.labelKey}`)}</span>
                 {i < visiblePathSteps.length - 1 && <div className="path-step-line" />}
               </Link>
             );
           })}
           {pathSteps.length > 5 && (
             <button className="path-toggle-btn" onClick={() => setShowAllPath(p => !p)}>
-              {showAllPath ? 'Show Less' : `Show All ${pathSteps.length} Steps`}
+              {showAllPath ? t('learnSidebar.showLess') : t('learnSidebar.showAllSteps', { count: pathSteps.length })}
               <svg className={`path-toggle-arrow${showAllPath ? ' up' : ''}`} viewBox="0 0 14 14" fill="none">
                 <path d="M3.5 5l3.5 3.5L10.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

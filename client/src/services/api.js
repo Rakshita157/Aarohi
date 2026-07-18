@@ -15,6 +15,10 @@ api.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${parsed.token}`;
     }
   }
+  const lang = localStorage.getItem('aarohi_lang');
+  if (lang) {
+    config.headers['Accept-Language'] = lang.split('-')[0];
+  }
   return config;
 });
 

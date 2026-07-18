@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 import '../styles/Auth.css';
 
 const Signup = () => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +20,7 @@ const Signup = () => {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('signup.passwordsNoMatch'));
       return;
     }
 
@@ -27,7 +29,7 @@ const Signup = () => {
       await register(name, email, password);
       navigate('/ask-sakhi');
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      setError(err.response?.data?.message || t('signup.registrationFailed'));
     } finally {
       setLoading(false);
     }
@@ -37,69 +39,69 @@ const Signup = () => {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-header">
-          <h1>Join Aarohi</h1>
-          <p>Create an account to start learning with Sakhi</p>
+          <h1>{t('signup.joinAarohi')}</h1>
+          <p>{t('signup.createAccountSubtitle')}</p>
         </div>
 
         {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="auth-field">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">{t('signup.name')}</label>
             <input
               id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
+              placeholder={t('signup.namePlaceholder')}
               required
             />
           </div>
 
           <div className="auth-field">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t('signup.email')}</label>
             <input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              placeholder={t('signup.emailPlaceholder')}
               required
             />
           </div>
 
           <div className="auth-field">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('signup.password')}</label>
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="At least 6 characters"
+              placeholder={t('signup.passwordPlaceholder')}
               minLength={6}
               required
             />
           </div>
 
           <div className="auth-field">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="confirmPassword">{t('signup.confirmPassword')}</label>
             <input
               id="confirmPassword"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Repeat your password"
+              placeholder={t('signup.confirmPasswordPlaceholder')}
               required
             />
           </div>
 
           <button type="submit" className="auth-submit" disabled={loading}>
-            {loading ? 'Creating account...' : 'Create Account'}
+            {loading ? t('signup.creatingAccount') : t('signup.createAccount')}
           </button>
         </form>
 
         <p className="auth-footer">
-          Already have an account? <Link to="/login">Sign in</Link>
+          {t('signup.hasAccount')} <Link to="/login">{t('signup.signIn')}</Link>
         </p>
       </div>
     </div>

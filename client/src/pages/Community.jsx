@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 const Community = () => {
+  const { t } = useTranslation();
   return (
     <div style={{
       display: 'flex',
@@ -21,14 +24,14 @@ const Community = () => {
           borderRadius: 50,
           letterSpacing: '0.05em',
           textTransform: 'uppercase'
-        }}>Coming Soon...</div>
+        }}>{t('community.comingSoon')}</div>
         <h2 style={{
           fontSize: '2rem',
           fontWeight: 700,
           color: '#2d3748',
           margin: '0 0 1rem',
           fontFamily: "'Georgia', serif"
-        }}>Community Page</h2>
+        }}>{t('community.title')}</h2>
         <p style={{
           fontSize: '1.05rem',
           color: '#4a5568',
@@ -36,7 +39,7 @@ const Community = () => {
           margin: '0 auto',
           lineHeight: 1.7
         }}>
-          We're building a safe and supportive community space where you can connect, share, and learn together. Stay tuned!
+          {t('community.description')}
         </p>
       </div>
     </div>

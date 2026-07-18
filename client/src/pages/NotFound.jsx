@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function NotFound() {
+  const { t } = useTranslation();
   return (
     <div className="not-found-page" id="not-found">
       {/* Decorative circles */}
@@ -10,15 +12,13 @@ function NotFound() {
       <div className="not-found-deco not-found-deco-4"></div>
 
       <div className="not-found-emoji">🌸</div>
-      <h1 className="not-found-title">404</h1>
-      <h2 className="not-found-subtitle">Page Not Found</h2>
+      <h1 className="not-found-title">{t('notFound.title')}</h1>
+      <h2 className="not-found-subtitle">{t('notFound.subtitle')}</h2>
       <p className="not-found-description">
-        Oops! The page you're looking for doesn't exist yet.
-        We're working hard to bring you more content. In the meantime,
-        head back to the homepage.
+        {t('notFound.description')}
       </p>
       <Link to="/" className="not-found-btn">
-        ← Back to Home
+        {t('notFound.backToHome')}
       </Link>
     </div>
   );

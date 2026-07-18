@@ -3,9 +3,11 @@ import { useAuth } from '../context/AuthContext';
 import { chatAPI, memoryAPI } from '../services/api';
 import { SakhiAvatar } from './Icons';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import '../styles/ChatBox.css';
 
 const ChatBox = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -59,8 +61,8 @@ const ChatBox = () => {
     } catch (err) {
       const serverMsg = err?.response?.data?.message;
       const displayMsg = serverMsg
-        ? `Sorry, I had trouble responding: ${serverMsg}`
-        : 'Sorry, I had trouble responding. Please try again.';
+        ? t('chatBox.sorryError', { message: serverMsg })
+        : t('chatBox.sorryGeneric');
       setMessages((prev) => [
         ...prev,
         { role: 'model', content: displayMsg },
@@ -84,7 +86,7 @@ const ChatBox = () => {
   return (
     <>
       {!isOpen && (
-        <button className="chat-fab" onClick={() => setIsOpen(true)} aria-label="Chat with Sakhi">
+        <button className="chat-fab" onClick={() => setIsOpen(true)} aria-label={t('chatBox.chatWithSakhi')}>
           <SakhiAvatar />
         </button>
       )}
@@ -97,26 +99,26 @@ const ChatBox = () => {
                 <SakhiAvatar />
               </div>
               <div>
-                <div className="chat-widget-title">Sakhi</div>
+                <div className="chat-widget-title">{t('chatBox.sakhiTitle')}</div>
                 <div className="chat-widget-status">
                   {memoryTopics ? (
-                    <span className="chat-widget-memory-badge" title={`I remember you asked about: ${memoryTopics}`}>
+                    <span className="chat-widget-memory-badge" title={t('chatBox.knowsYou')}>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="12" height="12">
                         <path d="M12 2l8 4v6c0 5.55-3.84 10.74-8 12-4.16-1.26-8-6.45-8-12V6l8-4z"/>
                       </svg>
-                      Knows you
+                      {t('chatBox.knowsYou')}
                     </span>
-                  ) : 'Online'}
+                  ) : t('chatBox.online')}
                 </div>
               </div>
             </div>
             <div className="chat-widget-header-actions">
-              <button className="chat-widget-btn" onClick={handleNewChat} title="New chat">
+              <button className="chat-widget-btn" onClick={handleNewChat} title={t('chatBox.newChat')}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
                   <path d="M12 5v14M5 12h14"/>
                 </svg>
               </button>
-              <button className="chat-widget-btn" onClick={() => setIsOpen(false)} title="Close">
+              <button className="chat-widget-btn" onClick={() => setIsOpen(false)} title={t('chatBox.close')}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
                   <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
@@ -130,8 +132,8 @@ const ChatBox = () => {
                 <SakhiAvatar />
                 <p>
                   {userMemory?.totalInteractions > 0
-                    ? `Welcome back! I'm Sakhi. I remember we've talked ${userMemory.totalInteractions} times. What's on your mind today?`
-                    : "Hi! I'm Sakhi, your menstrual health guide. Ask me anything!"}
+                    ? t('chatBox.welcomeBack', { count: userMemory.totalInteractions })
+                    : t('chatBox.welcomeFirst')}
                 </p>
               </div>
             )}
@@ -166,7 +168,7 @@ const ChatBox = () => {
             <input
               ref={inputRef}
               type="text"
-              placeholder="Ask me anything..."
+              placeholder={t('chatBox.inputPlaceholder')}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={loading}
