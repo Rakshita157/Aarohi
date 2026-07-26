@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { modules, lessonContent } from './data/lessons';
+import { useLanguage } from '../context/LanguageContext';
+import { modules as modulesEn, lessonContent as lessonContentEn } from './data/lessons';
+import { modules as modulesHi, lessonContent as lessonContentHi } from './data/lessons_hi';
 import { ArrowRight } from '../components/Icons';
 import '../styles/Lesson.css';
 
@@ -66,10 +68,14 @@ const GLOSSARY = {
   'luteal phase': 'The luteal phase is the second half of your cycle, after ovulation until your next period.',
 };
 
-const GlossaryText = ({ text, className }) => {
+const GlossaryText = ({ text, className, language }) => {
   const terms = useMemo(() => Object.keys(GLOSSARY).sort((a, b) => b.length - a.length), []);
   const escaped = useMemo(() => terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), [terms]);
   const regex = useMemo(() => new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi'), [escaped]);
+
+  if (language === 'hi') {
+    return <span className={className}>{text}</span>;
+  }
 
   const parts = text.split(regex);
   return (
@@ -88,6 +94,11 @@ const GlossaryText = ({ text, className }) => {
 
 const Lesson = () => {
   const { moduleId } = useParams();
+  const { language, t } = useLanguage();
+
+  const modules = language === 'hi' ? modulesHi : modulesEn;
+  const lessonContent = language === 'hi' ? lessonContentHi : lessonContentEn;
+
   const mod = modules.find((m) => m.id === Number(moduleId));
   const content = lessonContent[Number(moduleId)];
   const [currentQ, setCurrentQ] = useState(0);
@@ -179,8 +190,8 @@ const Lesson = () => {
     return (
       <div className="lesson-page">
         <div className="lesson-error">
-          <h2>Module not found</h2>
-          <Link to="/learn" className="lesson-back-link">Back to Lessons</Link>
+          <h2>{t('lesson.notFound')}</h2>
+          <Link to="/learn" className="lesson-back-link">{t('lesson.backBtn')}</Link>
         </div>
       </div>
     );
@@ -214,10 +225,10 @@ const Lesson = () => {
         return (
           <div key={index} {...revealProps}>
             <div className={`lesson-body ${isLong ? 'lesson-body-collapsible' : ''}`}>
-              <GlossaryText text={showFull ? section.content : `${section.content.slice(0, 280)}...`} />
+              <GlossaryText text={showFull ? section.content : `${section.content.slice(0, 280)}...`} language={language} />
               {isLong && (
                 <button className="body-toggle-btn" onClick={() => toggleExpanded(index)}>
-                  {showFull ? 'Show less' : 'Read more'}
+                  {showFull ? t('lesson.showLess') : t('lesson.readMore')}
                 </button>
               )}
             </div>
@@ -310,8 +321,13 @@ const Lesson = () => {
               <div className="quiz-header">
                 <QuizCheck />
                 <div className="quiz-header-text">
-                  <span>Quick Check</span>
-                  <span className="quiz-counter">Question {currentQ + 1} of {quizSections.length}</span>
+                  <span>{t('lesson.quizTitle')}</span>
+                  <span className="quiz-counter">
+                    {language === 'hi' 
+                      ? `प्रश्न ${currentQ + 1} / ${quizSections.length}`
+                      : `Question ${currentQ + 1} of ${quizSections.length}`
+                    }
+                  </span>
                 </div>
               </div>
               <p className="quiz-question">{qSection.question}</p>
@@ -335,7 +351,7 @@ const Lesson = () => {
               </div>
               {qShowResult && (
                 <div className={`quiz-feedback ${qCorrect ? 'quiz-feedback-correct' : 'quiz-feedback-wrong'}`}>
-                  {qCorrect ? 'Correct! ' : 'Not quite. '}
+                  {qCorrect ? `${t('lesson.correct')} ` : `${t('lesson.incorrect')} `}
                   {qSection.explanation}
                 </div>
               )}
@@ -345,14 +361,14 @@ const Lesson = () => {
                   onClick={() => setCurrentQ(prev => prev - 1)}
                   disabled={currentQ === 0}
                 >
-                  Previous
+                  {t('lesson.prevBtn')}
                 </button>
                 <button
                   className="quiz-nav-btn quiz-skip-btn"
                   onClick={() => setCurrentQ(prev => Math.min(quizSections.length - 1, prev + 1))}
                   disabled={currentQ === quizSections.length - 1}
                 >
-                  Skip
+                  {t('lesson.skipBtn')}
                 </button>
                 {qShowResult && (
                   <button
@@ -360,7 +376,7 @@ const Lesson = () => {
                     onClick={() => setCurrentQ(prev => Math.min(quizSections.length - 1, prev + 1))}
                     disabled={currentQ === quizSections.length - 1}
                   >
-                    {currentQ === quizSections.length - 1 ? 'Finished' : 'Next'}
+                    {currentQ === quizSections.length - 1 ? t('lesson.finishedBtn') : t('lesson.nextLabel')}
                   </button>
                 )}
               </div>
@@ -372,7 +388,7 @@ const Lesson = () => {
         return (
           <div key={index} {...revealProps}>
             <div className="lesson-takeaways">
-              <h3 className="takeaways-title">Key Takeaways</h3>
+              <h3 className="takeaways-title">{t('lesson.keyTakeaways')}</h3>
               <div className="takeaways-list">
                 {section.items.map((item, i) => (
                   <div key={i} className="takeaway-item">
@@ -390,11 +406,11 @@ const Lesson = () => {
         return (
           <div key={index} {...revealProps}>
             <div className="lesson-next">
-              <div className="next-label">Up Next</div>
+              <div className="next-label">{t('lesson.upNext')}</div>
               <h3 className="next-title">{section.title}</h3>
               <p className="next-desc">{section.description}</p>
               <Link to={nextLink} className="next-cta">
-                Start Module
+                {t('lesson.startModule')}
                 <ArrowRight className="next-arrow" />
               </Link>
             </div>
@@ -419,19 +435,22 @@ const Lesson = () => {
           <svg viewBox="0 0 24 24" fill="none" className="back-arrow-icon">
             <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Back to Modules
+          {t('lesson.backBtn')}
         </Link>
         <div className="lesson-header-meta">
           <span className="lesson-category-badge" data-category={mod.category}>{mod.category}</span>
-          {mod.beginner && <span className="beginner-badge-lesson">Beginner</span>}
-          {!mod.beginner && <span className="intermediate-badge-lesson">Intermediate</span>}
+          {mod.beginner && <span className="beginner-badge-lesson">{t('learn.beginner')}</span>}
+          {!mod.beginner && <span className="intermediate-badge-lesson">{t('learn.intermediate')}</span>}
           <span className="lesson-reading-time">{mod.readingTime}</span>
         </div>
         <div className="lesson-title-row">
           <h1 className="lesson-page-title">{mod.title}</h1>
           {headingSections.length > 1 && (
             <span className="lesson-section-count">
-              {headingSections.length} {headingSections.length === 1 ? 'section' : 'sections'}
+              {headingSections.length} {language === 'hi' 
+                ? 'अनुभाग' 
+                : (headingSections.length === 1 ? 'section' : 'sections')
+              }
             </span>
           )}
         </div>
@@ -467,10 +486,10 @@ const Lesson = () => {
               <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="2" />
               <path d="M6 10l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            {isComplete ? 'Completed' : 'Mark as Complete'}
+            {isComplete ? t('learn.completed') : t('lesson.markComplete')}
           </button>
         </div>
-        <Link to="/learn" className="lesson-footer-back">All Modules</Link>
+        <Link to="/learn" className="lesson-footer-back">{t('lesson.allModules')}</Link>
       </div>
     </div>
   );

@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import '../styles/About.css';
 import heroImage from '../assets/hero.png';
 import mythImage from '../assets/myth vs facts.png';
 import sakhiImage from '../assets/AskSakhi.png';
 import trustedResourcesImage from '../assets/trusted resources.png';
 import interactiveLessonsImage from '../assets/Interactive lessons.png';
-import { AarohiLogo, AarohiLogoFull, SakhiAvatar, ArrowRight, ShieldCheck } from '../components/Icons';
+import { AarohiLogo, AarohiLogoFull, SakhiAvatar, ArrowRight } from '../components/Icons';
 
 const About = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="about-page">
       {/* ========== HERO ========== */}
@@ -18,35 +21,35 @@ const About = () => {
           <div className="about-hero-left">
             <div className="about-tagline">
               <AarohiLogo className="about-tagline-icon" />
-              <span>ABOUT US</span>
+              <span>{t('about.tagline')}</span>
             </div>
             <h1 className="about-hero-title">
-              About Aarohi
+              {t('about.title')}
             </h1>
             <p className="about-hero-description">
-              We make learning about your body easy, safe, and even fun. No awkwardness, no judgment, just real answers and a friendly AI guide (hi, that's Sakhi!) to help you every step of the way.
+              {t('about.description')}
             </p>
             <div className="about-hero-buttons">
               <Link to="/learn" className="btn btn-primary">
-                Explore Learning
+                {t('about.btnExplore')}
                 <ArrowRight className="btn-arrow" />
               </Link>
               <Link to="/ask-sakhi" className="btn btn-secondary">
-                Meet Sakhi
+                {t('about.btnMeetSakhi')}
               </Link>
             </div>
             <div className="about-mini-stats">
               <div className="about-mini-stat">
-                <span className="about-mini-stat-number">40+</span>
-                <span className="about-mini-stat-label">Myths Busted</span>
+                <span className="about-mini-stat-number">{t('about.impact.multiNum')}</span>
+                <span className="about-mini-stat-label">{t('about.impact.multiLabel')}</span>
               </div>
               <div className="about-mini-stat">
-                <span className="about-mini-stat-number">24/7</span>
-                <span className="about-mini-stat-label">AI Support</span>
+                <span className="about-mini-stat-number">{t('about.impact.aiNum')}</span>
+                <span className="about-mini-stat-label">{t('about.impact.aiLabel')}</span>
               </div>
               <div className="about-mini-stat">
-                <span className="about-mini-stat-number">100%</span>
-                <span className="about-mini-stat-label">Safe Content</span>
+                <span className="about-mini-stat-number">{t('about.impact.safeNum')}</span>
+                <span className="about-mini-stat-label">{t('about.impact.safeLabel')}</span>
               </div>
             </div>
           </div>
@@ -58,8 +61,8 @@ const About = () => {
                   <SakhiAvatar />
                 </div>
                 <div className="about-sakhi-bubble-text">
-                  <strong>Hi! I&apos;m Sakhi</strong><br />
-                  Ask me anything!
+                  <strong>{t('about.bubbleTitle')}</strong><br />
+                  {t('about.bubbleText')}
                 </div>
               </div>
             </div>
@@ -80,17 +83,9 @@ const About = () => {
               <AarohiLogoFull className="story-logo" />
             </div>
             <div className="story-content">
-              <h2 className="about-section-heading">Our Story</h2>
-              <p>
-                Aarohi was born from a simple yet powerful realization - millions of students
-                lack access to accurate menstrual health education. Misinformation, stigma, and
-                cultural taboos leave young minds confused and anxious about a natural biological process.
-              </p>
-              <p>
-                We set out to change that. By combining AI-powered guidance with culturally sensitive,
-                age-appropriate content, Aarohi creates a safe space where students can learn,
-                ask questions freely, and grow with confidence.
-              </p>
+              <h2 className="about-section-heading">{t('about.storyTitle')}</h2>
+              <p>{t('about.storyP1')}</p>
+              <p>{t('about.storyP2')}</p>
             </div>
           </div>
         </div>
@@ -100,23 +95,22 @@ const About = () => {
       <section className="about-section">
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h2 className="about-section-heading" style={{ marginBottom: '0.5rem' }}>
-            Why Aarohi?
+            {t('about.whyTitle')}
           </h2>
           <p className="about-section-sub" style={{ margin: '0 auto' }}>
-            Designed to make menstrual health education accessible, engaging, and stigma-free for every student.
+            {t('about.whySubtitle')}
           </p>
         </div>
         <div className="why-grid">
-            <div className="why-card about-fade-in about-fade-in-d1">
+          <div className="why-card about-fade-in about-fade-in-d1">
             <div className="why-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                <path d="M8 7h8M8 11h6"/>
+                <path d="M6.5 20V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16H8.5a2.5 2.5 0 0 0-2 0z"/>
               </svg>
             </div>
-            <h3>Learn with Confidence</h3>
-            <p>Curated, age-appropriate lessons that explain menstrual health clearly and accurately - no confusion, no shame.</p>
+            <h3>{t('about.features.confidenceTitle')}</h3>
+            <p>{t('about.features.confidenceDesc')}</p>
           </div>
           <div className="why-card about-fade-in about-fade-in-d2">
             <div className="why-card-icon">
@@ -125,8 +119,8 @@ const About = () => {
                 <path d="M9 5v2M15 5v2M9 13h.01M15 13h.01M12 17h.01"/>
               </svg>
             </div>
-            <h3>AI Sakhi Guidance</h3>
-            <p>Your personal AI companion who answers every question with patience, empathy, and scientifically accurate information.</p>
+            <h3>{t('about.features.guidanceTitle')}</h3>
+            <p>{t('about.features.guidanceDesc')}</p>
           </div>
           <div className="why-card about-fade-in about-fade-in-d3">
             <div className="why-card-icon">
@@ -134,8 +128,8 @@ const About = () => {
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
               </svg>
             </div>
-            <h3>Break Stigma</h3>
-            <p>Normalizing conversations around menstrual health through open dialogue, accurate facts, and a supportive community.</p>
+            <h3>{t('about.features.stigmaTitle')}</h3>
+            <p>{t('about.features.stigmaDesc')}</p>
           </div>
           <div className="why-card about-fade-in about-fade-in-d4">
             <div className="why-card-icon">
@@ -146,8 +140,8 @@ const About = () => {
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
             </div>
-            <h3>Inclusive Learning</h3>
-            <p>Designed for every student regardless of background - multilingual, accessible, and welcoming to all identities.</p>
+            <h3>{t('about.features.inclusiveTitle')}</h3>
+            <p>{t('about.features.inclusiveDesc')}</p>
           </div>
         </div>
       </section>
@@ -156,9 +150,9 @@ const About = () => {
       <section className="about-section">
         <div className="values-wrapper">
           <div className="values-header">
-            <h2 className="about-section-heading">Our Values</h2>
+            <h2 className="about-section-heading">{t('about.valuesTitle')}</h2>
             <p className="about-section-sub" style={{ margin: '0 auto' }}>
-              The principles that guide everything we create.
+              {t('about.valuesSubtitle')}
             </p>
           </div>
           <div className="values-grid">
@@ -168,8 +162,8 @@ const About = () => {
                   <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>
                 </svg>
               </div>
-              <h4>Education</h4>
-              <p>Accurate, science-based knowledge for everyone</p>
+              <h4>{t('about.values.educationTitle')}</h4>
+              <p>{t('about.values.educationDesc')}</p>
             </div>
             <div className="value-card">
               <div className="value-card-icon" style={{ background: '#d4a8531a', color: '#d4a853' }}>
@@ -177,8 +171,8 @@ const About = () => {
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                 </svg>
               </div>
-              <h4>Empathy</h4>
-              <p>Understanding every unique journey with compassion</p>
+              <h4>{t('about.values.empathyTitle')}</h4>
+              <p>{t('about.values.empathyDesc')}</p>
             </div>
             <div className="value-card">
               <div className="value-card-icon" style={{ background: '#b794d41a', color: '#b794d4' }}>
@@ -186,8 +180,8 @@ const About = () => {
                   <path d="M12 2l8 4v6c0 5.55-3.84 10.74-8 12-4.16-1.26-8-6.45-8-12V6l8-4z"/><path d="M9 12l2 2 4-4"/>
                 </svg>
               </div>
-              <h4>Trust</h4>
-              <p>Reliable information reviewed by health experts</p>
+              <h4>{t('about.values.trustTitle')}</h4>
+              <p>{t('about.values.trustDesc')}</p>
             </div>
             <div className="value-card">
               <div className="value-card-icon" style={{ background: '#e8917a1a', color: '#e8917a' }}>
@@ -195,8 +189,8 @@ const About = () => {
                   <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
               </div>
-              <h4>Privacy</h4>
-              <p>Your data stays yours, always safe and secure</p>
+              <h4>{t('about.values.privacyTitle')}</h4>
+              <p>{t('about.values.privacyDesc')}</p>
             </div>
             <div className="value-card">
               <div className="value-card-icon" style={{ background: '#e8917a1a', color: '#e8917a' }}>
@@ -204,8 +198,8 @@ const About = () => {
                   <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
                 </svg>
               </div>
-              <h4>Inclusivity</h4>
-              <p>Safe, welcoming space for students of all backgrounds</p>
+              <h4>{t('about.values.inclusivityTitle')}</h4>
+              <p>{t('about.values.inclusivityDesc')}</p>
             </div>
           </div>
         </div>
@@ -215,10 +209,10 @@ const About = () => {
       <section className="about-section">
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h2 className="about-section-heading" style={{ marginBottom: '0.5rem' }}>
-            How We Help
+            {t('about.howWeHelpTitle')}
           </h2>
           <p className="about-section-sub" style={{ margin: '0 auto' }}>
-            Four pillars that make menstrual health education effective and empowering.
+            {t('about.howWeHelpSubtitle')}
           </p>
         </div>
         <div className="help-list">
@@ -227,14 +221,14 @@ const About = () => {
               <img src={interactiveLessonsImage} alt="Interactive Lessons" className="help-card-image-full" />
             </div>
             <div className="help-card-content">
-              <h3>Interactive Lessons</h3>
-              <p>Engaging, multimedia lessons designed to make learning about menstrual health feel natural, interesting, and empowering. Each module builds knowledge step by step.</p>
+              <h3>{t('about.helpCards.lessonsTitle')}</h3>
+              <p>{t('about.helpCards.lessonsDesc')}</p>
             </div>
           </div>
           <div className="help-card help-card-sakhi about-fade-in about-fade-in-d2">
             <div className="help-card-content">
-              <h3>AI Sakhi</h3>
-              <p>An AI companion available 24/7 to answer any question - no judgment, no embarrassment. Sakhi provides accurate, age-appropriate responses with warmth and empathy.</p>
+              <h3>{t('about.helpCards.sakhiTitle')}</h3>
+              <p>{t('about.helpCards.sakhiDesc')}</p>
             </div>
             <div className="help-card-visual">
               <img src={sakhiImage} alt="Ask Sakhi" className="help-card-image-full" />
@@ -245,14 +239,14 @@ const About = () => {
               <img src={mythImage} alt="Myths vs Facts" className="help-card-image-full" />
             </div>
             <div className="help-card-content">
-              <h3>Myths vs Facts</h3>
-              <p>We tackle common misconceptions head-on with clear, evidence-based facts. Our myth-busting approach helps students separate cultural beliefs from medical reality.</p>
+              <h3>{t('about.helpCards.mythsTitle')}</h3>
+              <p>{t('about.helpCards.mythsDesc')}</p>
             </div>
           </div>
           <div className="help-card help-card-trusted about-fade-in about-fade-in-d4">
             <div className="help-card-content">
-              <h3>Trusted Resources</h3>
-              <p>Every piece of content is reviewed by health professionals and aligned with WHO guidelines. Students and parents can trust the information they find on Aarohi.</p>
+              <h3>{t('about.helpCards.resourcesTitle')}</h3>
+              <p>{t('about.helpCards.resourcesDesc')}</p>
             </div>
             <div className="help-card-visual">
               <img src={trustedResourcesImage} alt="Trusted Resources" className="help-card-image-full" />
@@ -274,13 +268,8 @@ const About = () => {
               </g>
             </svg>
           </div>
-          <h2>Our Vision</h2>
-          <p>
-            We envision a world where every student grows up with accurate knowledge about their body,
-            where menstrual health is discussed openly without shame, and where AI-powered education
-            bridges the gap between curiosity and understanding. Aarohi is building a future where
-            menstruation is just a normal part of life, not a secret.
-          </p>
+          <h2>{t('about.visionTitle')}</h2>
+          <p>{t('about.visionText')}</p>
         </div>
       </section>
 
@@ -288,10 +277,10 @@ const About = () => {
       <section className="about-section">
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h2 className="about-section-heading" style={{ marginBottom: '0.5rem' }}>
-            Our Impact
+            {t('about.impactTitle')}
           </h2>
           <p className="about-section-sub" style={{ margin: '0 auto' }}>
-            Built with purpose, designed for impact.
+            {t('about.impactSubtitle')}
           </p>
         </div>
         <div className="impact-grid">
@@ -302,9 +291,9 @@ const About = () => {
                 <path d="M12 16h16M12 22h12M12 28h8"/>
               </svg>
             </div>
-            <h3>10+</h3>
-            <div className="impact-label">Learning Modules</div>
-            <p className="impact-desc">Curated lessons covering menstrual health, hygiene, and body literacy</p>
+            <h3>{t('about.impact.modulesNum')}</h3>
+            <div className="impact-label">{t('about.impact.modulesLabel')}</div>
+            <p className="impact-desc">{t('about.impact.modulesDesc')}</p>
           </div>
           <div className="impact-stat about-fade-in about-fade-in-d2">
             <div className="impact-stat-icon">
@@ -316,9 +305,9 @@ const About = () => {
                 <path d="M14 12v-3M26 12v-3"/>
               </svg>
             </div>
-            <h3>24/7</h3>
-            <div className="impact-label">AI Guidance</div>
-            <p className="impact-desc">Sakhi is always available to answer questions with empathy and accuracy</p>
+            <h3>{t('about.impact.aiNum')}</h3>
+            <div className="impact-label">{t('about.impact.aiLabel')}</div>
+            <p className="impact-desc">{t('about.impact.aiDesc')}</p>
           </div>
           <div className="impact-stat about-fade-in about-fade-in-d3">
             <div className="impact-stat-icon">
@@ -328,9 +317,9 @@ const About = () => {
                 <path d="M8 20h24"/>
               </svg>
             </div>
-            <h3>5+</h3>
-            <div className="impact-label">Multilingual Support</div>
-            <p className="impact-desc">Breaking language barriers to reach students across diverse communities</p>
+            <h3>{t('about.impact.multiNum')}</h3>
+            <div className="impact-label">{t('about.impact.multiLabel')}</div>
+            <p className="impact-desc">{t('about.impact.multiDesc')}</p>
           </div>
           <div className="impact-stat about-fade-in about-fade-in-d4">
             <div className="impact-stat-icon">
@@ -341,9 +330,9 @@ const About = () => {
                 <path d="M20 24v3"/>
               </svg>
             </div>
-            <h3>100%</h3>
-            <div className="impact-label">Safe &amp; Private</div>
-            <p className="impact-desc">Your privacy is our priority. Learn in a secure, judgment-free space</p>
+            <h3>{t('about.impact.safeNum')}</h3>
+            <div className="impact-label">{t('about.impact.safeLabel')}</div>
+            <p className="impact-desc">{t('about.impact.safeDesc')}</p>
           </div>
         </div>
       </section>
@@ -353,7 +342,7 @@ const About = () => {
         <div className="quote-section-inner">
           <div className="quote-mark">&ldquo;</div>
           <p className="quote-text">
-            Education is the first step toward breaking stigma.
+            {t('about.quoteText')}
           </p>
           <div className="quote-author">&mdash; Aarohi</div>
         </div>
