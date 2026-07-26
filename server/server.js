@@ -17,11 +17,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.use((req, res, next) => {
-  req.lang = (req.headers['accept-language'] || 'en').split(',')[0].split('-')[0].trim().toLowerCase();
-  next();
-});
-
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });

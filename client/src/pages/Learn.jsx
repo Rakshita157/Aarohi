@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import '../styles/Learn.css';
 import { modules, categories } from './data/lessons';
 import { ArrowRight } from '../components/Icons';
@@ -17,7 +16,7 @@ import heroImg from '../assets/learn hero.png';
 
 const moduleImages = { 1: img1, 2: img2, 3: img3, 4: img4, 5: img5, 6: img6, 7: img7 };
 
-const ModuleIllus = ({ id, completed, t }) => (
+const ModuleIllus = ({ id, completed }) => (
   <>
     <img src={moduleImages[id]} alt="" className="mod-illus" />
     {completed && (
@@ -25,14 +24,13 @@ const ModuleIllus = ({ id, completed, t }) => (
         <svg viewBox="0 0 12 12" fill="none" className="badge-check">
           <path d="M3 6l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        {t('learn.completed')}
+        Completed
       </div>
     )}
   </>
 );
 
 const Learn = () => {
-  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [showAllModules, setShowAllModules] = useState(false);
@@ -76,15 +74,6 @@ const Learn = () => {
 
   const visibleModules = showAllModules ? filteredModules : filteredModules.slice(0, 4);
 
-  const categoryLabelMap = {
-    All: t('learn.catAll'),
-    Basics: t('learn.catBasics'),
-    Hygiene: t('learn.catHygiene'),
-    Nutrition: t('learn.catNutrition'),
-    Wellness: t('learn.catWellness'),
-    Myths: t('learn.catMyths'),
-  };
-
   return (
     <div className="learn-page">
       <div className="learn-deco learn-deco-1" />
@@ -105,33 +94,35 @@ const Learn = () => {
                 <circle cx="12" cy="12" r="10" stroke="#dc7e96" strokeWidth="2" />
                 <path d="M12 8v4l3 3" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" />
               </svg>
-              <span>{t('learn.tagline')}</span>
+              <span>KNOWLEDGE • CONFIDENCE • FREEDOM</span>
             </div>
             <h1 className="learn-hero-title">
-              {t('learn.heroTitle')}
+              Learn at Your<br />
+              Own Pace
             </h1>
             <p className="learn-hero-desc">
-              {t('learn.heroDesc')}
+              Explore structured menstrual health lessons through simple,<br />
+              beginner-friendly modules designed just for you.
             </p>
             <div className="hero-stats">
               <div className="hero-stat">
                 <span className="hero-stat-num">7</span>
-                <span className="hero-stat-label">{t('learn.modules')}</span>
+                <span className="hero-stat-label">Modules</span>
               </div>
               <div className="hero-stat-dot" />
               <div className="hero-stat">
                 <span className="hero-stat-num">5</span>
-                <span className="hero-stat-label">{t('learn.topics')}</span>
+                <span className="hero-stat-label">Topics</span>
               </div>
               <div className="hero-stat-dot" />
               <div className="hero-stat">
-                <span className="hero-stat-num">{t('learn.free')}</span>
-                <span className="hero-stat-label">{t('learn.forever')}</span>
+                <span className="hero-stat-num">Free</span>
+                <span className="hero-stat-label">Forever</span>
               </div>
             </div>
             <div className="learn-hero-buttons">
               <a href="#modules" className="btn btn-primary">
-                {t('learn.exploreModules')}
+                Explore Modules
                 <ArrowRight className="btn-arrow" />
               </a>
             </div>
@@ -160,7 +151,7 @@ const Learn = () => {
             <input
               type="text"
               className="learn-search-input"
-              placeholder={t('learn.searchPlaceholder')}
+              placeholder="Search modules..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -173,7 +164,7 @@ const Learn = () => {
                 className={`cat-btn${activeCategory === cat ? ' cat-btn-active' : ''}`}
                 onClick={() => setActiveCategory(cat)}
               >
-                {categoryLabelMap[cat] || cat}
+                {cat}
               </button>
             ))}
           </div>
@@ -194,8 +185,8 @@ const Learn = () => {
                     <path d="M11 18l5 5 9-9" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   <div>
-                    <div className="continue-all-done-text">{t('learn.allModulesCompleted')}</div>
-                    <div className="continue-all-done-sub">{t('learn.allModulesCompletedSub')}</div>
+                    <div className="continue-all-done-text">All modules completed!</div>
+                    <div className="continue-all-done-sub">Great job, you've mastered everything.</div>
                   </div>
                 </div>
               ) : (
@@ -204,12 +195,12 @@ const Learn = () => {
                     <img src={moduleImages[nextIncomplete.id]} alt="" />
                   </div>
                   <div className="continue-row-body">
-                    <div className="continue-row-label">{t('learn.continueLearning')}</div>
+                    <div className="continue-row-label">Continue Learning</div>
                     <h4 className="continue-row-title">{nextIncomplete.title}</h4>
                     <p className="continue-row-desc">{nextIncomplete.description}</p>
                   </div>
                   <Link to={`/learn/${nextIncomplete.id}`} className="continue-row-cta">
-                    {t('learn.continue')}
+                    Continue
                     <ArrowRight className="cta-arrow" />
                   </Link>
                 </div>
@@ -220,18 +211,18 @@ const Learn = () => {
               {visibleModules.map((mod, index) => (
                 <div className="module-card" key={mod.id} data-category={mod.category} data-module-id={mod.id} style={{ animationDelay: `${index * 0.08}s` }}>
                   <div className="module-card-illus">
-                    <ModuleIllus id={mod.id} completed={completed.has(mod.id)} t={t} />
+                    <ModuleIllus id={mod.id} completed={completed.has(mod.id)} />
                   </div>
                   <div className="module-card-body">
                     <div className="module-card-meta">
-                      {mod.beginner && <span className="beginner-badge">{t('learn.beginner')}</span>}
-                      {!mod.beginner && <span className="level-badge">{t('learn.intermediate')}</span>}
+                      {mod.beginner && <span className="beginner-badge">Beginner</span>}
+                      {!mod.beginner && <span className="level-badge">Intermediate</span>}
                       <span className="reading-time">{mod.readingTime}</span>
                     </div>
                     <h3 className="module-card-title">{mod.title}</h3>
                     <p className="module-card-desc">{mod.description}</p>
                     <Link to={mod.id === 7 ? '/resources' : `/learn/${mod.id}`} className="module-card-cta">
-                      {t('learn.explore')}
+                      Explore
                       <ArrowRight className="cta-arrow" />
                     </Link>
                   </div>
@@ -241,7 +232,7 @@ const Learn = () => {
             {filteredModules.length > 4 && (
               <div className="show-more-wrap">
                 <button className="show-more-btn" onClick={() => setShowAllModules(p => !p)}>
-                  {showAllModules ? t('learn.showLess') : t('learn.showAll', { count: filteredModules.length })}
+                  {showAllModules ? 'Show Less' : `Show All ${filteredModules.length} Modules`}
                   <svg className={`show-more-arrow${showAllModules ? ' up' : ''}`} viewBox="0 0 14 14" fill="none">
                     <path d="M3.5 5l3.5 3.5L10.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -256,9 +247,9 @@ const Learn = () => {
                 <circle cx="40" cy="32" r="8" stroke="#dc7e96" strokeWidth="2" />
                 <path d="M24 56c0-8 7-14 16-14s16 6 16 14" stroke="#dc7e96" strokeWidth="2" strokeLinecap="round" opacity="0.4" />
               </svg>
-              <p>{t('learn.noModulesFound', { query: searchQuery })}</p>
+              <p>No modules found for &ldquo;{searchQuery}&rdquo;</p>
               <button className="cat-btn" onClick={() => { setSearchQuery(''); setActiveCategory('All'); }}>
-                {t('learn.clearFilters')}
+                Clear Filters
               </button>
             </div>
           )}
@@ -352,13 +343,13 @@ const Learn = () => {
             </div>
           </div>
           <div className="sakhi-showcase-right">
-            <div className="learn-section-label">{t('learn.aiCompanion')}</div>
-            <h2 className="sakhi-showcase-title">{t('learn.meetSakhi')}</h2>
+            <div className="learn-section-label">AI COMPANION</div>
+            <h2 className="sakhi-showcase-title">Meet Sakhi</h2>
             <p className="sakhi-showcase-subtitle">
-              {t('learn.sakhiSubtitle')}
+              Your trusted AI companion for menstrual health.
             </p>
             <p className="sakhi-showcase-desc">
-              {t('learn.sakhiDesc')}
+              Whether you&rsquo;re curious, confused, or simply want to learn more, Sakhi provides private, science-backed, and judgment-free guidance whenever you need it.
             </p>
             <div className="sakhi-features">
               <div className="sakhi-feature-pill">
@@ -366,35 +357,35 @@ const Learn = () => {
                   <circle cx="10" cy="10" r="9" fill="#e8917a" />
                   <path d="M6 10l3 3 5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                {t('learn.privateConversations')}
+                Private Conversations
               </div>
               <div className="sakhi-feature-pill">
                 <svg viewBox="0 0 20 20" fill="none" className="pill-check">
                   <circle cx="10" cy="10" r="9" fill="#e8917a" />
                   <path d="M6 10l3 3 5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                {t('learn.scienceBasedAnswers')}
+                Science-Based Answers
               </div>
               <div className="sakhi-feature-pill">
                 <svg viewBox="0 0 20 20" fill="none" className="pill-check">
                   <circle cx="10" cy="10" r="9" fill="#e8917a" />
                   <path d="M6 10l3 3 5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                {t('learn.safeForEveryStudent')}
+                Safe for Every Student
               </div>
               <div className="sakhi-feature-pill">
                 <svg viewBox="0 0 20 20" fill="none" className="pill-check">
                   <circle cx="10" cy="10" r="9" fill="#e8917a" />
                   <path d="M6 10l3 3 5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                {t('learn.available24x7')}
+                Available 24&times;7
               </div>
             </div>
             <Link to="/ask-sakhi" className="btn-primary sakhi-showcase-cta">
-              {t('learn.startChatting')}
+              Start Chatting
               <ArrowRight className="btn-arrow" />
             </Link>
-            <p className="sakhi-showcase-note">{t('learn.noQuestionTooSmall')}</p>
+            <p className="sakhi-showcase-note">No question is too small. Ask confidently.</p>
           </div>
         </div>
       </section>
@@ -423,7 +414,7 @@ const Learn = () => {
             <path d="M30 30c0 0-4 6-4 10s1.8 5 4 5 4-1.8 4-4-4-11-4-11z" fill="#d4739f" opacity="0.25" />
             <path d="M50 50c0 0-6-4-10-4s-5 1.8-5 4 1.8 4 4 4 11-4 11-4z" fill="#e5a4c4" opacity="0.35" />
             <path d="M30 70c0 0-4-6-4-10s1.8-5 4-5 4 1.8 4 4-4 11-4 11z" fill="#dc7e96" opacity="0.2" />
-            <path d="M10 50c0 0 6 4 10 4s5-1.8 5-4-1.8-4-4-4-11 4-11-4z" fill="#e5a4c4" opacity="0.3" />
+            <path d="M10 50c0 0 6 4 10 4s5-1.8 5-4-1.8-4-4-4-11 4-11 4z" fill="#e5a4c4" opacity="0.3" />
             <circle cx="30" cy="50" r="2.5" fill="#dc7e96" opacity="0.4" />
           </svg>
           <svg className="quote-floral quote-floral-br" viewBox="0 0 80 80" fill="none">
@@ -441,9 +432,9 @@ const Learn = () => {
             <path d="M30 28c0 4 2 7 7 7" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
           </svg>
           <blockquote className="quote-text">
-            &ldquo;{t('learn.quoteText')}&rdquo;
+            &ldquo;The more you understand your body,<br />the more confidently you can care for it.&rdquo;
           </blockquote>
-          <cite className="quote-attribution">{t('learn.quoteAttribution')}</cite>
+          <cite className="quote-attribution">&mdash; Team Aarohi</cite>
         </div>
       </section>
     </div>

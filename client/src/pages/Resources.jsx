@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { mythsData } from './data/resources';
 import '../styles/Resources.css';
 import '../styles/Lesson.css';
@@ -30,6 +29,14 @@ const categoryMap = {
   36:'hygiene',37:'health',38:'social',39:'social',40:'body'
 };
 
+const categories = [
+  { key: 'all', label: 'All' },
+  { key: 'health', label: 'Health' },
+  { key: 'hygiene', label: 'Hygiene' },
+  { key: 'body', label: 'Body' },
+  { key: 'social', label: 'Social' }
+];
+
 const categoryColors = {
   health: { border: '#dc7e96', badge: '#fdf8fa', badgeText: '#d05a7a' },
   hygiene: { border: '#10b981', badge: '#d1fae5', badgeText: '#047857' },
@@ -37,9 +44,11 @@ const categoryColors = {
   social: { border: '#d4a853', badge: '#fef3c7', badgeText: '#b45309' }
 };
 
+const categoryLabels = { health: 'Health', hygiene: 'Hygiene', body: 'Body', social: 'Social' };
+
 const stateDots = [0, 1, 2];
 
-const MythCard = ({ item, cardState, onClick, index, category, t }) => {
+const MythCard = ({ item, cardState, onClick, index, category }) => {
   const [pressing, setPressing] = useState(false);
   const cc = categoryColors[category] || categoryColors.health;
 
@@ -55,7 +64,7 @@ const MythCard = ({ item, cardState, onClick, index, category, t }) => {
       <div className="flip-card-inner">
         <div className="flip-card-front">
           <div className="card-accent-top" />
-          <span className="card-label"><span className="card-emoji">🛑</span> {t('resources.myth')}</span>
+          <span className="card-label"><span className="card-emoji">🛑</span> MYTH</span>
           <p className="flip-text">{item.myth}</p>
           <div className="card-footer">
             <div className="state-dots">
@@ -68,11 +77,11 @@ const MythCard = ({ item, cardState, onClick, index, category, t }) => {
               ))}
             </div>
             <span className="card-category-tag" style={{ background: cc.badge, color: cc.badgeText }}>
-              {t(`resources.${category}`)}
+              {categoryLabels[category]}
             </span>
           </div>
           <div className="tap-hint pulse-hint">
-            <span className="tap-icon">👆</span> {t('resources.tapToReveal')}
+            <span className="tap-icon">👆</span> Tap to reveal
           </div>
         </div>
 
@@ -81,22 +90,22 @@ const MythCard = ({ item, cardState, onClick, index, category, t }) => {
             <div className="card-accent-top" />
             <div className="fact-badge">
               <span className="card-emoji">✅</span>
-              <span>{t('resources.fact')}</span>
+              <span>FACT</span>
             </div>
             <p className="flip-text">{item.fact}</p>
             <div className="tap-hint">
-              💡 {t('resources.tapToLearnMore')}
+              💡 Tap to learn more
             </div>
           </div>
           <div className={`back-panel ${cardState === 2 ? 'active' : ''}`}>
             <div className="card-accent-top" />
             <div className="fact-badge" style={{ color: '#d05a7a' }}>
               <span className="card-emoji">💡</span>
-              <span>{t('resources.knowMore')}</span>
+              <span>KNOW MORE</span>
             </div>
             <p className="flip-text">{item.knowMore}</p>
             <div className="tap-hint">
-              🔄 {t('resources.tapToGoBack')}
+              🔄 Tap to go back
             </div>
           </div>
         </div>
@@ -106,7 +115,6 @@ const MythCard = ({ item, cardState, onClick, index, category, t }) => {
 };
 
 const Resources = () => {
-  const { t } = useTranslation();
   const [page, setPage] = useState(0);
   const [cardStates, setCardStates] = useState({});
   const [loading, setLoading] = useState(false);
@@ -165,14 +173,6 @@ const Resources = () => {
 
   const progressPercent = totalFiltered > 0 ? ((safePage + 1) / totalPages) * 100 : 0;
 
-  const categories = [
-    { key: 'all', label: t('resources.all') },
-    { key: 'health', label: t('resources.health') },
-    { key: 'hygiene', label: t('resources.hygiene') },
-    { key: 'body', label: t('resources.body') },
-    { key: 'social', label: t('resources.social') }
-  ];
-
   return (
     <div className="resources-container">
       <div className="resources-deco resources-deco-1" />
@@ -194,31 +194,31 @@ const Resources = () => {
                   <circle cx="12" cy="12" r="10" stroke="#e8917a" strokeWidth="2" />
                   <path d="M9 12l2 2 4-4" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span>{t('resources.tagline')}</span>
+                <span>MYTH BUSTING • FACTS • TRUTH</span>
               </div>
-              <h1 className="resources-hero-title">{t('resources.heroTitle')}</h1>
+              <h1 className="resources-hero-title">Facts vs Myths</h1>
               <p className="resources-hero-desc">
-                {t('resources.heroDesc')}
+                Turns out, most period "facts" are just myths with good PR. Let's fix that.
               </p>
               <div className="resources-hero-stats">
                 <div className="resources-hero-stat">
                   <span className="resources-hero-stat-num">40</span>
-                  <span className="resources-hero-stat-label">{t('resources.mythsBusted')}</span>
+                  <span className="resources-hero-stat-label">Myths Busted</span>
                 </div>
                 <div className="resources-hero-stat-dot" />
                 <div className="resources-hero-stat">
                   <span className="resources-hero-stat-num">5</span>
-                  <span className="resources-hero-stat-label">{t('resources.categories')}</span>
+                  <span className="resources-hero-stat-label">Categories</span>
                 </div>
                 <div className="resources-hero-stat-dot" />
                 <div className="resources-hero-stat">
                   <span className="resources-hero-stat-num">✓</span>
-                  <span className="resources-hero-stat-label">{t('resources.scienceBased')}</span>
+                  <span className="resources-hero-stat-label">Science-Based</span>
                 </div>
               </div>
               <div className="resources-hero-buttons">
                 <button className="btn btn-primary" onClick={() => document.querySelector('.myth-grid')?.scrollIntoView({ behavior: 'smooth' })}>
-                  {t('resources.exploreMyths')}
+                  Explore Myths
                   <svg className="btn-arrow" viewBox="0 0 24 24" fill="none" style={{ width: 20, height: 20 }}>
                     <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -226,7 +226,7 @@ const Resources = () => {
               </div>
             </div>
             <div className="resources-hero-right">
-              <img src={mythVsFactsImg} alt={t('resources.heroImageAlt')} className="resources-hero-img" />
+              <img src={mythVsFactsImg} alt="Facts vs Myths Illustration" className="resources-hero-img" />
             </div>
           </div>
         </section>
@@ -234,11 +234,11 @@ const Resources = () => {
         <div className="stats-bar">
           <span className="stat-item">
             <span className="stat-icon">🏆</span>
-            {t('resources.explored')} {exploredCount}/{mythsData.length}
+            Explored: {exploredCount}/{mythsData.length}
           </span>
           <span className="stat-item">
             <span className="stat-icon">📚</span>
-            {totalFiltered} {t('resources.mythsInView')}
+            {totalFiltered} myths in view
           </span>
         </div>
 
@@ -263,7 +263,6 @@ const Resources = () => {
               category={categoryMap[item.id]}
               cardState={cardStates[item.id] || 0}
               onClick={() => handleCardClick(item.id)}
-              t={t}
             />
           ))}
         </div>
@@ -273,11 +272,11 @@ const Resources = () => {
             {loading ? (
               <>
                 <span className="spinner" />
-                {t('resources.loading')}
+                Loading...
               </>
             ) : (
               <>
-                <span>{t('resources.nextPage')}</span>
+                <span>Next Page</span>
                 <span className="btn-page-count">({safePage + 1}/{totalPages})</span>
                 <svg className="btn-arrow" viewBox="0 0 24 24" fill="none">
                   <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -287,7 +286,7 @@ const Resources = () => {
           </button>
 
           <div className="page-progress">
-            <span className="page-label">{t('resources.pageLabel', { current: safePage + 1, total: totalPages })}</span>
+            <span className="page-label">Page {safePage + 1} of {totalPages}</span>
             <div className="progress-track">
               <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
             </div>
@@ -302,8 +301,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">{t('resources.evidenceBased')}</span>
-              <span className="info-subtitle">{t('resources.information')}</span>
+              <span className="info-title">Evidence Based</span>
+              <span className="info-subtitle">Information</span>
             </div>
           </div>
 
@@ -314,8 +313,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">{t('resources.mythBusting')}</span>
-              <span className="info-subtitle">{t('resources.madeSimple')}</span>
+              <span className="info-title">Myth Busting</span>
+              <span className="info-subtitle">Made Simple</span>
             </div>
           </div>
 
@@ -326,8 +325,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">{t('resources.forEveryone')}</span>
-              <span className="info-subtitle">{t('resources.everyAge')}</span>
+              <span className="info-title">For Everyone,</span>
+              <span className="info-subtitle">Every Age</span>
             </div>
           </div>
 
@@ -338,8 +337,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">{t('resources.inclusiveAnd')}</span>
-              <span className="info-subtitle">{t('resources.respectful')}</span>
+              <span className="info-title">Inclusive &amp;</span>
+              <span className="info-subtitle">Respectful</span>
             </div>
           </div>
 
@@ -351,8 +350,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">{t('resources.privateAnd')}</span>
-              <span className="info-subtitle">{t('resources.safeSpace')}</span>
+              <span className="info-title">Private &amp;</span>
+              <span className="info-subtitle">Safe Space</span>
             </div>
           </div>
         </div>
@@ -367,10 +366,10 @@ const Resources = () => {
                 <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="2" />
                 <path d="M6 10l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              {isComplete ? t('resources.completed') : t('resources.markAsComplete')}
+              {isComplete ? 'Completed' : 'Mark as Complete'}
             </button>
           </div>
-          <Link to="/learn" className="lesson-footer-back">{t('resources.allModules')}</Link>
+          <Link to="/learn" className="lesson-footer-back">All Modules</Link>
         </div>
       </div>
     </div>

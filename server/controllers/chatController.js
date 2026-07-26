@@ -34,7 +34,7 @@ const sendMessage = async (req, res) => {
       content: msg.content,
     }));
 
-    const reply = await chatWithSakhi(history, message, req.user._id, conversation.summary, req.lang);
+    const reply = await chatWithSakhi(history, message, req.user._id, conversation.summary);
 
     conversation.messages.push(
       { role: 'user', content: message },
