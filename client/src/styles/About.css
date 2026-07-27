@@ -815,79 +815,133 @@
 .about-fade-in-d5 { animation-delay: 0.5s; }
 
 /* ============ RESPONSIVE ============ */
-@media (max-width: 1024px) {
+
+/* Tablet (769px – 1024px): keep two-column hero */
+@media (max-width: 1024px) and (min-width: 769px) {
   .about-hero-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
   }
 
-  .about-hero-right {
-    order: -1;
+  .about-hero-left {
+    padding-right: 1rem;
   }
 
   .about-hero-title {
     font-size: 3rem;
   }
 
-  .why-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .about-hero-description {
+    font-size: 1.05rem;
   }
 
-  .impact-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .about-hero-right {
+    min-height: 380px;
+  }
+
+  .about-hero-image-container {
+    height: 360px;
+  }
+
+  .about-sakhi-bubble {
+    width: 170px;
+    padding: 1rem 1.25rem;
+  }
+
+  .about-sakhi-bubble-text {
+    font-size: 0.8rem;
+  }
+
+  .about-section-heading {
+    font-size: 2.25rem;
   }
 
   .story-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .story-image {
     min-height: 300px;
-    padding: 2rem;
   }
 
   .help-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .help-card-sakhi {
+    grid-template-columns: 1fr 1.5fr;
   }
 
   .help-card-visual {
-    min-height: 220px;
-    padding: 2rem;
-    order: -1;
+    min-height: 260px;
+  }
+
+  .help-card h3 {
+    font-size: 1.4rem;
   }
 
   .values-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .values-wrapper {
-    padding: 2.5rem 1.5rem;
+    padding: 2rem 1.5rem;
   }
 
   .vision-card {
-    padding: 3rem 2rem;
+    padding: 2.5rem 2rem;
   }
 
   .vision-card h2 {
+    font-size: 2.25rem;
+  }
+
+  .vision-card p {
+    font-size: 1.05rem;
+  }
+
+  .quote-text {
     font-size: 2rem;
   }
 
-  .about-hero-image-container {
-    height: 500px;
+  .impact-stat h3 {
+    font-size: 1.75rem;
   }
 
-  .about-sakhi-bubble {
-    width: 180px;
+  .about-hero-buttons .btn {
+    padding: 0.65rem 1.4rem;
+    font-size: 0.85rem;
+  }
+
+  .about-mini-stat-number {
+    font-size: 1.05rem;
   }
 }
 
+/* Desktop 1025px+: default layout — no changes needed */
+
+/* Mobile (≤ 768px): stack everything */
 @media (max-width: 768px) {
+  .about-hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-hero-right {
+    order: -1;
+    min-height: auto;
+  }
+
   .about-hero {
     padding: 2rem 1.5rem 1rem;
   }
 
   .about-hero-title {
     font-size: 2.5rem;
+  }
+
+  .about-hero-image-container {
+    height: 380px;
   }
 
   .about-hero-buttons {
@@ -907,16 +961,38 @@
     font-size: 2rem;
   }
 
+  .story-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story-image {
+    min-height: 260px;
+  }
+
   .story-content {
     padding: 2rem 1.5rem;
   }
 
-  .values-grid {
+  .help-card {
     grid-template-columns: 1fr;
   }
 
-  .about-hero-image-container {
-    height: 450px;
+  .help-card-visual {
+    min-height: 220px;
+    padding: 2rem;
+    order: -1;
+  }
+
+  .help-card-content {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .help-card h3 {
+    font-size: 1.35rem;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
   }
 
   .about-sakhi-bubble {
@@ -928,12 +1004,8 @@
     font-size: 0.75rem;
   }
 
-  .help-card-content {
-    padding: 1.75rem 1.5rem;
-  }
-
-  .help-card h3 {
-    font-size: 1.35rem;
+  .vision-card {
+    padding: 3rem 2rem;
   }
 
   .vision-card h2 {
@@ -946,6 +1018,14 @@
 
   .impact-stat h3 {
     font-size: 1.75rem;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

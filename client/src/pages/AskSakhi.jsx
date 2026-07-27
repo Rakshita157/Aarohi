@@ -15,10 +15,26 @@ const AskSakhi = () => {
   const [sending, setSending] = useState(false);
   const [convLoading, setConvLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const [userMemory, setUserMemory] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const loadedRef = useRef(false);
+
+  useEffect(() => {
+    const check = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (!mobile) setSidebarOpen(true);
+    };
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) setSidebarOpen(false);
+  }, [isMobile]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -53,6 +69,7 @@ const AskSakhi = () => {
   const loadConversation = async (id) => {
     setActiveConvId(id);
     setSending(true);
+    if (isMobile) setSidebarOpen(false);
     try {
       const res = await chatAPI.getConversation(id);
       setMessages(res.data.messages);
@@ -106,6 +123,7 @@ const AskSakhi = () => {
     setMessages([]);
     setInput('');
     inputRef.current?.focus();
+    if (isMobile) setSidebarOpen(false);
   };
 
   const handleDeleteConv = async (id, e) => {
@@ -122,13 +140,16 @@ const AskSakhi = () => {
     }
   };
 
+  const toggleSidebar = () => setSidebarOpen((p) => !p);
+
   return (
-    <div className="sakhi-page">
-      <button className="sakhi-sidebar-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-          <path d="M3 12h18M3 6h18M3 18h18"/>
-        </svg>
-      </button>
+    <div className={`sakhi-page${sidebarOpen ? ' sidebar-open' : ''}`}>
+      {isMobile && (
+        <div
+          className={`sakhi-overlay${sidebarOpen ? ' visible' : ''}`}
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
       <div className={`sakhi-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sakhi-sidebar-header">
@@ -174,9 +195,27 @@ const AskSakhi = () => {
         </div>
       </div>
 
+      <button className="sakhi-sidebar-toggle" onClick={toggleSidebar} aria-label={sidebarOpen ? 'Close chat history' : 'Open chat history'}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+          {sidebarOpen ? (
+            <>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </>
+          ) : (
+            <path d="M3 12h18M3 6h18M3 18h18" />
+          )}
+        </svg>
+      </button>
+
       <div className="sakhi-main">
         <div className="sakhi-chat-header">
           <div className="sakhi-chat-header-left">
+            <button className="sakhi-mobile-menu-btn" onClick={toggleSidebar}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                <path d="M3 12h18M3 6h18M3 18h18"/>
+              </svg>
+            </button>
             <div className="sakhi-chat-avatar">
               <SakhiAvatar />
             </div>

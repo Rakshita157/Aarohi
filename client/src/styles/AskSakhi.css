@@ -1,13 +1,19 @@
+/* ============ BASE LAYOUT ============ */
 .sakhi-page {
   display: flex;
-  height: calc(100vh - 80px - 200px);
-  min-height: 600px;
+  height: calc(100vh - 50px - 200px);
+  min-height: 500px;
   background: #f9f6f8;
   position: relative;
+  overflow: hidden;
+  --sidebar-w: 300px;
 }
 
+/* ============ SIDEBAR TOGGLE (visible on all screens) ============ */
 .sakhi-sidebar-toggle {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 16px;
   left: 16px;
@@ -18,8 +24,44 @@
   padding: 8px;
   cursor: pointer;
   color: #4a5568;
+  transition: background 0.2s, left 0.3s ease;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  line-height: 0;
 }
 
+.sakhi-sidebar-toggle:hover {
+  background: #f5f0f3;
+}
+
+/* Push toggle right when sidebar is open (desktop only) */
+@media (min-width: 769px) {
+  .sakhi-page.sidebar-open .sakhi-sidebar-toggle {
+    left: calc(var(--sidebar-w) + 16px);
+  }
+}
+
+/* ============ OVERLAY (Mobile only) ============ */
+.sakhi-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 19;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.sakhi-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============ SIDEBAR ============ */
 .sakhi-sidebar {
   width: 300px;
   background: white;
@@ -27,9 +69,17 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.sakhi-sidebar:not(.open) {
+  width: 0;
+  border-right: none;
 }
 
 .sakhi-sidebar-header {
+  min-width: 300px;
   padding: 20px;
   border-bottom: 1px solid #e8dfe5;
   display: flex;
@@ -58,6 +108,7 @@
   cursor: pointer;
   transition: background 0.2s;
   font-family: inherit;
+  white-space: nowrap;
 }
 
 .sakhi-new-chat-btn:hover {
@@ -71,6 +122,8 @@
 .sakhi-conv-list {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 300px;
   padding: 8px;
 }
 
@@ -130,6 +183,7 @@
   border-radius: 8px;
   transition: background 0.2s, color 0.2s;
   opacity: 0;
+  flex-shrink: 0;
 }
 
 .sakhi-conv-item:hover .sakhi-conv-delete {
@@ -141,6 +195,7 @@
   color: #ef4444;
 }
 
+/* ============ MAIN CHAT ============ */
 .sakhi-main {
   flex: 1;
   display: flex;
@@ -161,6 +216,23 @@
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.sakhi-mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #4a5568;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.sakhi-mobile-menu-btn:hover {
+  background: #f5f0f3;
 }
 
 .sakhi-chat-avatar svg {
@@ -327,6 +399,7 @@
   }
 }
 
+/* ============ INPUT AREA ============ */
 .sakhi-input-area {
   display: flex;
   align-items: center;
@@ -385,36 +458,251 @@
   font-size: 1.1rem;
 }
 
-@media (max-width: 768px) {
-  .sakhi-page {
-    height: calc(100vh - 80px);
-    min-height: auto;
+/* ============ TABLET (769px - 1024px) ============ */
+@media (max-width: 1024px) {
+  .sakhi-page.sidebar-open .sakhi-sidebar-toggle {
+    left: calc(280px + 16px);
   }
 
   .sakhi-sidebar-toggle {
+    top: 14px;
+    left: 14px;
+  }
+
+  .sakhi-sidebar {
+    width: 280px;
+  }
+
+  .sakhi-sidebar-header {
+    min-width: 280px;
+  }
+
+  .sakhi-conv-list {
+    min-width: 280px;
+  }
+
+  .sakhi-messages {
+    padding: 20px;
+  }
+
+  .sakhi-chat-header {
+    padding: 14px 20px;
+  }
+
+  .sakhi-input-area {
+    padding: 14px 20px;
+  }
+}
+
+/* ============ MOBILE (<= 768px) ============ */
+@media (max-width: 768px) {
+  .sakhi-page {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+  }
+
+  .sakhi-sidebar-toggle {
+    display: none;
+  }
+
+  .sakhi-overlay {
     display: block;
   }
 
   .sakhi-sidebar {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 5;
+    z-index: 20;
+    width: 280px;
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
   }
 
   .sakhi-sidebar.open {
     transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .sakhi-sidebar:not(.open) {
+    width: 280px;
+  }
+
+  .sakhi-sidebar-header {
+    min-width: 280px;
+    padding: 16px;
+  }
+
+  .sakhi-sidebar-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .sakhi-conv-list {
+    min-width: 280px;
+  }
+
+  .sakhi-mobile-menu-btn {
+    display: flex;
   }
 
   .sakhi-new-chat-btn.header-only {
     display: inline-flex;
   }
 
+  .sakhi-chat-header {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .sakhi-chat-header-left {
+    gap: 8px;
+  }
+
+  .sakhi-chat-avatar svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .sakhi-chat-title {
+    font-size: 0.9rem;
+  }
+
+  .sakhi-chat-subtitle {
+    font-size: 0.68rem;
+  }
+
+  .sakhi-messages {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .sakhi-empty {
+    padding: 16px;
+  }
+
+  .sakhi-empty-icon svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+  }
+
+  .sakhi-empty h2 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .sakhi-empty p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .sakhi-suggestions {
+    gap: 6px;
+  }
+
+  .sakhi-suggestions button {
+    padding: 7px 12px;
+    font-size: 0.72rem;
+  }
+
   .sakhi-msg {
-    max-width: 90%;
+    max-width: 88%;
+    gap: 6px;
+  }
+
+  .sakhi-msg-avatar svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .sakhi-msg-bubble {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    border-radius: 14px;
+    line-height: 1.5;
+  }
+
+  .sakhi-input-area {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .sakhi-input-area input {
+    padding: 9px 12px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+  }
+
+  .sakhi-input-area button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .sakhi-input-area button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .sakhi-new-chat-btn {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+}
+
+/* ============ SMALL MOBILE (<= 480px) ============ */
+@media (max-width: 480px) {
+  .sakhi-sidebar {
+    width: 260px;
+  }
+
+  .sakhi-sidebar:not(.open) {
+    width: 260px;
+  }
+
+  .sakhi-sidebar-header {
+    min-width: 260px;
+    padding: 14px;
+  }
+
+  .sakhi-sidebar-header h2 {
+    font-size: 1rem;
+  }
+
+  .sakhi-conv-list {
+    min-width: 260px;
+  }
+
+  .sakhi-empty h2 {
+    font-size: 0.95rem;
+  }
+
+  .sakhi-empty p {
+    font-size: 0.75rem;
+  }
+
+  .sakhi-suggestions button {
+    padding: 6px 10px;
+    font-size: 0.68rem;
+  }
+
+  .sakhi-msg {
+    max-width: 92%;
+  }
+
+  .sakhi-msg-bubble {
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+
+  .sakhi-chat-title {
+    font-size: 0.85rem;
+  }
+
+  .sakhi-chat-subtitle {
+    font-size: 0.62rem;
   }
 }

@@ -265,25 +265,24 @@
 .ai-chatbox {
   position: absolute;
   bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 16px;
   background-color: white;
   border-radius: 20px;
   padding: 1.5rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   z-index: 4;
-  width: 320px;
+  width: 300px;
   animation: slideUp 1.2s ease-out 0.5s both;
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(40px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -776,7 +775,8 @@
   }
 
   .ai-chatbox {
-    width: 300px;
+    width: 280px;
+    left: 16px;
   }
 
   .stats-grid {
@@ -792,85 +792,301 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 1.5rem 1.5rem 1rem;
+    padding: 1.5rem 1.25rem 1rem;
+    min-height: auto;
+  }
+
+  .hero-content {
+    gap: 1.5rem;
   }
 
   .hero-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .title-flower {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .tagline {
+    margin-bottom: 1.25rem;
+  }
+
+  .tagline span {
+    font-size: 0.75rem;
   }
 
   .hero-subtitle {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
   }
 
   .hero-buttons {
     flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
 
   .btn {
     width: 100%;
     justify-content: center;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.9rem;
   }
 
   .features {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .feature {
+    padding: 0.75rem 0.5rem;
+    gap: 0.6rem;
+  }
+
+  .feature-icon-bg {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .feature-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .feature-title,
+  .feature-subtitle {
+    font-size: 0.85rem;
   }
 
   .hero-image-container {
-    height: 450px;
+    height: 380px;
+  }
+
+  .hero-image {
+    max-height: 100%;
   }
 
   .ai-chatbox {
-    width: 260px;
-    padding: 1.2rem;
+    width: 280px;
+    padding: 1rem;
+    bottom: 5%;
+    left: 12px;
+  }
+
+  .ai-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .ai-avatar svg {
+    width: 32px;
+    height: 32px;
   }
 
   .chatbox-title {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .chatbox-subtitle {
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .chatbox-input span {
     font-size: 0.8rem;
   }
 
+  .send-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .send-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Stats */
+  .stats-section {
+    padding: 0 1.25rem 2rem;
+  }
+
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1.25rem 0.75rem;
+    border-radius: 16px;
   }
 
   .stat-number {
-    font-size: 2rem;
+    font-size: 1.6rem;
+    margin-bottom: 0.25rem;
   }
 
+  .stat-label {
+    font-size: 0.78rem;
+  }
+
+  /* Sections */
   .section-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .offer-section,
+  .how-it-works-section {
+    padding: 2rem 1.25rem 2.5rem;
+  }
+
+  .offer-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .offer-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .offer-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    margin-bottom: 0.25rem;
+  }
+
+  .offer-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .offer-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .offer-card p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .how-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 1rem;
+  }
+
+  .how-step {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .how-number {
+    position: static;
+    margin-bottom: 0.75rem;
+  }
+
+  .how-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .how-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .how-step h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .how-step p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 1rem 1.25rem 3rem;
   }
 
   .cta-content {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
   }
 
   .cta-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 
-  .coming-soon-title {
-    font-size: 1.5rem;
+  .cta-text {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Coming Soon */
+  .coming-soon-section {
+    padding: 0 1.25rem 3rem;
   }
 
   .coming-soon-content {
-    padding: 2.5rem 1.5rem;
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
+  }
+
+  .coming-soon-badge {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .coming-soon-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .coming-soon-text {
+    font-size: 0.88rem;
+    margin-bottom: 1.25rem;
   }
 
   .coming-soon-features {
     flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding-left: 0.5rem;
+  }
+
+  .coming-soon-feature {
+    font-size: 0.85rem;
+  }
+
+  .coming-soon-feature svg {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -879,32 +1095,120 @@
     padding: 1rem 1rem 0.5rem;
   }
 
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .title-flower {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .hero-description {
+    font-size: 0.88rem;
+  }
+
   .hero-image-container {
-    height: 350px;
+    height: 300px;
   }
 
   .ai-chatbox {
-    width: 90%;
-    max-width: 260px;
-    bottom: 5%;
-    padding: 1rem;
+    width: 260px;
+    bottom: 4%;
+    left: 10px;
+    padding: 0.85rem;
+    border-radius: 16px;
   }
 
   .features {
-    margin-top: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
   }
 
-  .coming-soon-title {
+  .feature {
+    padding: 0.6rem 0.4rem;
+  }
+
+  .feature-icon-bg {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .feature-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .feature-title,
+  .feature-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .stat-card {
+    padding: 1rem 0.5rem;
+    border-radius: 12px;
+  }
+
+  .stat-number {
+    font-size: 1.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .offer-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .how-step {
+    padding: 1.25rem 1rem;
+  }
+
+  .cta-content {
+    padding: 1.75rem 1rem;
+  }
+
+  .cta-title {
     font-size: 1.3rem;
   }
 
   .coming-soon-content {
-    padding: 2rem 1.25rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .coming-soon-title {
+    font-size: 1.15rem;
+  }
+
+  .coming-soon-text {
+    font-size: 0.82rem;
   }
 
   .coming-soon-features {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .coming-soon-feature {
+    font-size: 0.8rem;
   }
 }
