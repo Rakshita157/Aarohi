@@ -182,9 +182,15 @@ export const en = {
     errorDefault: "Sorry, I had trouble responding. Please try again."
   },
   community: {
-    comingSoon: "Coming Soon...",
-    title: "Community Page",
-    desc: "We're building a safe and supportive community space where you can connect, share, and learn together. Stay tuned!"
+    title: "Community Chat",
+    subtitle: "Share your thoughts anonymously in a safe space. All messages disappear after 24 hours.",
+    chattingAs: "You are chatting as:",
+    placeholder: "Type a message...",
+    statusConnected: "Connected",
+    statusConnecting: "Connecting...",
+    statusDisconnected: "Disconnected",
+    welcomeTitle: "Welcome to Community Chat!",
+    welcomeText: "Feel free to ask questions, share stories, or discuss topics anonymously. Please keep the space friendly and respectful."
   },
   login: {
     title: "Welcome Back",
