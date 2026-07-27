@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { mythsData } from './data/resources';
+import { useLanguage } from '../context/LanguageContext';
+import { mythsData as mythsEn } from './data/resources';
+import { mythsData as mythsHi } from './data/resources_hi';
 import '../styles/Resources.css';
 import '../styles/Lesson.css';
 import mythVsFactsImg from '../assets/myth vs facts.png';
@@ -29,14 +31,6 @@ const categoryMap = {
   36:'hygiene',37:'health',38:'social',39:'social',40:'body'
 };
 
-const categories = [
-  { key: 'all', label: 'All' },
-  { key: 'health', label: 'Health' },
-  { key: 'hygiene', label: 'Hygiene' },
-  { key: 'body', label: 'Body' },
-  { key: 'social', label: 'Social' }
-];
-
 const categoryColors = {
   health: { border: '#dc7e96', badge: '#fdf8fa', badgeText: '#d05a7a' },
   hygiene: { border: '#10b981', badge: '#d1fae5', badgeText: '#047857' },
@@ -44,13 +38,18 @@ const categoryColors = {
   social: { border: '#d4a853', badge: '#fef3c7', badgeText: '#b45309' }
 };
 
-const categoryLabels = { health: 'Health', hygiene: 'Hygiene', body: 'Body', social: 'Social' };
-
 const stateDots = [0, 1, 2];
 
-const MythCard = ({ item, cardState, onClick, index, category }) => {
+const MythCard = ({ item, cardState, onClick, index, category, language }) => {
   const [pressing, setPressing] = useState(false);
   const cc = categoryColors[category] || categoryColors.health;
+
+  const categoryLabels = {
+    health: language === 'hi' ? 'स्वास्थ्य' : 'Health',
+    hygiene: language === 'hi' ? 'स्वच्छता' : 'Hygiene',
+    body: language === 'hi' ? 'शारीरिक' : 'Body',
+    social: language === 'hi' ? 'सामाजिक' : 'Social'
+  };
 
   return (
     <div
@@ -64,7 +63,9 @@ const MythCard = ({ item, cardState, onClick, index, category }) => {
       <div className="flip-card-inner">
         <div className="flip-card-front">
           <div className="card-accent-top" />
-          <span className="card-label"><span className="card-emoji">🛑</span> MYTH</span>
+          <span className="card-label">
+            <span className="card-emoji">🛑</span> {language === 'hi' ? 'भ्रांति' : 'MYTH'}
+          </span>
           <p className="flip-text">{item.myth}</p>
           <div className="card-footer">
             <div className="state-dots">
@@ -81,7 +82,7 @@ const MythCard = ({ item, cardState, onClick, index, category }) => {
             </span>
           </div>
           <div className="tap-hint pulse-hint">
-            <span className="tap-icon">👆</span> Tap to reveal
+            <span className="tap-icon">👆</span> {language === 'hi' ? 'देखने के लिए टैप करें' : 'Tap to reveal'}
           </div>
         </div>
 
@@ -90,22 +91,22 @@ const MythCard = ({ item, cardState, onClick, index, category }) => {
             <div className="card-accent-top" />
             <div className="fact-badge">
               <span className="card-emoji">✅</span>
-              <span>FACT</span>
+              <span>{language === 'hi' ? 'तथ्य' : 'FACT'}</span>
             </div>
             <p className="flip-text">{item.fact}</p>
             <div className="tap-hint">
-              💡 Tap to learn more
+              💡 {language === 'hi' ? 'अधिक जानने के लिए टैप करें' : 'Tap to learn more'}
             </div>
           </div>
           <div className={`back-panel ${cardState === 2 ? 'active' : ''}`}>
             <div className="card-accent-top" />
             <div className="fact-badge" style={{ color: '#d05a7a' }}>
               <span className="card-emoji">💡</span>
-              <span>KNOW MORE</span>
+              <span>{language === 'hi' ? 'अधिक जानकारी' : 'KNOW MORE'}</span>
             </div>
             <p className="flip-text">{item.knowMore}</p>
             <div className="tap-hint">
-              🔄 Tap to go back
+              🔄 {language === 'hi' ? 'वापस जाने के लिए टैप करें' : 'Tap to go back'}
             </div>
           </div>
         </div>
@@ -115,12 +116,23 @@ const MythCard = ({ item, cardState, onClick, index, category }) => {
 };
 
 const Resources = () => {
+  const { language, t } = useLanguage();
+  const mythsData = language === 'hi' ? mythsHi : mythsEn;
+
   const [page, setPage] = useState(0);
   const [cardStates, setCardStates] = useState({});
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
   const [completed, setCompleted] = useState(() => getCompleted());
   const isComplete = completed.has(MYTH_MODULE_ID);
+
+  const categories = [
+    { key: 'all', label: t('resources.catAll') },
+    { key: 'health', label: t('resources.catHealth') },
+    { key: 'hygiene', label: t('resources.catHygiene') },
+    { key: 'body', label: t('resources.catBody') },
+    { key: 'social', label: t('resources.catSocial') }
+  ];
 
   const toggleComplete = () => {
     const next = new Set(getCompleted());
@@ -137,7 +149,7 @@ const Resources = () => {
     activeCategory === 'all'
       ? mythsData
       : mythsData.filter(m => categoryMap[m.id] === activeCategory),
-    [activeCategory]
+    [activeCategory, mythsData]
   );
 
   const totalFiltered = filteredMyths.length;
@@ -178,10 +190,6 @@ const Resources = () => {
       <div className="resources-deco resources-deco-1" />
       <div className="resources-deco resources-deco-2" />
       <div className="resources-deco resources-deco-3" />
-      {/* Decorative floating elements */}
-      <div className="resources-deco resources-deco-1" />
-      <div className="resources-deco resources-deco-2" />
-      <div className="resources-deco resources-deco-3" />
       <div className="resources-deco resources-deco-4" />
 
       <div className="resources-content">
@@ -194,31 +202,31 @@ const Resources = () => {
                   <circle cx="12" cy="12" r="10" stroke="#e8917a" strokeWidth="2" />
                   <path d="M9 12l2 2 4-4" stroke="#e8917a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span>MYTH BUSTING • FACTS • TRUTH</span>
+                <span>{language === 'hi' ? 'भ्रांति निवारण • तथ्य • सत्य' : 'MYTH BUSTING • FACTS • TRUTH'}</span>
               </div>
-              <h1 className="resources-hero-title">Facts vs Myths</h1>
+              <h1 className="resources-hero-title">{t('resources.title')}</h1>
               <p className="resources-hero-desc">
-                Turns out, most period "facts" are just myths with good PR. Let's fix that.
+                {t('resources.subtitle')}
               </p>
               <div className="resources-hero-stats">
                 <div className="resources-hero-stat">
                   <span className="resources-hero-stat-num">40</span>
-                  <span className="resources-hero-stat-label">Myths Busted</span>
+                  <span className="resources-hero-stat-label">{t('home.stats.mythsLabel')}</span>
                 </div>
                 <div className="resources-hero-stat-dot" />
                 <div className="resources-hero-stat">
                   <span className="resources-hero-stat-num">5</span>
-                  <span className="resources-hero-stat-label">Categories</span>
+                  <span className="resources-hero-stat-label">{language === 'hi' ? 'श्रेणियां' : 'Categories'}</span>
                 </div>
                 <div className="resources-hero-stat-dot" />
                 <div className="resources-hero-stat">
                   <span className="resources-hero-stat-num">✓</span>
-                  <span className="resources-hero-stat-label">Science-Based</span>
+                  <span className="resources-hero-stat-label">{language === 'hi' ? 'विज्ञान-आधारित' : 'Science-Based'}</span>
                 </div>
               </div>
               <div className="resources-hero-buttons">
                 <button className="btn btn-primary" onClick={() => document.querySelector('.myth-grid')?.scrollIntoView({ behavior: 'smooth' })}>
-                  Explore Myths
+                  {language === 'hi' ? 'भ्रांतियों को खोजें' : 'Explore Myths'}
                   <svg className="btn-arrow" viewBox="0 0 24 24" fill="none" style={{ width: 20, height: 20 }}>
                     <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -234,11 +242,11 @@ const Resources = () => {
         <div className="stats-bar">
           <span className="stat-item">
             <span className="stat-icon">🏆</span>
-            Explored: {exploredCount}/{mythsData.length}
+            {language === 'hi' ? `खोजे गए: ${exploredCount}/${mythsData.length}` : `Explored: ${exploredCount}/${mythsData.length}`}
           </span>
           <span className="stat-item">
             <span className="stat-icon">📚</span>
-            {totalFiltered} myths in view
+            {language === 'hi' ? `दृश्य में ${totalFiltered} भ्रांतियां` : `${totalFiltered} myths in view`}
           </span>
         </div>
 
@@ -263,6 +271,7 @@ const Resources = () => {
               category={categoryMap[item.id]}
               cardState={cardStates[item.id] || 0}
               onClick={() => handleCardClick(item.id)}
+              language={language}
             />
           ))}
         </div>
@@ -272,11 +281,11 @@ const Resources = () => {
             {loading ? (
               <>
                 <span className="spinner" />
-                Loading...
+                {language === 'hi' ? 'लोड किया जा रहा है...' : 'Loading...'}
               </>
             ) : (
               <>
-                <span>Next Page</span>
+                <span>{language === 'hi' ? 'अगला पृष्ठ' : 'Next Page'}</span>
                 <span className="btn-page-count">({safePage + 1}/{totalPages})</span>
                 <svg className="btn-arrow" viewBox="0 0 24 24" fill="none">
                   <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -286,7 +295,9 @@ const Resources = () => {
           </button>
 
           <div className="page-progress">
-            <span className="page-label">Page {safePage + 1} of {totalPages}</span>
+            <span className="page-label">
+              {language === 'hi' ? `पृष्ठ ${safePage + 1} / ${totalPages}` : `Page ${safePage + 1} of ${totalPages}`}
+            </span>
             <div className="progress-track">
               <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
             </div>
@@ -301,8 +312,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">Evidence Based</span>
-              <span className="info-subtitle">Information</span>
+              <span className="info-title">{language === 'hi' ? 'साक्ष्य आधारित' : 'Evidence Based'}</span>
+              <span className="info-subtitle">{language === 'hi' ? 'जानकारी' : 'Information'}</span>
             </div>
           </div>
 
@@ -313,8 +324,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">Myth Busting</span>
-              <span className="info-subtitle">Made Simple</span>
+              <span className="info-title">{language === 'hi' ? 'भ्रांति निवारण' : 'Myth Busting'}</span>
+              <span className="info-subtitle">{language === 'hi' ? 'सरल बनाया गया' : 'Made Simple'}</span>
             </div>
           </div>
 
@@ -325,8 +336,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">For Everyone,</span>
-              <span className="info-subtitle">Every Age</span>
+              <span className="info-title">{language === 'hi' ? 'सभी के लिए,' : 'For Everyone,'}</span>
+              <span className="info-subtitle">{language === 'hi' ? 'हर उम्र में' : 'Every Age'}</span>
             </div>
           </div>
 
@@ -337,8 +348,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">Inclusive &amp;</span>
-              <span className="info-subtitle">Respectful</span>
+              <span className="info-title">{language === 'hi' ? 'समावेशी और' : 'Inclusive &'}</span>
+              <span className="info-subtitle">{language === 'hi' ? 'सम्मानजनक' : 'Respectful'}</span>
             </div>
           </div>
 
@@ -350,8 +361,8 @@ const Resources = () => {
               </svg>
             </div>
             <div className="info-text">
-              <span className="info-title">Private &amp;</span>
-              <span className="info-subtitle">Safe Space</span>
+              <span className="info-title">{language === 'hi' ? 'निजी और' : 'Private &'}</span>
+              <span className="info-subtitle">{language === 'hi' ? 'सुरक्षित स्थान' : 'Safe Space'}</span>
             </div>
           </div>
         </div>
@@ -366,10 +377,10 @@ const Resources = () => {
                 <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="2" />
                 <path d="M6 10l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              {isComplete ? 'Completed' : 'Mark as Complete'}
+              {isComplete ? t('learn.completed') : t('lesson.markComplete')}
             </button>
           </div>
-          <Link to="/learn" className="lesson-footer-back">All Modules</Link>
+          <Link to="/learn" className="lesson-footer-back">{t('lesson.allModules')}</Link>
         </div>
       </div>
     </div>

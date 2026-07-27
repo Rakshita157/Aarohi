@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { chatAPI, memoryAPI } from '../services/api';
 import { SakhiAvatar } from '../components/Icons';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ import '../styles/AskSakhi.css';
 const AskSakhi = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [conversations, setConversations] = useState([]);
   const [activeConvId, setActiveConvId] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -81,7 +83,7 @@ const AskSakhi = () => {
   };
 
   const handleSend = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!input.trim() || sending) return;
 
     const userMessage = input.trim();
@@ -101,8 +103,8 @@ const AskSakhi = () => {
     } catch (err) {
       const serverMsg = err?.response?.data?.message;
       const displayMsg = serverMsg
-        ? `Sorry, I had trouble responding: ${serverMsg}`
-        : 'Sorry, I had trouble responding. Please try again.';
+        ? `${t('askSakhi.errorReply')}${serverMsg}`
+        : t('askSakhi.errorDefault');
       setMessages((prev) => [
         ...prev,
         { role: 'model', content: displayMsg },
@@ -153,19 +155,19 @@ const AskSakhi = () => {
 
       <div className={`sakhi-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sakhi-sidebar-header">
-          <h2>Chats</h2>
+          <h2>{t('askSakhi.chatsHeader')}</h2>
           <button className="sakhi-new-chat-btn" onClick={handleNewChat}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
               <path d="M12 5v14M5 12h14"/>
             </svg>
-            New Chat
+            {t('askSakhi.newChat')}
           </button>
         </div>
         <div className="sakhi-conv-list">
           {convLoading ? (
-            <div className="sakhi-conv-loading">Loading conversations...</div>
+            <div className="sakhi-conv-loading">{t('askSakhi.loadingChats')}</div>
           ) : conversations.length === 0 ? (
-            <div className="sakhi-conv-empty">No conversations yet</div>
+            <div className="sakhi-conv-empty">{t('askSakhi.noChats')}</div>
           ) : (
             conversations.map((conv) => (
               <div
@@ -182,7 +184,7 @@ const AskSakhi = () => {
                 <button
                   className="sakhi-conv-delete"
                   onClick={(e) => handleDeleteConv(conv._id, e)}
-                  title="Delete conversation"
+                  title={t('askSakhi.deleteChatTitle')}
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
                     <polyline points="3 6 5 6 21 6"/>
@@ -223,13 +225,13 @@ const AskSakhi = () => {
               <div className="sakhi-chat-title">Sakhi</div>
               <div className="sakhi-chat-subtitle">
                 {userMemory?.recentTopics?.length > 0
-                  ? `I know about: ${userMemory.recentTopics.slice(0, 3).join(', ')}`
-                  : 'Menstrual Health Assistant'}
+                  ? `${t('askSakhi.knowAbout')}${userMemory.recentTopics.slice(0, 3).join(', ')}`
+                  : t('askSakhi.defaultSubtitle')}
               </div>
             </div>
           </div>
           <button className="sakhi-new-chat-btn header-only" onClick={handleNewChat}>
-            New Chat
+            {t('askSakhi.newChat')}
           </button>
         </div>
 
@@ -239,13 +241,13 @@ const AskSakhi = () => {
               <div className="sakhi-empty-icon">
                 <SakhiAvatar />
               </div>
-              <h2>Hi! I'm Sakhi</h2>
-              <p>Your AI guide for menstrual health. Ask me anything about periods, puberty, cramps, cycle tracking, or any questions you have!</p>
+              <h2>{t('askSakhi.emptyWelcome')}</h2>
+              <p>{t('askSakhi.emptyDesc')}</p>
               <div className="sakhi-suggestions">
-                <button onClick={() => setInput('What happens during a menstrual cycle?')}>What happens during a menstrual cycle?</button>
-                <button onClick={() => setInput('How can I manage period cramps?')}>How can I manage period cramps?</button>
-                <button onClick={() => setInput('What is a normal cycle length?')}>What is a normal cycle length?</button>
-                <button onClick={() => setInput('Can I exercise during my period?')}>Can I exercise during my period?</button>
+                <button onClick={() => setInput(t('askSakhi.suggestions.q1'))}>{t('askSakhi.suggestions.q1')}</button>
+                <button onClick={() => setInput(t('askSakhi.suggestions.q2'))}>{t('askSakhi.suggestions.q2')}</button>
+                <button onClick={() => setInput(t('askSakhi.suggestions.q3'))}>{t('askSakhi.suggestions.q3')}</button>
+                <button onClick={() => setInput(t('askSakhi.suggestions.q4'))}>{t('askSakhi.suggestions.q4')}</button>
               </div>
             </div>
           )}
@@ -280,7 +282,7 @@ const AskSakhi = () => {
           <input
             ref={inputRef}
             type="text"
-            placeholder="Ask me anything about menstrual health..."
+            placeholder={t('askSakhi.placeholder')}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={sending}

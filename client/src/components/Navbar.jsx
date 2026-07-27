@@ -1,12 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import '../styles/Navbar.css';
-import { AarohiLogo, AarohiLogoFull } from './Icons';
+import { AarohiLogoFull } from './Icons';
 
 const Navbar = () => {
   const location = useLocation();
   const { user, logout } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -24,12 +26,12 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/learn', label: 'Learn' },
-    { path: '/ask-sakhi', label: 'Ask Sakhi' },
-    { path: '/resources', label: 'Know the Truth' },
-    { path: '/community', label: 'Community' },
-    { path: '/about', label: 'About Us' },
+    { path: '/', label: t('nav.home') },
+    { path: '/learn', label: t('nav.learn') },
+    { path: '/ask-sakhi', label: t('nav.askSakhi') },
+    { path: '/resources', label: t('nav.knowTruth') },
+    { path: '/community', label: t('nav.community') },
+    { path: '/about', label: t('nav.aboutUs') },
   ];
 
   return (
@@ -44,28 +46,44 @@ const Navbar = () => {
           <ul className="nav-links">
             {navLinks.map(({ path, label }) => (
               <li key={path}>
-                <Link to={path} className={`nav-link${isActive(path) && (path === '/' ? location.pathname === '/' : true) ? ' active' : ''}`}>{label}</Link>
+                <Link to={path} className={`nav-link${isActive(path) ? ' active' : ''}`}>{label}</Link>
               </li>
             ))}
           </ul>
-          {user ? (
-            <div className="nav-user">
-              <span className="nav-user-name">{user.name}</span>
-              <button onClick={logout} className="login-btn">Logout</button>
+          <div className="nav-actions">
+            <div className="lang-toggle-container">
+              <button
+                onClick={() => setLanguage('en')}
+                className={`lang-toggle-btn ${language === 'en' ? 'active' : ''}`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLanguage('hi')}
+                className={`lang-toggle-btn ${language === 'hi' ? 'active' : ''}`}
+              >
+                हिन्दी
+              </button>
             </div>
-          ) : (
-            <Link to="/login" className="login-btn">Login</Link>
-          )}
+            {user ? (
+              <div className="nav-user">
+                <span className="nav-user-name">{user.name}</span>
+                <button onClick={logout} className="login-btn">{t('nav.logout')}</button>
+              </div>
+            ) : (
+              <Link to="/login" className="login-btn">{t('nav.login')}</Link>
+            )}
 
-          <button
-            className={`hamburger${drawerOpen ? ' is-open' : ''}`}
-            onClick={() => setDrawerOpen(!drawerOpen)}
-            aria-label="Toggle navigation menu"
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+            <button
+              className={`hamburger${drawerOpen ? ' is-open' : ''}`}
+              onClick={() => setDrawerOpen(!drawerOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -86,7 +104,7 @@ const Navbar = () => {
         <ul className="drawer-links">
           {navLinks.map(({ path, label }) => (
             <li key={path}>
-              <Link to={path} className={`drawer-link${isActive(path) && (path === '/' ? location.pathname === '/' : true) ? ' active' : ''}`}>
+              <Link to={path} className={`drawer-link${isActive(path) ? ' active' : ''}`}>
                 {label}
               </Link>
             </li>
@@ -97,10 +115,10 @@ const Navbar = () => {
           {user ? (
             <>
               <span className="drawer-user-name">{user.name}</span>
-              <button onClick={logout} className="drawer-login-btn">Logout</button>
+              <button onClick={logout} className="drawer-login-btn">{t('nav.logout')}</button>
             </>
           ) : (
-            <Link to="/login" className="drawer-login-btn">Login</Link>
+            <Link to="/login" className="drawer-login-btn">{t('nav.login')}</Link>
           )}
         </div>
       </aside>
@@ -109,3 +127,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
