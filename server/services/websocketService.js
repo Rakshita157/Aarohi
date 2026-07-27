@@ -60,41 +60,39 @@ const setupWebSocket = (server) => {
     }
   });
 
-  let cachedMessages = [];
-
-  const preloadMessages = async () => {
-    try {
-      const messages = await CommunityMessage.find()
-        .sort({ createdAt: -1 })
-        .limit(50)
-        .lean();
-      
-      cachedMessages = messages.reverse().map(msg => ({
-        _id: msg._id,
-        senderName: msg.senderName,
-        text: msg.text,
-        createdAt: msg.createdAt,
-      }));
-      console.log(`Preloaded ${cachedMessages.length} community messages.`);
-    } catch (err) {
-      console.error('Error preloading community messages:', err);
-    }
-  };
-
-  preloadMessages();
-
-  wss.on('connection', (ws, request, user) => {
+  wss.on('connection', async (ws, request, user) => {
     const anonymousName = generateAnonymousName();
     ws.anonymousName = anonymousName;
     ws.userId = user._id;
 
     console.log(`User ${user.name} connected to community chat as ${anonymousName}`);
 
-    ws.send(JSON.stringify({
-      type: 'history',
-      messages: cachedMessages,
-      yourName: anonymousName
-    }));
+    try {
+      const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+      const messages = await CommunityMessage.find({
+        createdAt: { $gte: twentyFourHoursAgo }
+      })
+      .sort({ createdAt: 1 })
+      .lean();
+
+      ws.send(JSON.stringify({
+        type: 'history',
+        messages: messages.map(msg => ({
+          _id: msg._id,
+          senderName: msg.senderName,
+          text: msg.text,
+          createdAt: msg.createdAt,
+        })),
+        yourName: anonymousName
+      }));
+    } catch (err) {
+      console.error('Error fetching chat history:', err);
+      ws.send(JSON.stringify({
+        type: 'history',
+        messages: [],
+        yourName: anonymousName
+      }));
+    }
 
     ws.on('message', async (data) => {
       try {
@@ -115,11 +113,6 @@ const setupWebSocket = (server) => {
             text: text,
             createdAt: newMessage.createdAt
           };
-
-          cachedMessages.push(serializedMessage);
-          if (cachedMessages.length > 50) {
-            cachedMessages.shift();
-          }
 
           const broadcastData = JSON.stringify({
             type: 'message',
