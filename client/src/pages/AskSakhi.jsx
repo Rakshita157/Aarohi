@@ -155,7 +155,15 @@ const AskSakhi = () => {
 
       <div className={`sakhi-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sakhi-sidebar-header">
-          <h2>{t('askSakhi.chatsHeader')}</h2>
+          <div className="sakhi-sidebar-header-top">
+            <h2>{t('askSakhi.chatsHeader')}</h2>
+            <button className="sakhi-sidebar-close-btn" onClick={toggleSidebar} aria-label="Close sidebar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
           <button className="sakhi-new-chat-btn" onClick={handleNewChat}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
               <path d="M12 5v14M5 12h14"/>
@@ -197,27 +205,16 @@ const AskSakhi = () => {
         </div>
       </div>
 
-      <button className="sakhi-sidebar-toggle" onClick={toggleSidebar} aria-label={sidebarOpen ? 'Close chat history' : 'Open chat history'}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-          {sidebarOpen ? (
-            <>
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </>
-          ) : (
-            <path d="M3 12h18M3 6h18M3 18h18" />
-          )}
-        </svg>
-      </button>
-
       <div className="sakhi-main">
         <div className="sakhi-chat-header">
           <div className="sakhi-chat-header-left">
-            <button className="sakhi-mobile-menu-btn" onClick={toggleSidebar}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-                <path d="M3 12h18M3 6h18M3 18h18"/>
-              </svg>
-            </button>
+            {!sidebarOpen && (
+              <button className="sakhi-menu-btn" onClick={toggleSidebar} aria-label="Open chat history">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                  <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+              </button>
+            )}
             <div className="sakhi-chat-avatar">
               <SakhiAvatar />
             </div>

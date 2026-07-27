@@ -87,6 +87,32 @@
   gap: 12px;
 }
 
+.sakhi-sidebar-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sakhi-sidebar-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #4a5568;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  line-height: 0;
+}
+
+.sakhi-sidebar-close-btn:hover {
+  background: #f5f0f3;
+  color: #dc7e96;
+}
+
 .sakhi-sidebar-header h2 {
   font-size: 1.25rem;
   font-weight: 700;
@@ -218,8 +244,8 @@
   gap: 12px;
 }
 
-.sakhi-mobile-menu-btn {
-  display: none;
+.sakhi-menu-btn {
+  display: flex;
   align-items: center;
   justify-content: center;
   background: none;
@@ -231,7 +257,7 @@
   transition: background 0.2s;
 }
 
-.sakhi-mobile-menu-btn:hover {
+.sakhi-menu-btn:hover {
   background: #f5f0f3;
 }
 
@@ -544,9 +570,7 @@
     min-width: 280px;
   }
 
-  .sakhi-mobile-menu-btn {
-    display: flex;
-  }
+
 
   .sakhi-new-chat-btn.header-only {
     display: inline-flex;
