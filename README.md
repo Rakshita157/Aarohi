@@ -292,15 +292,6 @@ It helps users by providing:
 - Rakshita Dadhich
 - Ritu Saini
 - Ridhima Bhardwaj
-
----
-
-## License
-
-This project was developed as part of a hackathon and is intended for educational and demonstration purposes.
-
-© 2026 Team Aarohi. All rights reserved.
-
 ---
 
 <p align="center">
